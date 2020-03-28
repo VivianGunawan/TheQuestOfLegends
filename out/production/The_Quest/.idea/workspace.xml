@@ -16,6 +16,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ZRBIYXhfQjlC3TxEkFEEyOJfai" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,13 +30,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="character" />
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Application.TheQuestGameEngine">
@@ -75,6 +79,8 @@
       <workItem from="1584899093671" duration="31000" />
       <workItem from="1584899196003" duration="58420000" />
       <workItem from="1584962131767" duration="144000" />
+      <workItem from="1585354437417" duration="9001000" />
+      <workItem from="1585421937622" duration="927000" />
     </task>
     <servers />
   </component>
@@ -91,6 +97,11 @@
     </state>
     <state x="427" y="128" key="#Project_Structure/0.0.1920.1080@0.0.1920.1080" timestamp="1584899268365" />
     <state x="320" y="127" key="#Project_Structure/0.23.1440.877@0.23.1440.877" timestamp="1584811901027" />
+    <state x="184" y="132" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585423108173">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1585422323705" />
+    <state x="184" y="132" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1585423108173" />
     <state x="447" y="260" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584930850567">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -109,10 +120,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="569" y="346" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.900@0.0.1440.900" timestamp="1584816793363" />
-    <state x="353" y="360" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1585354488273">
+    <state x="353" y="360" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1585358724188">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="353" y="360" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1440.900@0.0.1440.900" timestamp="1585354488273" />
+    <state x="353" y="360" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1440.900@0.0.1440.900" timestamp="1585358724188" />
     <state x="470" y="432" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1080@0.0.1920.1080" timestamp="1584947266221" />
     <state x="470" y="453" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1584962168585">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -126,44 +137,45 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1584930533635" />
-    <state width="1878" height="610" key="GridCell.Tab.0.bottom" timestamp="1584962276029">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="676" height="333" key="GridCell.Tab.0.bottom" timestamp="1585363919593">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="376" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1584931035218" />
+    <state width="676" height="333" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1585363919593" />
     <state width="1878" height="610" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1584962276029" />
     <state width="1398" height="771" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1584929704087" />
     <state width="1042" height="449" key="GridCell.Tab.0.bottom/0.23.1920.1057@0.23.1920.1057" timestamp="1584960546640" />
-    <state width="1878" height="610" key="GridCell.Tab.0.center" timestamp="1584962276028">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="676" height="333" key="GridCell.Tab.0.center" timestamp="1585363919592">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="376" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1584931035217" />
+    <state width="676" height="333" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1585363919592" />
     <state width="1878" height="610" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1584962276028" />
     <state width="1398" height="771" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1584929704086" />
     <state width="1042" height="449" key="GridCell.Tab.0.center/0.23.1920.1057@0.23.1920.1057" timestamp="1584960546640" />
-    <state width="1878" height="610" key="GridCell.Tab.0.left" timestamp="1584962276027">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="676" height="333" key="GridCell.Tab.0.left" timestamp="1585363919590">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="376" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1584931035216" />
+    <state width="676" height="333" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1585363919590" />
     <state width="1878" height="610" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1584962276027" />
     <state width="1398" height="771" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1584929704085" />
     <state width="1042" height="449" key="GridCell.Tab.0.left/0.23.1920.1057@0.23.1920.1057" timestamp="1584960546639" />
-    <state width="1878" height="610" key="GridCell.Tab.0.right" timestamp="1584962276028">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="676" height="333" key="GridCell.Tab.0.right" timestamp="1585363919592">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="376" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1584931035218" />
+    <state width="676" height="333" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1585363919592" />
     <state width="1878" height="610" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1584962276028" />
     <state width="1398" height="771" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1584929704086" />
     <state width="1042" height="449" key="GridCell.Tab.0.right/0.23.1920.1057@0.23.1920.1057" timestamp="1584960546640" />
-    <state x="208" y="31" key="SettingsEditor" timestamp="1584816916334">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="208" y="53" key="SettingsEditor" timestamp="1585422440724">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1584816916334" />
-    <state x="399" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1585354437108">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1585422355161" />
+    <state x="208" y="53" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1585422440724" />
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1585424336339">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1585354437108" />
     <state x="532" y="353" key="com.intellij.ide.util.TipDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1584899102316" />
-    <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1584811782980" />
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1585424336339" />
     <state x="532" y="368" key="com.intellij.ide.util.TipDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1584962135759" />
     <state x="497" y="148" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1584812109869">
       <screen x="0" y="23" width="1440" height="877" />
@@ -178,5 +190,21 @@
     </state>
     <state x="191" y="201" width="670" height="564" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1584928854303" />
     <state x="254" y="241" width="670" height="676" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1584952846683" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tile/TileType.java</url>
+          <line>6</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/TheQuestGameEngine.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
