@@ -1,0 +1,23 @@
+Name/mana/strength/agility/dexterity/starting money/starting experience
+
+Warriors
+Gaerdal_Ironhand    100     700     500     600     1354    7
+Sehanine_Monnbow    600     700     800     500     2500    8
+Muamman_Duathall    300     900     500     750     2546    6
+Flandal_Steelskin   200     750     650     700     2500    7
+
+Sorcerers
+Garl_Glittergold        700     550     600   500     2500    7
+Rillifane_Rallathil     1300    750     450   500     2500    9
+Segojan_Earthcaller     900     800     500   650     2500    5
+Skoraeus_Stonebones     800     850     600   450     2500    6
+
+Paladins
+Solonor_Thelandira   300     750     650     700     2500    7
+Sehanine_Moonbow     300     750     700     700     2500    7
+Skoraeus_Stonebones  250     650     600     350     2500    4
+Garl_Glittergold     100     600     500     400     2500    5
+
+
+
+
