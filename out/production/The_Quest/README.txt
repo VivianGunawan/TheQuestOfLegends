@@ -22,7 +22,7 @@ InaccessibleTile -> representing Inaccessible tile
 TileType -> enum for types of tiles
 
 Character -> abstract class representing hero/monster/merchant
-Team -> represents a team of user selected heroes
+character.Team -> represents a team of user selected heroes
 Battle -> interface implemented by hero and monsters to facilitate battle
 Transaction -> interface implemented by hero and merchant to perform transactions
 AttackResult -> enum for attack results(dead, kill, success, dodged) for battle interface
