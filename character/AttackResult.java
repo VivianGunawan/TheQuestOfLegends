@@ -1,3 +1,4 @@
+// sample
 package character;
 
 public enum AttackResult {
