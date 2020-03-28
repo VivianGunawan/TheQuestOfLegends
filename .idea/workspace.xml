@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="710b0023-26f0-41e6-af4e-2c718664982f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/character/AttackResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/character/AttackResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The_Quest/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/META-INF/The_Quest.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/Map$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The_Quest/Map$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The_Quest/Map.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The_Quest/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/Team$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/Team.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/The_Quest/TheQuestGameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The_Quest/TheQuestGameEngine.class" afterDir="false" />
-    </list>
+    <list default="true" id="710b0023-26f0-41e6-af4e-2c718664982f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
