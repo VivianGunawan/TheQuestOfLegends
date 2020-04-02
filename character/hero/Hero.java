@@ -474,13 +474,13 @@ public abstract class Hero extends character.Character implements Battle, Transa
                     if (this.inventory.numWeapons() > 0 && this.numHandsUsed() < hands) {
                         try {
                             while (yn != YES_INPUT && yn != NO_INPUT) {
-                                System.out.println("Would " + this.getName() + " like to equip more character.items? (" + YES_INPUT + "/" + NO_INPUT + ")");
+                                System.out.println("Would " + this.getName() + " like to equip more items? (" + YES_INPUT + "/" + NO_INPUT + ")");
                                 yn = scan.next().charAt(0);
                             }
                             while (yn == YES_INPUT) {
                                 equip();
                                 if (this.inventory.numWeapons() != 0) {
-                                    System.out.println("Would " + this.getName() + " like to equip more character.items? (" + YES_INPUT + "/" + NO_INPUT + ")");
+                                    System.out.println("Would " + this.getName() + " like to equip more items? (" + YES_INPUT + "/" + NO_INPUT + ")");
                                     yn = scan.next().charAt(0);
                                 } else {
                                     break;

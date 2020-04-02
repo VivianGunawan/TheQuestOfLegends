@@ -177,6 +177,7 @@ public class Team{
                             switch (res) {
                                 case DEAD:
                                     int monsterId = 0;
+                                    displayEnemies(enemies);
                                     try {
                                         while (monsterId < 1 || monsterId > enemies.size()) {
                                             System.out.println(currHero.getName() + "has defeated her/his monster, which other monster would " +
