@@ -4,6 +4,9 @@ import character.hero.Hero;
 import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Warrior;
+import character.items.spells.Fire;
+import character.items.spells.Ice;
+import character.items.spells.Lightning;
 import character.merchant.Merchant;
 import character.monster.Dragon;
 import character.monster.Exoskeleton;
@@ -72,18 +75,18 @@ public class Defaults {
                     new Armor("Wizard Shield", 1200, 10, 1500),
                     new Armor("Speed Boots", 550, 4, 600)));
     public static final List<Spell> DEFAULT_SPELLS = new ArrayList<>
-            (Arrays.asList(new Spell( "ICE", "Snow Canon", 500, 2, 650, 250),
-                        new Spell( "ICE", "Ice Blade", 250, 1, 450, 100),
-                        new Spell( "ICE", "Frost Blizzard", 750, 5, 850, 350),
-                        new Spell( "ICE", "Artic Storm", 700, 6, 800, 300),
-                        new Spell( "FIRE", "Flame Tornado", 700, 4, 850, 300),
-                        new Spell( "FIRE", "Breath of Fire", 350, 1, 450, 100),
-                        new Spell( "FIRE", "Heat Wave", 450, 2, 600, 150),
-                        new Spell( "FIRE", "Lava Commet", 800, 7, 1000, 550),
-                        new Spell( "LIGHTNING", "Lightning Dagger", 400, 1, 500, 150),
-                        new Spell( "LIGHTNING", "Thunder Blast", 750, 4, 950, 400),
-                        new Spell( "LIGHTNING", "Electric Arrows", 550, 5, 650, 200),
-                        new Spell( "LIGHTNING", "Spark Needles", 500, 2, 600, 200)));
+            (Arrays.asList(new Ice("Snow Canon", 500, 2, 650, 250),
+                        new Ice("Ice Blade", 250, 1, 450, 100),
+                        new Ice("Frost Blizzard", 750, 5, 850, 350),
+                        new Ice("Artic Storm", 700, 6, 800, 300),
+                        new Fire("Flame Tornado", 700, 4, 850, 300),
+                        new Fire("Breath of Fire", 350, 1, 450, 100),
+                        new Fire("Heat Wave", 450, 2, 600, 150),
+                        new Fire("Lava Commet", 800, 7, 1000, 550),
+                        new Lightning("Lightning Dagger", 400, 1, 500, 150),
+                        new Lightning("Thunder Blast", 750, 4, 950, 400),
+                        new Lightning("Electric Arrows", 550, 5, 650, 200),
+                        new Lightning("Spark Needles", 500, 2, 600, 200)));
     public static final List<Potion> DEFAULT_POTIONS =new ArrayList<>
             (Arrays.asList(new Potion("Healing ", 250, 1,"HEALTH", 100),
                     new Potion("Strength", 200, 1, "STRENGTH", 75),
