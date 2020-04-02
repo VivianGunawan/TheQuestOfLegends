@@ -26,7 +26,7 @@ public class TheQuestGameEngine {
     private final double probabilityEncounter;
     private final Merchant merchant;
     private final List<? extends Hero> heroes;
-    private final List<Monster> monsters;
+    private final List<? extends Monster> monsters;
     private final Map map;
     private final Team team;
     private int location;

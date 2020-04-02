@@ -9,13 +9,13 @@ public class CommonTile extends Tile {
     //represents a commmon tile
     // Fields
     // Monsters dwell in common tile
-    private final List<Monster> monsters;
+    private final List<? extends Monster> monsters;
     private final double probabilityEncounter;
     public List<Monster> availableMonsters;
     Scanner scan = new Scanner(System.in);
 
     //Constructor
-    public CommonTile(List<Monster> monsters, double probabilityEncounter) {
+    public CommonTile(List<? extends Monster> monsters, double probabilityEncounter) {
         super(TileType.C);
         this.monsters = monsters;
         this.probabilityEncounter = probabilityEncounter;

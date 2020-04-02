@@ -5,12 +5,15 @@ import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Warrior;
 import character.merchant.Merchant;
+import character.monster.Dragon;
+import character.monster.Exoskeleton;
 import character.monster.Monster;
 import character.items.Item;
 import character.items.weapons.Weapon;
 import character.items.armors.Armor;
 import character.items.spells.Spell;
 import character.items.potions.Potion;
+import character.monster.Spirit;
 
 
 import javax.crypto.CipherOutputStream;
@@ -103,35 +106,35 @@ public class Defaults {
                    new Sorcerer("Skoraeus Stonebones", 6, 800, 850, 600, 450, 2500, HEROES_HANDS),
                     new Paladin("Solonor Thelandira", 7, 300, 750, 650, 700, 2500, HEROES_HANDS)));
 
-    public static final List<Monster> DEFAULT_MONSTERS =  new ArrayList<>
-            (Arrays.asList(new Monster ( "DRAGON", "Natsunomeryu", 1, 100, 20, 0.1),
-                        new Monster ( "DRAGON", "Chrysophylax", 2, 200, 50, 0.2),
-                        new Monster ( "DRAGON", "Desghidorrah", 3, 300, 40, 0.35),
-                        new Monster ( "DRAGON", "BunsenBurner", 4, 400, 50, 0.45),
-                        new Monster ( "DRAGON", "Kas-Ethelinh", 5, 600, 50, 0.60),
-                        new Monster ( "DRAGON", "Phaarthurnax", 6, 600, 70, 0.60),
-                        new Monster ( "DRAGON", "TheScaleless", 7, 700, 60, 0.75),
-                        new Monster ( "DRAGON", "TheWeatherbe", 8, 800, 90, 0.80),
-                        new Monster ( "DRAGON", "D-Maleficent", 9, 900, 95, 0.85),
-                        new Monster ( "DRAGON", "Alexstraszan", 10, 1000, 90, 0.55),
-                        new Monster ( "EXOSKELETON", "BigBad-Wolf", 1, 150, 25, 0.15),
-                        new Monster ( "EXOSKELETON", "WickedWitch", 2, 250, 35, 0.25),
-                        new Monster ( "EXOSKELETON", "Brandobaris", 3, 350, 45, 0.30),
-                        new Monster ( "EXOSKELETON", "Aasterinian", 4, 400, 50, 0.45),
-                        new Monster ( "EXOSKELETON", "St-Shargaas", 5, 550, 65, 0.55),
-                        new Monster ( "EXOSKELETON", "Chronepsish", 6, 650, 75, 0.60),
-                        new Monster ( "EXOSKELETON", "Cyrrollalee", 7, 700, 80, 0.75),
-                        new Monster ( "EXOSKELETON", "Kiaransalee", 8, 850, 95, 0.85),
-                        new Monster ( "EXOSKELETON", "St-Yeenoghu", 9, 950, 85, 0.90),
-                        new Monster ( "EXOSKELETON", "Merrshaullk", 10, 1000, 90, 0.55),
-                        new Monster ( "SPIRIT", "Aim-Haborym", 1, 450, 35, 0.35),
-                        new Monster ( "SPIRIT", "Andrealphus", 2, 600, 50, 0.40),
-                        new Monster ( "SPIRIT", "Andromalius", 3, 550, 45, 0.25),
-                        new Monster ( "SPIRIT", "Chiang-shih", 4, 700, 60, 0.40),
-                        new Monster ( "SPIRIT", "FallenAngel", 5, 800, 70, 0.50),
-                        new Monster ( "SPIRIT", "Ereshkigall", 6, 950, 45, 0.35),
-                        new Monster ( "SPIRIT", "Melchiresas", 7, 350, 15, 0.75),
-                        new Monster ( "SPIRIT", "Jormunngand", 8, 600, 90, 0.20),
-                        new Monster ( "SPIRIT", "Rakkshasass", 9, 550, 60, 0.35),
-                        new Monster ( "SPIRIT", "Taltecuhtli", 10, 300, 20, 0.50)));
+    public static final List<? extends Monster> DEFAULT_MONSTERS =  new ArrayList<>
+            (Arrays.asList(new Dragon("Natsunomeryu", 1, 100, 20, 0.1),
+                        new Dragon("Chrysophylax", 2, 200, 50, 0.2),
+                        new Dragon("Desghidorrah", 3, 300, 40, 0.35),
+                        new Dragon("BunsenBurner", 4, 400, 50, 0.45),
+                        new Dragon("Kas-Ethelinh", 5, 600, 50, 0.60),
+                        new Dragon("Phaarthurnax", 6, 600, 70, 0.60),
+                        new Dragon("TheScaleless", 7, 700, 60, 0.75),
+                        new Dragon("TheWeatherbe", 8, 800, 90, 0.80),
+                        new Dragon("D-Maleficent", 9, 900, 95, 0.85),
+                        new Dragon("Alexstraszan", 10, 1000, 90, 0.55),
+                        new Exoskeleton("BigBad-Wolf", 1, 150, 25, 0.15),
+                        new Exoskeleton("WickedWitch", 2, 250, 35, 0.25),
+                        new Exoskeleton("Brandobaris", 3, 350, 45, 0.30),
+                        new Exoskeleton("Aasterinian", 4, 400, 50, 0.45),
+                        new Exoskeleton("St-Shargaas", 5, 550, 65, 0.55),
+                        new Exoskeleton("Chronepsish", 6, 650, 75, 0.60),
+                        new Exoskeleton("Cyrrollalee", 7, 700, 80, 0.75),
+                        new Exoskeleton("Kiaransalee", 8, 850, 95, 0.85),
+                        new Exoskeleton("St-Yeenoghu", 9, 950, 85, 0.90),
+                        new Exoskeleton("Merrshaullk", 10, 1000, 90, 0.55),
+                        new Spirit("Aim-Haborym", 1, 450, 35, 0.35),
+                        new Spirit("Andrealphus", 2, 600, 50, 0.40),
+                        new Spirit("Andromalius", 3, 550, 45, 0.25),
+                        new Spirit("Chiang-shih", 4, 700, 60, 0.40),
+                        new Spirit("FallenAngel", 5, 800, 70, 0.50),
+                        new Spirit("Ereshkigall", 6, 950, 45, 0.35),
+                        new Spirit("Melchiresas", 7, 350, 15, 0.75),
+                        new Spirit("Jormunngand", 8, 600, 90, 0.20),
+                        new Spirit("Rakkshasass", 9, 550, 60, 0.35),
+                        new Spirit("Taltecuhtli", 10, 300, 20, 0.50)));
 }

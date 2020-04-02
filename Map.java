@@ -19,7 +19,7 @@ public class Map{
     private final double probabilityCommon;
     Scanner scan = new Scanner(System.in);
     // Constructors
-    public Map(int rowsize, int colsize, double probabilityInaccessible, double probabilityMarket, double probabilityCommon, Merchant merchant, List<Monster> monsters, double probabilityEncounter){
+    public Map(int rowsize, int colsize, double probabilityInaccessible, double probabilityMarket, double probabilityCommon, Merchant merchant, List<? extends Monster> monsters, double probabilityEncounter){
         this.rowsize = rowsize;
         this.colsize = colsize;
         this.map = new Tile[rowsize][colsize];
@@ -159,7 +159,7 @@ public class Map{
         }
     }
     //Helper
-    private void setMap(Merchant merchant, List<Monster> monsters, double probabilityEncounter){
+    private void setMap(Merchant merchant, List<? extends Monster> monsters, double probabilityEncounter){
         List<Tile> options = genOptions(merchant, monsters, probabilityEncounter);
         for (int i = 0; i < this.rowsize; i++) {
             for (int j = 0; j < this.colsize; j++) {
@@ -169,7 +169,7 @@ public class Map{
         }
     }
     // Generate list of tiles with the appropriate probabilities
-    private List<Tile> genOptions(Merchant merchant, List<Monster> monsters, double probabilityEncounter){
+    private List<Tile> genOptions(Merchant merchant, List<? extends Monster> monsters, double probabilityEncounter){
         List<Tile> temp = new ArrayList<Tile>();
         int inaccessible = (int) Math.round(this.probabilityInaccessible * this.rowsize * this.colsize);
         int market = (int) Math.round(this.probabilityMarket * this.rowsize * this.colsize);

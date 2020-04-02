@@ -8,18 +8,16 @@ import static utils.ColouredOutputs.*;
 import static utils.ColouredOutputs.ANSI_RESET;
 import static utils.Defaults.*;
 
-public class Monster extends character.Character implements Battle {
+public abstract class Monster extends character.Character implements Battle {
     //represents a monster in the game could be a dragon, exoskeleton or spirit.
     //Fields
     private double damage;
     private double defense;
     private double dodgeChance;
-    private MonsterType type;
 
     //Constructor
-    public Monster(String type, String name, int expLevel, double damage, double defense, double dodgeChance) {
+    public Monster(String name, int expLevel, double damage, double defense, double dodgeChance) {
         super(name, expLevel);
-        this.type = MonsterType.valueOf(type);
         this.damage = damage;
         this.defense = defense;
         this.dodgeChance = dodgeChance;
@@ -28,23 +26,11 @@ public class Monster extends character.Character implements Battle {
 
     @Override
     public String toString() {
-        String out =  this.type.name()  + "\n" +
+        String out =  this.getClass().getSimpleName()  + "\n" +
                         super.toString() +
                         "Damage: " + this.damage + "\n" +
                         "Defense:" + this.defense + "\n" +
                         "Dodge Chance: " + this.dodgeChance + "\n";
-
-        switch (this.type){
-            case DRAGON:
-                out = ANSI_BRIGHT_GREEN + out + ANSI_RESET;
-                break;
-            case EXOSKELETON:
-                out =  ANSI_BRIGHT_YELLOW + out + ANSI_RESET;
-                break;
-            case SPIRIT:
-                out =  ANSI_BRIGHT_CYAN+ out + ANSI_RESET;
-                break;
-        }
         return out;
     }
     // Battle interface methods
