@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class Hero extends character.Character implements Battle, Transaction {
+public abstract class Hero extends character.Character implements Battle, Transaction {
     // represents hero in the game, could be a warrior,sorcerer or paladin.
     // Fields
-    private HeroType type;
+//    private HeroType type;
     private double experience;
     private double mana;
     private double strength;
@@ -42,9 +42,9 @@ public class Hero extends character.Character implements Battle, Transaction {
     Scanner scan = new Scanner(System.in);
 
     // Constructor
-    public Hero(String type, String name, int experience, double mana, double strength, double agility, double dexterity, double money, int hands) {
+    public Hero(String name, int experience, double mana, double strength, double agility, double dexterity, double money, int hands) {
         super(name, 1);
-        this.type = HeroType.valueOf(type);
+//        this.type = HeroType.valueOf(type);
         this.experience = experience;
         this.mana = mana;
         this.strength = strength;
@@ -62,6 +62,15 @@ public class Hero extends character.Character implements Battle, Transaction {
     public double getExperience() {
         return experience;
     }
+    public double getStrength() {
+        return strength;
+    }
+    public double getAgility() {
+        return agility;
+    }
+    public double getDexterity() {
+        return dexterity;
+    }
     public double getMoney() {
         return money;
     }
@@ -78,6 +87,15 @@ public class Hero extends character.Character implements Battle, Transaction {
         if(this.experience>this.getLevel()*EXP_MULTIPLIER) {
             levelUp();
         }
+    }
+    public void setStrength(double strength) {
+        this.strength = strength;
+    }
+    public void setAgility(double agility) {
+        this.agility = agility;
+    }
+    public void setDexterity(double dexterity) {
+        this.dexterity = dexterity;
     }
 
     // Explore Inventory
@@ -301,7 +319,7 @@ public class Hero extends character.Character implements Battle, Transaction {
     // Basic Display Pre-start game
     @Override
     public String toString() {
-        String out =this.type.name() + "\n" +
+        String out = this.getClass().getSimpleName() + "\n" +
                         super.toString() +
                         "Experience Points: " + this.experience + "\n" +
                         "Mana: " + this.mana + "\n" +
@@ -309,41 +327,17 @@ public class Hero extends character.Character implements Battle, Transaction {
                         "Agility: " + this.agility + "\n" +
                         "Dexterity: " + this.dexterity + "\n" +
                         "Money: " + this.money + "\n";
-        switch (this.type){
-            case PALADIN:
-                out = ANSI_BRIGHT_RED + out + ANSI_RESET;
-                break;
-            case WARRIOR:
-                out =  ANSI_BRIGHT_BLUE + out + ANSI_RESET;
-                break;
-            case SORCERER:
-                out =  ANSI_BRIGHT_PURPLE+ out + ANSI_RESET;
-                break;
-        }
         return out;
     }
     public String battleDisplay(){
         String out = "==============================\n";
-        out += this.type.name() + "\n" +
+        out += this.getClass().getSimpleName() + "\n" +
                 super.toString() + "\n" +
                 "Mana: " + this.mana + "\n" +
                 "Equipped armor: \n" + this.armor.battleDisplay() + "\n" +
                 "Equipped weapons: \n" + battleDisplayW() ;
-
-        switch (this.type){
-            case PALADIN:
-                out = ANSI_BRIGHT_RED + out + ANSI_RESET;
-                break;
-            case WARRIOR:
-                out =  ANSI_BRIGHT_BLUE + out + ANSI_RESET;
-                break;
-            case SORCERER:
-                out =  ANSI_BRIGHT_PURPLE+ out + ANSI_RESET;
-                break;
-        }
         return out ;
     }
-
     private String battleDisplayW(){
         String out = new String();
         Iterator<ItemQuantity> itr = this.weapons.iterator();
@@ -359,27 +353,14 @@ public class Hero extends character.Character implements Battle, Transaction {
 
     // Private Methods (Helpers)
     // Level up hero
-    private void levelUp() {
+    protected void levelUp() {
         this.experience = this.experience % EXP_MULTIPLIER;
         this.setLevel(this.getLevel()+1);
         this.setHealthPower(HP_MULTIPLIER*this.getLevel());
-        this.strength = this.strength + (this.strength*0.5);
-        this.agility = this.agility + (this.agility*0.5);
-        this.dexterity = this.dexterity + (this.dexterity*0.5);
+        this.strength = this.strength + (this.strength * SKILLS_MULTIPLIER);
+        this.agility = this.agility + (this.agility * SKILLS_MULTIPLIER);
+        this.dexterity = this.dexterity + (this.dexterity * SKILLS_MULTIPLIER);
         this.mana = this.mana*0.1;
-        switch (this.type) {
-            case PALADIN:
-                this.strength = this.strength + (this.strength*0.5);
-                this.dexterity = this.dexterity + (this.dexterity*0.5);
-                break;
-            case WARRIOR:
-                this.strength = this.strength + (this.strength*0.5);
-                this.agility = this.agility + (this.agility*0.5);
-                break;
-            case SORCERER:
-                this.dexterity = this.dexterity + (this.dexterity*0.5);
-                this.agility = this.agility + (this.agility*0.5);
-        }
     }
 
     // prompts user to buy single item

@@ -1,6 +1,9 @@
 package utils;
 
 import character.hero.Hero;
+import character.hero.Paladin;
+import character.hero.Sorcerer;
+import character.hero.Warrior;
 import character.merchant.Merchant;
 import character.monster.Monster;
 import character.items.Item;
@@ -10,6 +13,7 @@ import character.items.spells.Spell;
 import character.items.potions.Potion;
 
 
+import javax.crypto.CipherOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -88,16 +92,16 @@ public class Defaults {
                                                 .flatMap(Collection::stream)
                                                 .collect(Collectors.toList());
     public static final Merchant DEFAULT_MERCHANT = new Merchant(DEFAULT_ITEMS);
-    public static final List<Hero> DEFAULT_HEROES = new ArrayList<>
-            (Arrays.asList(new Hero ( "WARRIOR","Gaerdal Ironhand", 7, 100, 700, 500, 600, 1354, HEROES_HANDS),
-                    new Hero ( "WARRIOR","Sehanine Monnbow", 8, 600, 700, 800, 500, 2500, HEROES_HANDS),
-                    new Hero ( "WARRIOR","Muamman Duathall", 6, 300, 900, 500, 750, 2546, HEROES_HANDS),
-                    new Hero ( "WARRIOR","Flandal Steelskin", 7, 200, 750, 650, 700, 2500, HEROES_HANDS),
-                    new Hero ( "SORCERER","Garl Glittergold", 7, 700, 550, 600, 500, 2500, HEROES_HANDS),
-                    new Hero ( "SORCERER","Rillifane Rallathil", 9, 1300, 750, 450, 500, 2500, HEROES_HANDS),
-                    new Hero ( "SORCERER","Segojan Earthcaller", 5, 900, 800, 500, 650, 2500, HEROES_HANDS),
-                    new Hero ( "SORCERER","Skoraeus Stonebones", 6, 800, 850, 600, 450, 2500, HEROES_HANDS),
-                    new Hero ("PALADIN", "Solonor Thelandira", 7, 300, 750, 650, 700, 2500, HEROES_HANDS)));
+    public static final List<? extends Hero> DEFAULT_HEROES = new ArrayList<>
+            (Arrays.asList(new Warrior("Gaerdal Ironhand", 7, 100, 700, 500, 600, 1354, HEROES_HANDS),
+                   new Warrior("Sehanine Monnbow", 8, 600, 700, 800, 500, 2500, HEROES_HANDS),
+                   new Warrior("Muamman Duathall", 6, 300, 900, 500, 750, 2546, HEROES_HANDS),
+                   new Warrior("Flandal Steelskin", 7, 200, 750, 650, 700, 2500, HEROES_HANDS),
+                   new Sorcerer("Garl Glittergold", 7, 700, 550, 600, 500, 2500, HEROES_HANDS),
+                   new Sorcerer("Rillifane Rallathil", 9, 1300, 750, 450, 500, 2500, HEROES_HANDS),
+                   new Sorcerer("Segojan Earthcaller", 5, 900, 800, 500, 650, 2500, HEROES_HANDS),
+                   new Sorcerer("Skoraeus Stonebones", 6, 800, 850, 600, 450, 2500, HEROES_HANDS),
+                    new Paladin("Solonor Thelandira", 7, 300, 750, 650, 700, 2500, HEROES_HANDS)));
 
     public static final List<Monster> DEFAULT_MONSTERS =  new ArrayList<>
             (Arrays.asList(new Monster ( "DRAGON", "Natsunomeryu", 1, 100, 20, 0.1),
