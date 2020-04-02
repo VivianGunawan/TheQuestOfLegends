@@ -28,7 +28,6 @@ import java.util.Scanner;
 public abstract class Hero extends character.Character implements Battle, Transaction {
     // represents hero in the game, could be a warrior,sorcerer or paladin.
     // Fields
-//    private HeroType type;
     private double experience;
     private double mana;
     private double strength;
@@ -44,7 +43,6 @@ public abstract class Hero extends character.Character implements Battle, Transa
     // Constructor
     public Hero(String name, int experience, double mana, double strength, double agility, double dexterity, double money, int hands) {
         super(name, 1);
-//        this.type = HeroType.valueOf(type);
         this.experience = experience;
         this.mana = mana;
         this.strength = strength;
