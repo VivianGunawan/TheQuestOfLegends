@@ -2,6 +2,9 @@ package character.monster;
 
 import character.AttackResult;
 import character.Battle;
+import character.items.spells.Fire;
+import character.items.spells.Ice;
+import character.items.spells.Lightning;
 import character.items.spells.Spell;
 
 import static utils.ColouredOutputs.*;
@@ -69,19 +72,14 @@ public abstract class Monster extends character.Character implements Battle {
                 return AttackResult.DODGE;
             }
             else {
-                switch (spell.getType()){
-                    case ICE:
-                        // reduce damage
-                        this.damage -= (SKILL_DETERIORATION * this.damage);
-                        break;
-                    case FIRE:
-                        // reduce defense
-                        this.defense -= (SKILL_DETERIORATION * this.defense);
-                        break;
-                    case LIGHTNING:
-                        // reduce dodgeChance
-                        this.dodgeChance -= (SKILL_DETERIORATION * this.dodgeChance);
-                        break;
+                if(spell instanceof Ice){
+                    this.damage -= (SKILL_DETERIORATION * this.damage);
+                }
+                else if (spell instanceof Fire){
+                    this.defense -= (SKILL_DETERIORATION * this.defense);
+                }
+                else if(spell instanceof Lightning){
+                    this.defense -= (SKILL_DETERIORATION * this.defense);
                 }
                 double effectiveDamage = 0;
                 if(spellDamage - this.defense>0){
