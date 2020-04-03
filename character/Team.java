@@ -385,6 +385,7 @@ public class Team{
     }
     private void endBattle(boolean win){
         if(win){
+            System.out.println("You Won this Battle");
             int monsterLevel = getMaxLevel();
             for(int i=0; i<this.team.size(); i++){
                 // Reward hero that don't faint
@@ -400,6 +401,7 @@ public class Team{
             }
         }
         else{
+            System.out.println("You Lost this Battle");
             for(int i=0; i<this.team.size(); i++){
                 Hero currHero = this.team.get(i);
                 currHero.setMoney(currHero.getMoney()*TAX_MULTIPLIER);

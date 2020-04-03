@@ -25,7 +25,6 @@ public abstract class Spell extends Item {
     @Override
     public String toString(){
         String out =(
-            this.getClass().getSimpleName() + " " +
             super.toString() +
             "Damage Range: " + this.damage+ "\n" +
             "Mana Required: " + this.mana + "\n" 

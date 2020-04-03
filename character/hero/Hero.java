@@ -286,10 +286,16 @@ public abstract class Hero extends character.Character implements Battle, Transa
                 ErrorMessage.printErrorInvalidInput();
             }
             Item tempS = this.inventory.getItem(spellIndex- 1);
-            this.inventory.removeItem(tempS, 1);
             Spell spell = (Spell) tempS;
-            this.mana -= spell.getMana();
-            return spell;
+            if (this.mana - spell.getMana()<0){
+                System.out.println(this.getName() + " doesn't have enough mana to cast this spell");
+                return null;
+            }
+            else{
+                this.mana -= spell.getMana();
+                this.inventory.removeItem(tempS, 1);
+                return spell;
+            }
         }
     }
     public double castSpellDamage(Spell spell) {
