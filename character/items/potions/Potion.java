@@ -1,7 +1,7 @@
 package character.items.potions;
 
 import character.items.Item;
-import character.items.ItemType;
+
 import static utils.ColouredOutputs.ANSI_BRIGHT_PURPLE;
 import static utils.ColouredOutputs.ANSI_RESET;
 
@@ -13,7 +13,7 @@ public class Potion extends Item {
     double effect;
     // Constructor
     public Potion(String name, double price, int reqLevel, String type, double effect){
-        super(ItemType.POTION,name, price, reqLevel);
+        super(name, price, reqLevel);
         this.type = PotionType.valueOf(type);
         this.effect = effect;
     }

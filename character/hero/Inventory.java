@@ -1,7 +1,10 @@
 package character.hero;
 
 import character.items.Item;
-import character.items.ItemType;
+import character.items.armors.Armor;
+import character.items.potions.Potion;
+import character.items.spells.Spell;
+import character.items.weapons.Weapon;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,7 +59,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
-            if (temp.getI().getItemType()==ItemType.WEAPON) {
+            if (temp.getI() instanceof Weapon) {
                 n++;
             }
         }
@@ -67,7 +70,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
-            if (temp.getI().getItemType()==ItemType.ARMOR) {
+            if (temp.getI() instanceof Armor) {
                 n++;
             }
         }
@@ -78,7 +81,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
-            if (temp.getI().getItemType()==ItemType.POTION) {
+            if (temp.getI() instanceof Potion) {
                 n++;
             }
         }
@@ -89,7 +92,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
-            if (temp.getI().getItemType()== ItemType.SPELL) {
+            if (temp.getI() instanceof Spell) {
                 n++;
             }
         }
@@ -101,7 +104,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
-            if (temp.getI().getItemType()==ItemType.WEAPON) {
+            if (temp.getI() instanceof Weapon) {
                 System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n" + temp.getI().toString() + "\n---------------------------\n");
             }
             i++;
@@ -113,7 +116,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while(itr.hasNext()){
             ItemQuantity temp = itr.next();
-            if(temp.getI().getItemType()==ItemType.ARMOR) {
+            if(temp.getI() instanceof Armor) {
                 System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n"+ temp.getI().toString() +"\n---------------------------\n");
             }
             i++;
@@ -125,7 +128,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while(itr.hasNext()){
             ItemQuantity temp = itr.next();
-            if(temp.getI().getItemType()==ItemType.POTION) {
+            if(temp.getI() instanceof Potion) {
                 System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n"+ temp.getI().toString() +"\n---------------------------\n");
             }
             i++;
@@ -137,7 +140,7 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while(itr.hasNext()){
             ItemQuantity temp = itr.next();
-            if(temp.getI().getItemType()==ItemType.SPELL) {
+            if(temp.getI() instanceof Spell) {
                 System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n"+ temp.getI().toString() +"\n---------------------------\n");
             }
             i++;
