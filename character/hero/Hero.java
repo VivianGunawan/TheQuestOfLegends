@@ -143,7 +143,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
             char yn = '\u0000';
             try{
                 while (yn!=YES_INPUT&&yn!=NO_INPUT){
-                    System.out.println("Would "+ this.getName() + " like to purchase more character.items? (" + YES_INPUT + "/" + NO_INPUT + ")" );
+                    System.out.println("Would "+ this.getName() + " like to purchase more character? (" + YES_INPUT + "/" + NO_INPUT + ")" );
                     yn = scan.next().charAt(0);
                 }
                 if (yn==YES_INPUT){
@@ -163,7 +163,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
             char yn = '\u0000';
             try{
                 while (yn!=YES_INPUT&&yn!=NO_INPUT){
-                    System.out.println("Would "+ this.getName() + " like to sell more character.items? (" + YES_INPUT + "/" + NO_INPUT + ")" );
+                    System.out.println("Would "+ this.getName() + " like to sell more character? (" + YES_INPUT + "/" + NO_INPUT + ")" );
                     yn = scan.next().charAt(0);
                 }
                 if (yn==YES_INPUT){

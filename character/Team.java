@@ -230,6 +230,7 @@ public class Team{
                                 switch (res) {
                                     case DEAD:
                                         int monsterId = 0;
+                                        displayEnemies(enemies);
                                         try {
                                             while (monsterId < 1 || monsterId > enemies.size()) {
                                                 System.out.println(currHero.getName() + "has defeated her/his monster, which other monster would " +
@@ -244,8 +245,7 @@ public class Team{
                                                     ErrorMessage.printErrorOutOfRange();
                                                 }
                                             }
-                                            Spell scasted = currHero.castSpell();
-                                            AttackResult sres = enemies.get(i).receiveSpell(scasted, currHero.castSpellDamage(scasted));
+                                            AttackResult sres = enemies.get(i).receiveSpell(casted, currHero.castSpellDamage(casted));
                                             if (sres == AttackResult.DODGE) {
                                                 System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s spell");
                                                 System.out.println(enemies.get(monsterId - 1));
