@@ -1,7 +1,6 @@
 package character.items.spells;
 
 import character.items.Item;
-import character.items.ItemType;
 
 
 public abstract class Spell extends Item {
@@ -11,7 +10,7 @@ public abstract class Spell extends Item {
     private double mana;
     // Constructor 
     public Spell(String name, double price, int reqLevel, double damage, double mana){
-        super(ItemType.SPELL,name, price, reqLevel);
+        super(name, price, reqLevel);
         this.damage = damage;
         this.mana = mana;
     }

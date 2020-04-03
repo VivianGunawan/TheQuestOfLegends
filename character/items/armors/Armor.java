@@ -1,7 +1,7 @@
 package character.items.armors;
 
 import character.items.Item;
-import character.items.ItemType;
+
 import static utils.ColouredOutputs.ANSI_GREEN;
 import static utils.ColouredOutputs.ANSI_RESET;
 
@@ -12,7 +12,7 @@ public class Armor extends Item {
 
     //Constructor
     public Armor(String name, double price, int reqLevel, double damageReduction){
-        super(ItemType.ARMOR,name, price, reqLevel);
+        super(name, price, reqLevel);
         this.damageReduction = damageReduction;
     }
 

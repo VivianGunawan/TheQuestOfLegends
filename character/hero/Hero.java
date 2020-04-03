@@ -5,7 +5,6 @@ import character.AttackResult;
 import character.Battle;
 import character.Transaction;
 import character.items.Item;
-import character.items.ItemType;
 import character.items.armors.Armor;
 import character.items.potions.Potion;
 import character.items.spells.Spell;
@@ -15,7 +14,6 @@ import character.items.weapons.Weapon;
 import utils.ErrorMessage;
 import static utils.IOConstants.*;
 import static utils.Defaults.*;
-import static utils.ColouredOutputs.*;
 
 // JAVA LIBRARIES
 import java.util.ArrayList;
@@ -224,7 +222,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
             this.inventory.maskInventoryPDisplay();
             int potionIndex = 0;
             try{
-                while(potionIndex<1||potionIndex>this.inventory.numItems()||!this.inventory.getItem(potionIndex-1).getItemType().name().equals("POTION")){
+                while(potionIndex<1||potionIndex>this.inventory.numItems()||!(this.inventory.getItem(potionIndex-1) instanceof Potion)){
                     System.out.println("Which potion would " + this.getName() +" like to consume? (item #)");
                     potionIndex = scan.nextInt();
                     scan.nextLine();
@@ -278,7 +276,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
                 System.out.println("Which spell would " + this.getName() + " like to cast? (item #)");
                 spellIndex = scan.nextInt();
                 scan.nextLine();
-                while ((spellIndex < 1 || spellIndex > this.inventory.numItems()) || !(this.inventory.getItem(spellIndex - 1).getItemType()==ItemType.SPELL)) {
+                while ((spellIndex < 1 || spellIndex > this.inventory.numItems()) || !(this.inventory.getItem(spellIndex - 1) instanceof Spell)) {
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please enter valid item #");
                     spellIndex = scan.nextInt();
@@ -577,7 +575,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
         try{
             weaponIndex = scan.nextInt();
             scan.nextLine();
-            while((weaponIndex<1||weaponIndex>this.inventory.numItems())||!this.inventory.getItem(weaponIndex-1).getItemType().name().equals("WEAPON")){
+            while((weaponIndex<1||weaponIndex>this.inventory.numItems())||!(this.inventory.getItem(weaponIndex-1) instanceof Weapon)){
                 ErrorMessage.printErrorOutOfRange();
                 System.out.println("Please enter valid item #");
                 weaponIndex = scan.nextInt();
@@ -708,7 +706,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
                             System.out.println("Which armor would " + this.getName() + " like to equip? (item #)");
                             armorIndex = scan.nextInt();
                             scan.nextLine();
-                            while ((armorIndex < 1 || armorIndex > this.inventory.numItems()) || !this.inventory.getItem(armorIndex - 1).getItemType().name().equals("ARMOR")) {
+                            while ((armorIndex < 1 || armorIndex > this.inventory.numItems()) || !(this.inventory.getItem(armorIndex - 1) instanceof Armor)){
                                 ErrorMessage.printErrorOutOfRange();
                                 System.out.println("Please enter valid item #");
                                 armorIndex = scan.nextInt();
@@ -763,7 +761,7 @@ public abstract class Hero extends character.Character implements Battle, Transa
             this.inventory.maskInventoryPDisplay();
             int potionIndex = 0;
             try{
-                while(potionIndex<1||potionIndex>this.inventory.numItems()||!this.inventory.getItem(potionIndex-1).getItemType().name().equals("POTION")){
+                while(potionIndex<1||potionIndex>this.inventory.numItems()||!(this.inventory.getItem(potionIndex-1) instanceof Potion)){
                     System.out.println("Which potion would " + this.getName() +" like to consume? (item #)");
                     potionIndex = scan.nextInt();
                     scan.nextLine();
