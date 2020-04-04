@@ -2,7 +2,7 @@ package character.hero;
 
 // THE QUEST FILES
 import character.AttackResult;
-import character.Battle;
+import character.HeroBattle;
 import character.Transaction;
 import character.items.Item;
 import character.items.armors.Armor;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public abstract class Hero extends character.Character implements Battle, Transaction {
+public abstract class Hero extends character.Character implements HeroBattle, Transaction {
     // represents hero in the game, could be a warrior,sorcerer or paladin.
     // Fields
     private double experience;
@@ -307,14 +307,8 @@ public abstract class Hero extends character.Character implements Battle, Transa
         }
     }
     public void regen() {
-        this.setHealthPower(this.getHealthPower()+(this.getHealthPower()*HP_REGEN));
+        this.setHealthPower(this.getHealthPower() + (this.getHealthPower() * HP_REGEN));
         this.mana += this.mana * MANA_REGEN;
-    }
-    // NO OPERATION
-    public AttackResult receiveSpell(Spell spell, double spellDamage) {
-        // NO OPERATION
-        // HERO DO NOT TAKE SPELL DAMAGE FROM MONSTER
-        return null;
     }
 
     // Displays
