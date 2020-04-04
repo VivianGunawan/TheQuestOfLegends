@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="710b0023-26f0-41e6-af4e-2c718664982f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +81,7 @@
       <workItem from="1585788038932" duration="2461000" />
       <workItem from="1585822719435" duration="2792000" />
       <workItem from="1585917742540" duration="2661000" />
-      <workItem from="1586022118596" duration="634000" />
+      <workItem from="1586022118596" duration="1139000" />
     </task>
     <servers />
   </component>
@@ -98,12 +98,12 @@
     </state>
     <state x="427" y="128" key="#Project_Structure/0.0.1920.1080@0.0.1920.1080" timestamp="1584899268365" />
     <state x="320" y="127" key="#Project_Structure/0.23.1440.877@0.23.1440.877" timestamp="1584811901027" />
-    <state x="820" y="225" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586022816698">
+    <state x="706" y="166" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586023048276">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1585422323705" />
     <state x="184" y="132" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1585423108173" />
-    <state x="820" y="225" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1586022816698" />
+    <state x="706" y="166" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1057@0.23.1920.1057" timestamp="1586023048276" />
     <state x="447" y="276" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585425039503">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -123,11 +123,12 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="569" y="346" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1440.900@0.0.1440.900" timestamp="1584816793363" />
-    <state x="353" y="360" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1585358724188">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="471" y="446" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586023280553">
+      <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="353" y="360" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1440.900@0.0.1440.900" timestamp="1585358724188" />
     <state x="470" y="432" width="467" height="225" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1080@0.0.1920.1080" timestamp="1584947266221" />
+    <state x="471" y="446" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.23.1920.1057@0.23.1920.1057" timestamp="1586023280553" />
     <state x="470" y="453" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1584962168585">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
