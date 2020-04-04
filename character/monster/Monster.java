@@ -1,17 +1,15 @@
 package character.monster;
 
 import character.AttackResult;
-import character.Battle;
+import character.MonsterBattle;
 import character.items.spells.Fire;
 import character.items.spells.Ice;
 import character.items.spells.Lightning;
 import character.items.spells.Spell;
 
-import static utils.ColouredOutputs.*;
-import static utils.ColouredOutputs.ANSI_RESET;
 import static utils.Defaults.*;
 
-public abstract class Monster extends character.Character implements Battle {
+public abstract class Monster extends character.Character implements MonsterBattle {
     //represents a monster in the game could be a dragon, exoskeleton or spirit.
     //Fields
     private double damage;
@@ -100,22 +98,5 @@ public abstract class Monster extends character.Character implements Battle {
     @Override
     public double doBasicAttack() {
         return this.damage;
-    }
-    // NO OPERATION
-    public Spell castSpell() {
-        // NO OPERATIONS
-        // monsters don't cast spells to heroes
-        return null;
-    }
-    @Override
-    public double castSpellDamage(Spell spell) {
-        // NO OPERATIONS
-        // monsters don't cast spells to heroes
-        return 0;
-    }
-    @Override
-    public void regen() {
-        // NO OPERATION
-        return;
     }
 }
