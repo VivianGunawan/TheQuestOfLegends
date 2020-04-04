@@ -33,6 +33,10 @@ import java.util.stream.Stream;
 
 public class Defaults {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // QoL DEFAULTS
+    public static final int DEFAULT_LANE = 3;
+    public static final int DEFAULT_LANE_SIZE = 2;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAP DEFAULTS
     public static final int DEFAULT_ROW_SIZE = 8;
     public static final int DEFAULT_COL_SIZE = 8;
