@@ -2,7 +2,7 @@ import character.Team;
 import character.merchant.Merchant;
 import character.hero.Hero;
 import character.monster.Monster;
-import tile.TileType;
+import tile.InaccessibleTile;
 
 import utils.ErrorMessage;
 import static utils.Defaults.*;
@@ -183,7 +183,7 @@ public class TheQuestGameEngine {
         return 0;
     }
     private boolean validateTile(char m){
-        if (this.map.getTile(computeLocation(m)).getType()== TileType.I){
+        if (this.map.getTile(computeLocation(m)) instanceof InaccessibleTile){
             return false;
         }
         return true;
