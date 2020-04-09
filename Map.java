@@ -38,7 +38,7 @@ public class Map{
     public int getSafeStart(){
         for(int r=0; r<this.rowsize; r++){
             for(int c = 0; c<this.colsize; c++){
-                if(this.map[r][c].getType().equals(TileType.M)){
+                if(this.map[r][c] instanceof MarketTile){
                     return this.map[r][c].getLocation();
                 }
             }
@@ -61,101 +61,100 @@ public class Map{
     public void place(int location, Team heroes){
         Tile t = this.map[(location-1)/this.rowsize][(location-1)%this.rowsize];
         t.setActive(true);
-        switch (t.getType()){
-            case M:
-                MarketTile currentMarket = (MarketTile) t;
-                System.out.println("You have entered a market tile");
-                char yn = '\u0000';
-                display();
-                try{
-                    while(yn != YES_INPUT && yn != NO_INPUT){
-                        System.out.println("Would you like to leave in current tile? (" + YES_INPUT + "/" +NO_INPUT + ")");
-                        yn = scan.next().charAt(0);
+        if(t instanceof MarketTile){
+            MarketTile currentMarket = (MarketTile) t;
+            System.out.println("You have entered a market tile");
+            char yn = '\u0000';
+            display();
+            try{
+                while(yn != YES_INPUT && yn != NO_INPUT){
+                    System.out.println("Would you like to leave in current tile? (" + YES_INPUT + "/" +NO_INPUT + ")");
+                    yn = scan.next().charAt(0);
+                }
+                while(yn == NO_INPUT){
+                    char opt = '\u0000';
+                    try{
+                        while (opt!= TRANSACTION_INPUT && opt!=EXPLORE_INPUT && opt!=NONE){
+                            System.out.println("Would you like to perform a transaction (" + TRANSACTION_INPUT +
+                                    ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
+                            opt = scan.next().charAt(0);
+                        }
+                    }catch (Exception e){
+                        ErrorMessage.printErrorInvalidInput();
                     }
-                    while(yn == NO_INPUT){
-                        char opt = '\u0000';
+                    while(opt!=NONE){
+                        if(opt==TRANSACTION_INPUT){
+                            heroes.transaction(currentMarket.getMerchant());
+                            break;
+                        }
+                        if(opt==EXPLORE_INPUT){
+                            heroes.exploreInventory();
+                            break;
+                        }
                         try{
-                            while (opt!= TRANSACTION_INPUT && opt!=EXPLORE_INPUT && opt!=NONE){
-                                System.out.println("Would you like to perform a transaction (" + TRANSACTION_INPUT +
-                                            ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
+                            while (opt!= TRANSACTION_INPUT && opt!=SELL_INPUT && opt!=NONE){
+                                System.out.print("Would you like to perform a transaction (" + TRANSACTION_INPUT +
+                                        ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
                                 opt = scan.next().charAt(0);
                             }
-                        }catch (Exception e){
+                        }catch (Exception e) {
                             ErrorMessage.printErrorInvalidInput();
                         }
-                        while(opt!=NONE){
-                            if(opt==TRANSACTION_INPUT){
-                                heroes.transaction(currentMarket.getMerchant());
-                                break;
-                            }
-                            if(opt==EXPLORE_INPUT){
-                                heroes.exploreInventory();
-                                break;
-                            }
-                            try{
-                                while (opt!= TRANSACTION_INPUT && opt!=SELL_INPUT && opt!=NONE){
-                                    System.out.print("Would you like to perform a transaction (" + TRANSACTION_INPUT +
-                                            ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
-                                    opt = scan.next().charAt(0);
-                                }
-                            }catch (Exception e) {
-                                ErrorMessage.printErrorInvalidInput();
-                            }
-                        }
-                        display();
-                        System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" +NO_INPUT + ")");
-                        try {
+                    }
+                    display();
+                    System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" +NO_INPUT + ")");
+                    try {
+                        yn = scan.next().charAt(0);
+                        while( yn != YES_INPUT && yn != NO_INPUT){
                             yn = scan.next().charAt(0);
-                            while( yn != YES_INPUT && yn != NO_INPUT){
-                                yn = scan.next().charAt(0);
-                            }
-                        } catch (InputMismatchException e) {
-                            ErrorMessage.printErrorInvalidInput();
                         }
-                        if(yn == YES_INPUT){
-                            break;
-                        }
+                    } catch (InputMismatchException e) {
+                        ErrorMessage.printErrorInvalidInput();
                     }
-                    t.setActive(false);
-                }catch (InputMismatchException e){
-                    ErrorMessage.printErrorInvalidInput();
+                    if(yn == YES_INPUT){
+                        break;
+                    }
                 }
-                break;
-            case C:
-                CommonTile currentCommon = (CommonTile) t;
-                System.out.println("You have entered a common tile");
-                if(currentCommon.monsterAwake()){
-                    System.out.println("You have awaken the monsters that dwell within this tile");
-                    List<Monster> enemies = currentCommon.getMonsters(heroes.getnC(),heroes.getMaxLevel());
-                    heroes.battle(enemies);
+                t.setActive(false);
+            }catch (InputMismatchException e){
+                ErrorMessage.printErrorInvalidInput();
+            }
+        }
+        else if(t instanceof CommonTile){
+            CommonTile currentCommon = (CommonTile) t;
+            System.out.println("You have entered a common tile");
+            if(currentCommon.monsterAwake()){
+                System.out.println("You have awaken the monsters that dwell within this tile");
+                List<Monster> enemies = currentCommon.getMonsters(heroes.getnC(),heroes.getMaxLevel());
+                heroes.battle(enemies);
+            }
+            char ync = '\u0000';
+            display();
+            try {
+                while (ync != YES_INPUT && ync != NO_INPUT) {
+                    System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" + NO_INPUT + ")");
+                    ync = scan.next().charAt(0);
                 }
-                char ync = '\u0000';
-                display();
-                try {
-                    while (ync != YES_INPUT && ync != NO_INPUT) {
-                        System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" + NO_INPUT + ")");
+                while (ync == NO_INPUT) {
+                    heroes.exploreInventory();
+                    display();
+                    System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" + NO_INPUT + ")");
+                    try {
                         ync = scan.next().charAt(0);
-                    }
-                    while (ync == NO_INPUT) {
-                        heroes.exploreInventory();
-                        display();
-                        System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" + NO_INPUT + ")");
-                        try {
+                        while (ync != YES_INPUT && ync != NO_INPUT) {
                             ync = scan.next().charAt(0);
-                            while (ync != YES_INPUT && ync != NO_INPUT) {
-                                ync = scan.next().charAt(0);
-                            }
-                        } catch (InputMismatchException e) {
-                            ErrorMessage.printErrorInvalidInput();
                         }
-                        if (ync == YES_INPUT) {
-                            break;
-                        }
+                    } catch (InputMismatchException e) {
+                        ErrorMessage.printErrorInvalidInput();
                     }
-                    t.setActive(false);
-                }catch (InputMismatchException e){
-                    ErrorMessage.printErrorInvalidInput();
+                    if (ync == YES_INPUT) {
+                        break;
+                    }
                 }
+                t.setActive(false);
+            }catch (InputMismatchException e){
+                ErrorMessage.printErrorInvalidInput();
+            }
         }
     }
     //Helper

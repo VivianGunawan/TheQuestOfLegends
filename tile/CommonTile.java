@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import static utils.ColouredOutputs.*;
 
 public class CommonTile extends Tile {
-    //represents a commmon tile
+    //represents a common tile
     // Fields
     // Monsters dwell in common tile
     private final List<? extends Monster> monsters;
@@ -16,7 +16,6 @@ public class CommonTile extends Tile {
 
     //Constructor
     public CommonTile(List<? extends Monster> monsters, double probabilityEncounter) {
-        super(TileType.C);
         this.monsters = monsters;
         this.probabilityEncounter = probabilityEncounter;
         this.availableMonsters = new ArrayList<Monster>();
@@ -42,9 +41,9 @@ public class CommonTile extends Tile {
     @Override
     public String toString() {
         if (this.isActive()) {
-            return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + super.toString() + " *" + ANSI_RESET;
+            return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + "C *" + ANSI_RESET;
         } else {
-            return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + " " + super.toString() + " " + ANSI_RESET;
+            return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + " C " + ANSI_RESET;
         }
     }
 }

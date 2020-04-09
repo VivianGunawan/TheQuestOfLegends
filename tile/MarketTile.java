@@ -10,7 +10,6 @@ public class MarketTile extends Tile {
 
     // Constructor
     public MarketTile(Merchant merchant) {
-        super(TileType.M);
         this.merchant = merchant;
     }
 
@@ -21,9 +20,9 @@ public class MarketTile extends Tile {
     @Override
     public String toString() {
         if (this.isActive()) {
-            return (ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + super.toString() + " *" + ANSI_RESET);
+            return (ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + "M *" + ANSI_RESET);
         } else {
-            return ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + " " + super.toString() + " " + ANSI_RESET;
+            return ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + " M " + ANSI_RESET;
         }
     }
 }
