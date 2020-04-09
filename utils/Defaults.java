@@ -4,9 +4,6 @@ import character.hero.Hero;
 import character.hero.Paladin;
 import character.hero.Sorcerer;
 import character.hero.Warrior;
-import character.items.spells.Fire;
-import character.items.spells.Ice;
-import character.items.spells.Lightning;
 import character.merchant.Merchant;
 import character.monster.Dragon;
 import character.monster.Exoskeleton;
@@ -14,8 +11,17 @@ import character.monster.Monster;
 import character.items.Item;
 import character.items.weapons.Weapon;
 import character.items.armors.Armor;
-import character.items.spells.Spell;
 import character.items.potions.Potion;
+import character.items.potions.Health;
+import character.items.potions.Mana;
+import character.items.potions.Strength;
+import character.items.potions.Dexterity;
+import character.items.potions.Agility;
+import character.items.potions.Experience;
+import character.items.spells.Spell;
+import character.items.spells.Fire;
+import character.items.spells.Ice;
+import character.items.spells.Lightning;
 import character.monster.Spirit;
 
 
@@ -97,13 +103,13 @@ public class Defaults {
                         new Lightning("Thunder Blast", 750, 4, 950, 400),
                         new Lightning("Electric Arrows", 550, 5, 650, 200),
                         new Lightning("Spark Needles", 500, 2, 600, 200)));
-    public static final List<Potion> DEFAULT_POTIONS =new ArrayList<>
-            (Arrays.asList(new Potion("Healing ", 250, 1,"HEALTH", 100),
-                    new Potion("Strength", 200, 1, "STRENGTH", 75),
-                    new Potion("Magic", 350, 2, "MANA", 100),
-                    new Potion("Luck Elixir", 500, 4, "DEXTERITY", 65),
-                    new Potion("Mermaid Tears", 850, 5, "AGILITY",100),
-                    new Potion("Ambriosa", 1000, 8, "EXPERIENCE",150)));
+    public static final List<? extends Potion> DEFAULT_POTIONS =new ArrayList<>
+            (Arrays.asList(new Health("Healing Potion", 250, 1, 100),
+                    new Strength("Strength Potion", 200, 1, 75),
+                    new Mana("Magic Potion", 350, 2,  100),
+                    new Dexterity("Luck Elixir", 500, 4,65),
+                    new Agility("Mermaid Tears", 850, 5,100),
+                    new Experience("Ambriosa", 1000, 8, 150)));
     public static final List<Item> DEFAULT_ITEMS = Stream.of(DEFAULT_WEAPONS,DEFAULT_ARMORS,DEFAULT_SPELLS,DEFAULT_POTIONS)
                                                 .flatMap(Collection::stream)
                                                 .collect(Collectors.toList());

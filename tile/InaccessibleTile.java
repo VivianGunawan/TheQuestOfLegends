@@ -3,10 +3,9 @@ package tile;
 import static utils.ColouredOutputs.*;
 
 public class InaccessibleTile extends Tile {
-    // represents an inaccesible tile
+    // represents an inaccessible tile
     // Constructor
     public InaccessibleTile() {
-        super(TileType.I);
     }
 
     @Override
