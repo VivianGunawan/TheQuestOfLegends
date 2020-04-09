@@ -36,6 +36,12 @@ public class Defaults {
     // QoL DEFAULTS
     public static final int DEFAULT_LANE = 3;
     public static final int DEFAULT_LANE_SIZE = 2;
+
+    // Map defaults for QoL
+    public static final double DEFAULT_PROBABILITY_PLAIN = 0.7;
+    public static final double DEFAULT_PROBABILITY_BUSH = 0.1;
+    public static final double DEFAULT_PROBABILITY_KOULOU = 0.1;
+    public static final double DEFAULT_PROBABILITY_CAVE = 0.1;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAP DEFAULTS
     public static final int DEFAULT_ROW_SIZE = 8;

@@ -3,5 +3,6 @@ package tile;
 public enum TileType {
     I, // Inaccessible
     C, // Common
-    M // Market
+    M, // Market
+    N // Nexus
 }

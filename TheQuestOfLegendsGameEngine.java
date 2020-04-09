@@ -11,22 +11,34 @@ import java.util.Scanner;
 import static utils.Defaults.*;
 
 public class TheQuestOfLegendsGameEngine {
+    private final int rowsize;
+    private final int colsize;
     private final int numLane;
-//    private final int laneSize;
-//    private final Merchant merchant;
-//    private finals List<? extends Monster> monsters;
-//    private final LaneMap map;
+    private final int laneSize;
+    private final Merchant merchant;
+    private final List<? extends Monster> monsters;
+    private final LaneMap map;
     private final List<? extends Hero> heroes;
     private final LaneTeam heroTeam;
+    private final double probabilityPlain;
+    private final double probabilityBush;
+    private final double probabilityKoulou;
+    private final double probabilityCave;
     Scanner scan = new Scanner(System.in);
 
     public TheQuestOfLegendsGameEngine() {
+        this.rowsize = DEFAULT_ROW_SIZE;
+        this.colsize = DEFAULT_COL_SIZE;
         this.numLane = DEFAULT_LANE;
-//        this.laneSize = DEFAULT_LANE_SIZE;
-//        this.merchant = DEFAULT_MERCHANT;
+        this.laneSize = DEFAULT_LANE_SIZE;
+        this.merchant = DEFAULT_MERCHANT;
         this.heroes = DEFAULT_HEROES;
-//        this.monsters =DEFAULT_MONSTERS;
-//        this.map = new LaneMap(numLane, laneSize,  this.merchant, this.monsters);
+        this.monsters = DEFAULT_MONSTERS;
+        this.probabilityPlain = DEFAULT_PROBABILITY_PLAIN;
+        this.probabilityCave = DEFAULT_PROBABILITY_CAVE;
+        this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;
+        this.probabilityBush = DEFAULT_PROBABILITY_BUSH;
+        this.map = new LaneMap(this.rowsize, this.colsize, this.numLane, this.laneSize,  this.merchant, this.monsters, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
         this.heroTeam = selectTeam();
 //        startGame();
     }
