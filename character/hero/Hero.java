@@ -6,7 +6,7 @@ import character.HeroBattle;
 import character.Transaction;
 import character.items.Item;
 import character.items.armors.Armor;
-import character.items.potions.Potion;
+import character.items.potions.*;
 import character.items.spells.Spell;
 import character.items.weapons.Weapon;
 
@@ -143,7 +143,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             char yn = '\u0000';
             try{
                 while (yn!=YES_INPUT&&yn!=NO_INPUT){
-                    System.out.println("Would "+ this.getName() + " like to purchase more character? (" + YES_INPUT + "/" + NO_INPUT + ")" );
+                    System.out.println("Would "+ this.getName() + " like to purchase more items? (" + YES_INPUT + "/" + NO_INPUT + ")" );
                     yn = scan.next().charAt(0);
                 }
                 if (yn==YES_INPUT){
@@ -793,30 +793,28 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
     };
     // consumes potion  and remove from inventory
     private void consume(Potion potion){
-        switch (potion.getType()){
-            case HEALTH:
-                this.setHealthPower(this.getHealthPower()+potion.getEffect());
-                break;
-            case STRENGTH:
-                this.strength+=potion.getEffect();
-                break;
-            case MANA:
-                this.mana+=potion.getEffect();
-                break;
-            case DEXTERITY:
-                this.dexterity+=potion.getEffect();
-                break;
-            case AGILITY:
-                this.agility+=potion.getEffect();
-                break;
-            case EXPERIENCE:
-                this.experience+=potion.getEffect();
-                if(this.experience>this.getLevel()*EXP_MULTIPLIER){
-                    this.levelUp();
-                }
-                break;
+        if (potion instanceof Health){
+            this.setHealthPower(this.getHealthPower()+potion.getEffect());
         }
-        System.out.println(this.getName() + "'s " + potion.getType().name() + " increased by " + potion.getEffect());
+        else if (potion instanceof Mana){
+            this.mana+=potion.getEffect();
+        }
+        else if (potion instanceof Strength){
+            this.strength+=potion.getEffect();
+        }
+        else if (potion instanceof Dexterity){
+            this.dexterity+=potion.getEffect();
+        }
+        else if (potion instanceof Agility){
+            this.agility+=potion.getEffect();
+        }
+        else if (potion instanceof Experience){
+            this.experience+=potion.getEffect();
+            if(this.experience>this.getLevel()*EXP_MULTIPLIER){
+                this.levelUp();
+            }
+        }
+        System.out.println(this.getName() + "'s " + potion.getClass().getSimpleName() + " increased by " + potion.getEffect());
         this.inventory.removeItem(potion,1);
     }
 
