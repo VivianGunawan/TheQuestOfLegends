@@ -3,8 +3,17 @@ package tile;
 import static utils.ColouredOutputs.*;
 
 public class BushTile extends Tile {
+    private boolean containsMonster;
 
     public BushTile(){
+    }
+
+    public void setContainsMonster(boolean containsMonster) {
+        this.containsMonster = containsMonster;
+    }
+
+    public boolean containsMonster() {
+        return containsMonster;
     }
 
     // temporary bush tile toString
