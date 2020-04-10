@@ -5,8 +5,17 @@ import static utils.ColouredOutputs.*;
 // A class for the plain tile in QoL
 public class PlainTile extends Tile {
 
+    private boolean containsMonster;
     // Constructor
     public PlainTile() {
+    }
+
+    public void setContainsMonster(boolean monster) {
+        containsMonster = monster;
+    }
+
+    public boolean getContainsMonster() {
+        return this.containsMonster;
     }
 
     // temporary plain tile toString
