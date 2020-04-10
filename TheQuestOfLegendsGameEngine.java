@@ -11,10 +11,9 @@ import java.util.Scanner;
 import static utils.Defaults.*;
 
 public class TheQuestOfLegendsGameEngine {
-    private final int rowsize;
-    private final int colsize;
     private final int numLane;
     private final int laneSize;
+    private final int laneLength;
     private final Merchant merchant;
     private final List<? extends Monster> monsters;
     private final LaneMap map;
@@ -27,10 +26,9 @@ public class TheQuestOfLegendsGameEngine {
     Scanner scan = new Scanner(System.in);
 
     public TheQuestOfLegendsGameEngine() {
-        this.rowsize = DEFAULT_ROW_SIZE;
-        this.colsize = DEFAULT_COL_SIZE;
         this.numLane = DEFAULT_LANE;
         this.laneSize = DEFAULT_LANE_SIZE;
+        this.laneLength = DEFAULT_LANE_LENGTH;
         this.merchant = DEFAULT_MERCHANT;
         this.heroes = DEFAULT_HEROES;
         this.monsters = DEFAULT_MONSTERS;
@@ -38,9 +36,9 @@ public class TheQuestOfLegendsGameEngine {
         this.probabilityCave = DEFAULT_PROBABILITY_CAVE;
         this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;
         this.probabilityBush = DEFAULT_PROBABILITY_BUSH;
-        this.map = new LaneMap(this.rowsize, this.colsize, this.numLane, this.laneSize,  this.merchant, this.monsters, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
+        this.map = new LaneMap(this.numLane, this.laneSize, this.laneLength, this.merchant, this.monsters, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
         this.heroTeam = selectTeam();
-//        startGame();
+        startQOLgame();
     }
 
     private LaneTeam selectTeam() {
@@ -78,6 +76,14 @@ public class TheQuestOfLegendsGameEngine {
             }
         }
         return new LaneTeam(team);
+    }
+
+    /**
+     * Start a new game of Quest of Legends
+     * @param args
+     */
+    private void startQOLgame() {
+        this.map.displayMap();
     }
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();
