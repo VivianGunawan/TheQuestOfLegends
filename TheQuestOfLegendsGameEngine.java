@@ -83,7 +83,10 @@ public class TheQuestOfLegendsGameEngine {
      * @param args
      */
     private void startQOLgame() {
+        this.map.place(2, (Character) this.heroes.get(1));
         this.map.displayMap();
+        // once you place on the nexus, the rounds begin
+        // for each hero
     }
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();

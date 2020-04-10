@@ -3,8 +3,17 @@ package tile;
 import static utils.ColouredOutputs.*;
 
 public class KoulouTile extends Tile {
+    private boolean containsMonster;
 
     public KoulouTile() {
+    }
+
+    public void setContainsMonster(boolean containsMonster) {
+        this.containsMonster = containsMonster;
+    }
+
+    public boolean containsMonster() {
+        return containsMonster;
     }
 
     // temporary kOulou tile toString
