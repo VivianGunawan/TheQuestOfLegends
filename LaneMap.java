@@ -2,7 +2,6 @@ import character.AttackResult;
 import character.hero.Hero;
 import character.items.spells.Spell;
 import character.merchant.Merchant;
-import character.monster.Monster;
 import tile.*;
 import utils.ErrorMessage;
 
@@ -26,7 +25,7 @@ public class LaneMap {
     private final int colsize;
     private final Tile[][] map;
 
-    public LaneMap(int numLane, int laneSize, int laneLength, Merchant merchant, List<? extends Monster> monsters, double probabilityPlain, double probabilityBush, double probabilityKoulou, double probabilityCave) {
+    public LaneMap(int numLane, int laneSize, int laneLength, Merchant merchant, double probabilityPlain, double probabilityBush, double probabilityKoulou, double probabilityCave) {
         this.numLane = numLane;
         this.laneSize = laneSize;
         this.laneLength = laneLength;
@@ -38,11 +37,11 @@ public class LaneMap {
         colsize = (numLane * laneSize) + numLane - 1;
         this.map = new Tile[rowsize][colsize];
 
-        setMap(merchant, monsters);
+        setMap(merchant);
     }
 
     // Helper used to set the map
-    private void setMap(Merchant merchant, List<? extends Monster> monsters) {
+    private void setMap(Merchant merchant) {
         List<Tile> tileOptions = generateTileOptions();
         int colCounter = 0;
         for (int i = 0; i < rowsize; i++) {
