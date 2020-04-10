@@ -12,6 +12,18 @@ public class PlainTile extends Tile {
     // temporary plain tile toString
     @Override
     public String toString() {
-        return (ANSI_BRIGHT_BG_BLACK + ANSI_BG_RED + " P " + ANSI_RESET);
+        if (this.isActive()) {
+            if(this.getLocation() < 10) {
+                return (ANSI_BLACK + ANSI_BRIGHT_BG_GREEN + this.getLocation() + " *"  + ANSI_RESET);
+            } else {
+                return (ANSI_BLACK + ANSI_BRIGHT_BG_GREEN + this.getLocation() + "*"  + ANSI_RESET);
+            }
+        } else {
+            if (this.getLocation() < 10) {
+                return ANSI_BLACK + ANSI_BRIGHT_BG_GREEN + " " + this.getLocation() + " " + ANSI_RESET;
+            } else {
+                return ANSI_BLACK + ANSI_BRIGHT_BG_GREEN + this.getLocation() + " " + ANSI_RESET;
+            }
+        }
     }
 }

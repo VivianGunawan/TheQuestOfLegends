@@ -37,14 +37,14 @@ public class LaneMap {
 
     // Helper used to set the map
     private void setMap(Merchant merchant, List<? extends Monster> monsters) {
-        List<Tile> tileOptions = generateTileOptions(merchant, monsters);
+        List<Tile> tileOptions = generateTileOptions();
         int colCounter = 0;
         for (int i = 0; i < rowsize; i++) {
             // first and last row, nexus cells
             if (i == 0 || i == rowsize - 1) {
                 for (int j = 0; j < colsize; j++) {
                     if (colCounter < laneSize) {
-                        this.map[i][j] = new MarketTile(merchant);
+                        this.map[i][j] = new NexusTile(merchant);
                         this.map[i][j].setLocation((i * rowsize) + j + 1);
                         colCounter++;
                     } else {
@@ -87,7 +87,7 @@ public class LaneMap {
     }
 
     // Helper method used to generate list of tiles with the appropriate probabilities
-    private List<Tile> generateTileOptions(Merchant merchant, List<? extends Monster> monsters) {
+    private List<Tile> generateTileOptions() {
         List<Tile> tempTileList = new ArrayList<Tile>();
         int plain = (int) Math.round(this.probabilityPlain * rowsize * colsize);
         int bush = (int) Math.round(this.probabilityBush * rowsize * colsize);

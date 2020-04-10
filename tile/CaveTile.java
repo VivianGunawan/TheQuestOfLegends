@@ -10,6 +10,18 @@ public class CaveTile extends Tile {
     // temporary cave tile toString
     @Override
     public String toString() {
-        return (ANSI_BRIGHT_BG_BLACK + ANSI_BG_RED + " C " + ANSI_RESET);
+        if (this.isActive()) {
+            if(this.getLocation() < 10) {
+                return (ANSI_BLACK + ANSI_BRIGHT_BG_BLUE + this.getLocation() + " *"  + ANSI_RESET);
+            } else {
+                return (ANSI_BLACK + ANSI_BRIGHT_BG_BLUE + this.getLocation() + "*"  + ANSI_RESET);
+            }
+        } else {
+            if (this.getLocation() < 10) {
+                return ANSI_BLACK + ANSI_BRIGHT_BG_BLUE + " " + this.getLocation() + " " + ANSI_RESET;
+            } else {
+                return ANSI_BLACK + ANSI_BRIGHT_BG_BLUE + this.getLocation() + " " + ANSI_RESET;
+            }
+        }
     }
 }

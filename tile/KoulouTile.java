@@ -7,9 +7,21 @@ public class KoulouTile extends Tile {
     public KoulouTile() {
     }
 
-    // temporary kpulou tile toString
+    // temporary kOulou tile toString
     @Override
     public String toString() {
-        return (ANSI_BRIGHT_BG_BLACK + ANSI_BG_RED + " K " + ANSI_RESET);
+        if (this.isActive()) {
+            if(this.getLocation() < 10) {
+                return (ANSI_BLACK + ANSI_BRIGHT_BG_RED + this.getLocation() + " *"  + ANSI_RESET);
+            } else {
+                return (ANSI_BLACK + ANSI_BRIGHT_BG_RED + this.getLocation() + "*"  + ANSI_RESET);
+            }
+        } else {
+            if (this.getLocation() < 10) {
+                return ANSI_BLACK + ANSI_BRIGHT_BG_RED + " " + this.getLocation() + " " + ANSI_RESET;
+            } else {
+                return ANSI_BLACK + ANSI_BRIGHT_BG_RED + this.getLocation() + " " + ANSI_RESET;
+            }
+        }
     }
 }
