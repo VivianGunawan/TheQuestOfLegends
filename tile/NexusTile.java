@@ -8,10 +8,19 @@ import static utils.ColouredOutputs.ANSI_RESET;
 public class NexusTile extends Tile {
 
     private final Merchant merchant;
+    private boolean containsMonster;
 
     // Constructor
     public NexusTile(Merchant merchant) {
         this.merchant = merchant;
+    }
+
+    public void setContainsMonster(boolean containsMonster) {
+        this.containsMonster = containsMonster;
+    }
+
+    public boolean containsMonster() {
+        return containsMonster;
     }
 
     public Merchant getMerchant() {

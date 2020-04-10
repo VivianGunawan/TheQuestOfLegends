@@ -14,7 +14,7 @@ public class PlainTile extends Tile {
         containsMonster = monster;
     }
 
-    public boolean getContainsMonster() {
+    public boolean containsMonster() {
         return this.containsMonster;
     }
 

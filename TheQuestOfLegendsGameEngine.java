@@ -96,6 +96,7 @@ public class TheQuestOfLegendsGameEngine {
         }
     }
     private void startQOLgame() {
+
         generateMonster();
         // place teams on their locations aka nexus
         for (int i = 0 ; i<this.numLane; i++){
@@ -104,6 +105,11 @@ public class TheQuestOfLegendsGameEngine {
         }
         this.map.displayMap();
         // begin rounds
+        this.map.place(2, (Character) this.heroes.get(1));
+      
+        // once you place on the nexus, the rounds begin
+        // for each hero
+
     }
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();

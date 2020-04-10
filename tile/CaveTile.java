@@ -4,7 +4,17 @@ import static utils.ColouredOutputs.*;
 
 public class CaveTile extends Tile {
 
+    private boolean containsMonster;
+
     public CaveTile(){
+    }
+
+    public void setContainsMonster(boolean containsMonster) {
+        this.containsMonster = containsMonster;
+    }
+
+    public boolean containsMonster() {
+        return containsMonster;
     }
 
     // temporary cave tile toString
