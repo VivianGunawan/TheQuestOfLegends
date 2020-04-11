@@ -10,6 +10,6 @@ public class InaccessibleTile extends Tile {
 
     @Override
     public String toString() {
-        return ANSI_BRIGHT_BLACK + ANSI_BRIGHT_BG_BLACK + "   " + ANSI_RESET;
+        return "   ";
     }
 }

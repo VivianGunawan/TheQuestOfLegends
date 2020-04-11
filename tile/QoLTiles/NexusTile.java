@@ -1,15 +1,19 @@
-package tile;
+package tile.QoLTiles;
 
 import character.merchant.Merchant;
-import static utils.ColouredOutputs.*;
+import tile.MarketTile;
+import tile.Tile;
 
-public class MarketTile extends Tile {
+import static utils.ColouredOutputs.*;
+import static utils.ColouredOutputs.ANSI_RESET;
+
+public class NexusTile extends BattleTile {
     //represents a market tile
     // Fields
     private final Merchant merchant;
 
     // Constructor
-    public MarketTile(Merchant merchant) {
+    public NexusTile(Merchant merchant) {
         this.merchant = merchant;
     }
 
@@ -19,10 +23,6 @@ public class MarketTile extends Tile {
 
     @Override
     public String toString() {
-        if (this.isContainsHero()) {
-            return (ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + "M *" + ANSI_RESET);
-        } else {
-            return ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + " M " + ANSI_RESET;
-        }
+        return ANSI_BLACK + ANSI_BRIGHT_BG_BLUE + super.toString() +ANSI_RESET;
     }
 }
