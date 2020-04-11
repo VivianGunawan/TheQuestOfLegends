@@ -14,13 +14,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static util.Defaults.*;
-import static util.IOConstants.*;
-import static util.IOConstants.QUIT;
-
 import static questOfLegends.QoLDefaults.*;
 import static src.util.GameInputs.*;
 import static src.util.IOConstants.DIVIDER;
+import static src.util.IOConstants.*;
 
 
 public class TheQuestOfLegendsGameEngine {
@@ -133,7 +130,7 @@ public class TheQuestOfLegendsGameEngine {
         for (int i = 0; i<this.numLane;i++){
             Hero currHero = this.heroTeam.getHero(i);
             int currHeroLocation = this.heroTeam.getLocation(i);
-            this.map.surroundingTilesContainMonster();
+            this.map.surroundingTilesContainMonster(currHeroLocation);
             // even if there is a  monster you dont need to attack
             // Ask user to select option
             move(currHero,currHeroLocation);// ask user for direction, validates user choice, set new location of hero
@@ -143,10 +140,10 @@ public class TheQuestOfLegendsGameEngine {
     }
 
     // a move method to allow the user to select a key to indicate in which direction they would like to move
-    private void move(int location){
+    private void move(Hero currentHero, int currentHeroLocation){
         char move = '\u0000';
         try{
-            while(!(checkMove(move, location) && validateTile(move)) && !(move == quit|| move == QUIT)){
+            while(!(checkMove(move, currentHeroLocation) && validateTile(move, currentHeroLocation)) && !(move == quit|| move == QUIT)){
                 System.out.println("Where would you like to move your hero? " +
                         "up:(" + up + "/" + UP +
                         ") down:("+ down + "/" + DOWN +
@@ -159,13 +156,10 @@ public class TheQuestOfLegendsGameEngine {
             }
             if(!(move == quit||move == QUIT)){
                 // loop through the team, each hero needs to perform an action
-                for (int i = 0; i < this.numLane; i++) {
-                    this.heroTeam.setLocation(i, computeLocation(move));
-                    //this.location = computeLocation(move);
-                    this.map.placeHero(this.heroTeam.getLocation(i), this.heroTeam.getHero(i));
-                    //this.map.place(this.location, this.team);
+                for (int i = 0; i < this.numLane - 1; i++) {
+                    this.heroTeam.setLocation(i, computeLocation(move, currentHeroLocation));
+                    this.map.placeHero(this.heroTeam.getLocation(i), currentHero);
                 }
-                move();
             }
             else{
                 return;
@@ -176,51 +170,53 @@ public class TheQuestOfLegendsGameEngine {
         }
     }
 
-    private boolean checkMove(char m, int location){
+    private boolean checkMove(char m, int currentHeroLocation){
         if( m == up || m == UP || m == down || m == DOWN || m == left ||m == LEFT|| m == right || m == RIGHT) {
             if (m == up || m == UP) {
-                return this.heroTeam.getLocation()
-                return this.location > this.rowsize;
+                return (currentHeroLocation > this.map.getRowSize());
             }
             else if (m == down || m == DOWN) {
-                return this.location <= (this.colsize - 1) * colsize || this.location > this.colsize * this.rowsize;
+                return currentHeroLocation <= (this.map.getColSize() - 1) * this.map.getColSize() || currentHeroLocation > this.map.getColSize() * this.map.getRowSize();
             }
             else if (m == left || m == LEFT) {
-                return this.location % this.rowsize != 1;
+                return (currentHeroLocation % this.map.getRowSize() != 1 && !(this.map.getTile(currentHeroLocation - 1) instanceof InaccessibleTile));
             }
             else {
-                return this.location % this.rowsize != 0;
+                return (currentHeroLocation % this.map.getRowSize() != 0 && !(this.map.getTile(currentHeroLocation + 1) instanceof InaccessibleTile));
             }
         }
         return false;
     }
-    private int computeLocation(char m){
+    private int computeLocation(char m, int currentHeroLocation){
         if(m==up||m==UP||m==down||m==DOWN||m==left||m==LEFT||m==right||m==RIGHT) {
             if (m == up || m == UP) {
-                if (!(this.location <= this.rowsize)) {
-                    return this.location-this.rowsize;
+                if (!(currentHeroLocation <= this.map.getRowSize())) {
+                    return (currentHeroLocation - this.map.getRowSize());
                 }
             }
             else if (m == down || m == DOWN) {
-                if (!(this.location > (this.colsize - 1) * colsize && this.location <= this.colsize * this.rowsize)) {
-                    return this.location+this.rowsize;
+                if (!(currentHeroLocation > (this.map.getColSize() - 1) * this.map.getColSize() &&
+                        currentHeroLocation <= this.map.getColSize() * this.map.getRowSize())) {
+                    return currentHeroLocation + this.map.getRowSize();
                 }
             }
             else if (m == left || m == LEFT) {
-                if (!(this.location % this.rowsize == 1)){
-                    return this.location-1;
+                // make sure that the tile to the left of the hero is not an inaccessible tile
+                if ((currentHeroLocation % this.map.getRowSize() != 1) || !(this.map.getTile(currentHeroLocation - 1) instanceof InaccessibleTile)) {
+                    return currentHeroLocation - 1;
                 }
             }
             else {
-                if (!(this.location % this.rowsize == 0)) {
-                    return this.location+1;
+                // make sure that the tile to the right of the hero is not an inaccessible tile
+                if((currentHeroLocation % this.map.getRowSize() != 0) || !(this.map.getTile(currentHeroLocation + 1) instanceof InaccessibleTile)) {
+                    return currentHeroLocation + 1;
                 }
             }
         }
         return 0;
     }
-    private boolean validateTile(char m){
-        if (this.map.getTile(computeLocation(m)) instanceof InaccessibleTile){
+    private boolean validateTile(char m, int currentHeroLocation){
+        if (this.map.getTile(computeLocation(m, currentHeroLocation)) instanceof InaccessibleTile){
             return false;
         }
         return true;

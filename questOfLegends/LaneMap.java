@@ -37,6 +37,14 @@ public class LaneMap {
         setMap(merchant);
     }
 
+    public Integer getRowSize() {
+        return this.rowsize;
+    }
+
+    public Integer getColSize() {
+        return this.getColSize();
+    }
+
     // Helper used to set the map
     private void setMap(Merchant merchant) {
         List<Tile> tileOptions = generateTileOptions();
