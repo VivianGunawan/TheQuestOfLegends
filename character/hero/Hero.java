@@ -11,9 +11,11 @@ import character.items.spells.Spell;
 import character.items.weapons.Weapon;
 
 // UTILITIES
-import utils.ErrorMessage;
-import static utils.IOConstants.*;
-import static utils.Defaults.*;
+import src.util.ErrorMessage;
+
+import static src.util.ColouredOutputs.ANSI_RESET;
+import static src.util.IOConstants.*;
+import static quest.QuestDefaults.*;
 
 // JAVA LIBRARIES
 import java.util.ArrayList;
@@ -103,6 +105,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             System.out.println("Would " + this.getName()+" like to change weapon (" + CHANGE_WEAPON_INPUT + ") or change armor (" + CHANGE_ARMOR_INPUT + ") or consume potion (" + CONSUME_POTION_INPUT + ")? (n for none)");
             while(opt!=CHANGE_WEAPON_INPUT && opt!=CHANGE_ARMOR_INPUT && opt!=CONSUME_POTION_INPUT && opt!=NONE){
                 opt = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if (opt == CHANGE_WEAPON_INPUT){
                 this.changeWeapon();
@@ -121,6 +124,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             try{
                 while(yn!=YES_INPUT && yn!=NO_INPUT){
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn==YES_INPUT){
                     return;
@@ -145,6 +149,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                 while (yn!=YES_INPUT&&yn!=NO_INPUT){
                     System.out.println("Would "+ this.getName() + " like to purchase more items? (" + YES_INPUT + "/" + NO_INPUT + ")" );
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn==YES_INPUT){
                     buy(availableItems);
@@ -165,6 +170,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                 while (yn!=YES_INPUT&&yn!=NO_INPUT){
                     System.out.println("Would "+ this.getName() + " like to sell more character? (" + YES_INPUT + "/" + NO_INPUT + ")" );
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn==YES_INPUT){
                     sellItem();
@@ -188,6 +194,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             System.out.println("Would " + this.getName()+" like to change weapon (" + CHANGE_WEAPON_INPUT + ") or change armor (" + CHANGE_ARMOR_INPUT + ")? (n for none)");
             while(opt!=CHANGE_WEAPON_INPUT && opt!=CHANGE_ARMOR_INPUT && opt!=NONE){
                 opt = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if (opt == CHANGE_WEAPON_INPUT){
                 this.changeWeapon();
@@ -203,6 +210,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             try{
                 while(yn!=YES_INPUT && yn!=NO_INPUT){
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn==YES_INPUT){
                     return;
@@ -225,7 +233,9 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                 while(potionIndex<1||potionIndex>this.inventory.numItems()||!(this.inventory.getItem(potionIndex-1) instanceof Potion)){
                     System.out.println("Which potion would " + this.getName() +" like to consume? (item #)");
                     potionIndex = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
+                    System.out.println(DIVIDER);
                 }
                 consume((Potion) this.inventory.getItem(potionIndex-1));
             }catch (InputMismatchException e){
@@ -275,11 +285,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             try {
                 System.out.println("Which spell would " + this.getName() + " like to cast? (item #)");
                 spellIndex = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
                 while ((spellIndex < 1 || spellIndex > this.inventory.numItems()) || !(this.inventory.getItem(spellIndex - 1) instanceof Spell)) {
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please enter valid item #");
                     spellIndex = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
             } catch (InputMismatchException e) {
@@ -328,9 +340,9 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
     public String battleDisplay(){
         String out = "==============================\n";
         out += this.getClass().getSimpleName() + "\n" +
-                super.toString() + "\n" +
-                "Mana: " + this.mana + "\n" +
-                "Equipped armor: \n" + this.armor.battleDisplay() + "\n" +
+                super.toString() +
+                "Mana: " + this.mana + ANSI_RESET + "\n" +
+                "Equipped armor: \n" + this.armor.battleDisplay() +
                 "Equipped weapons: \n" + battleDisplayW() ;
         return out ;
     }
@@ -365,11 +377,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         int itemIndex = 0;
         try{
             itemIndex = scan.nextInt();
+            System.out.println(DIVIDER);
             scan.nextLine();
             while(itemIndex<1||itemIndex> availableItems.size()){
                 ErrorMessage.printErrorOutOfRange();
                 System.out.println("Please enter valid item #");
                 itemIndex = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
             }
         }
@@ -383,11 +397,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             int pq = 0;
             try{
                 pq  = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
                 while(pq<1||pq>maxpq){
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please purchase affordable quantity of " + temp.getName());
                     pq = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
             }
@@ -413,11 +429,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         int itemIndex = 0;
         try{
             itemIndex = scan.nextInt();
+            System.out.println(DIVIDER);
             scan.nextLine();
             while(itemIndex<1||itemIndex>this.inventory.numItems()){
                 ErrorMessage.printErrorOutOfRange();
                 System.out.println("Please enter valid item #");
                 itemIndex = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
             }
         }
@@ -431,11 +449,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             int rq = 0;
             try{
                 rq  = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
                 while(rq<1||rq>maxrq){
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please purchase affordable quantity of " + temp.getName());
                     rq = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
             }
@@ -461,9 +481,11 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         char eu = '\u0000';
         try {
             eu = scan.next().charAt(0);
+            System.out.println(DIVIDER);
             while (eu != EQUIP_INPUT && eu != UNEQUIP_INPUT) {
                 System.out.println("Would " + this.getName() + " like to equip or unequip weapons? (" + EQUIP_INPUT + "/" + UNEQUIP_INPUT + ")");
                 eu = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if (eu == EQUIP_INPUT) {
                 if (numHandsUsed() != this.hands) {
@@ -474,12 +496,14 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                             while (yn != YES_INPUT && yn != NO_INPUT) {
                                 System.out.println("Would " + this.getName() + " like to equip more items? (" + YES_INPUT + "/" + NO_INPUT + ")");
                                 yn = scan.next().charAt(0);
+                                System.out.println(DIVIDER);
                             }
                             while (yn == YES_INPUT) {
                                 equip();
                                 if (this.inventory.numWeapons() != 0) {
                                     System.out.println("Would " + this.getName() + " like to equip more items? (" + YES_INPUT + "/" + NO_INPUT + ")");
                                     yn = scan.next().charAt(0);
+                                    System.out.println(DIVIDER);
                                 } else {
                                     break;
                                 }
@@ -498,12 +522,14 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                             while (yn != YES_INPUT && yn != NO_INPUT) {
                                 System.out.println("Would " + this.getName() + " like to unequip more weapons? (" + YES_INPUT + "/" + NO_INPUT + ")");
                                 yn = scan.next().charAt(0);
+                                System.out.println(DIVIDER);
                             }
                             while (yn == YES_INPUT) {
                                 unequip();
                                 if (this.weapons.size() != 0) {
                                     System.out.println("Would " + this.getName() + " like to unequip more weapons? (" + YES_INPUT + "/" + NO_INPUT + ")");
                                     yn = scan.next().charAt(0);
+                                    System.out.println(DIVIDER);
                                 } else {
                                     break;
                                 }
@@ -519,6 +545,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             try {
                 while (yn != YES_INPUT && yn != NO_INPUT) {
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn == YES_INPUT) {
                     return;
@@ -574,11 +601,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         int  weaponIndex = 0;
         try{
             weaponIndex = scan.nextInt();
+            System.out.println(DIVIDER);
             scan.nextLine();
             while((weaponIndex<1||weaponIndex>this.inventory.numItems())||!(this.inventory.getItem(weaponIndex-1) instanceof Weapon)){
                 ErrorMessage.printErrorOutOfRange();
                 System.out.println("Please enter valid item #");
                 weaponIndex = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
             }
         }
@@ -592,11 +621,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             int eq = 0;
             try {
                 eq = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
                 while (eq < 1 || eq > maxeq) {
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please equip equipable quantity of " + temp.getName());
                     eq = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
             } catch (InputMismatchException e) {
@@ -619,11 +650,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         try{
             System.out.println("Which weapon would "+ this.getName() + " like to unequip? (weapon #)");
             weaponIndex = scan.nextInt();
+            System.out.println(DIVIDER);
             scan.nextLine();
             while(weaponIndex<1||weaponIndex>this.weapons.size()){
                 ErrorMessage.printErrorOutOfRange();
                 System.out.println("Please enter valid weapon #");
                 weaponIndex = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
             }
         }
@@ -637,11 +670,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             int rq = 0;
             try{
                 rq  = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
                 while(rq<1||rq>maxrq){
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please unequip unequipable quantity of " + temp.getName());
                     rq = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
             }
@@ -696,6 +731,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             while (eu != EQUIP_INPUT && eu != UNEQUIP_INPUT) {
                 System.out.println("Would " + this.getName() + " like to equip or unequip armor? (" + EQUIP_INPUT + "/" + UNEQUIP_INPUT + ")");
                 eu = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if (eu == EQUIP_INPUT) {
                 if (this.armor.getName() == null) {
@@ -705,11 +741,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                         try {
                             System.out.println("Which armor would " + this.getName() + " like to equip? (item #)");
                             armorIndex = scan.nextInt();
+                            System.out.println(DIVIDER);
                             scan.nextLine();
                             while ((armorIndex < 1 || armorIndex > this.inventory.numItems()) || !(this.inventory.getItem(armorIndex - 1) instanceof Armor)){
                                 ErrorMessage.printErrorOutOfRange();
                                 System.out.println("Please enter valid item #");
                                 armorIndex = scan.nextInt();
+                                System.out.println(DIVIDER);
                                 scan.nextLine();
                             }
                         } catch (InputMismatchException e) {
@@ -740,6 +778,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             try {
                 while (yn != YES_INPUT && yn != NO_INPUT) {
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn == YES_INPUT) {
                     return;
@@ -764,6 +803,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                 while(potionIndex<1||potionIndex>this.inventory.numItems()||!(this.inventory.getItem(potionIndex-1) instanceof Potion)){
                     System.out.println("Which potion would " + this.getName() +" like to consume? (item #)");
                     potionIndex = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
                 consume((Potion) this.inventory.getItem(potionIndex-1));
@@ -773,6 +813,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                 try{
                     while(yn!=YES_INPUT&&yn!=NO_INPUT){
                         yn = scan.next().charAt(0);
+                        System.out.println(DIVIDER);
                     }
                     if (yn==YES_INPUT){
                         return;

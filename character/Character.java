@@ -1,6 +1,7 @@
 package character;
 
-import static utils.Defaults.*;
+
+import static quest.QuestDefaults.HP_MULTIPLIER;
 
 public abstract class Character {
     // represents a blueprint for all possible characters

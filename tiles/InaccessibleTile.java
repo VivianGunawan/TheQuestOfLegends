@@ -1,6 +1,4 @@
-package tile;
-
-import static utils.ColouredOutputs.*;
+package tiles;
 
 public class InaccessibleTile extends Tile {
     // represents an inaccessible tile

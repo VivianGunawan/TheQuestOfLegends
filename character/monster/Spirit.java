@@ -1,7 +1,7 @@
 package character.monster;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_CYAN;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.ANSI_BRIGHT_CYAN;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class Spirit extends Monster {
     public Spirit( String name, int expLevel, double damage, double defense, double dodgeChance){

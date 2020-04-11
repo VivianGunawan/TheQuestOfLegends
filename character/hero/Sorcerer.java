@@ -1,8 +1,9 @@
 package character.hero;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_PURPLE;
-import static utils.ColouredOutputs.ANSI_RESET;
-import static utils.Defaults.SKILLS_MULTIPLIER;
+import static quest.QuestDefaults.SKILLS_MULTIPLIER;
+import static src.util.ColouredOutputs.ANSI_BRIGHT_PURPLE;
+import static src.util.ColouredOutputs.ANSI_RESET;
+
 
 public class Sorcerer extends Hero{
     // Constructor

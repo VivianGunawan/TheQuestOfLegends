@@ -1,12 +1,14 @@
-import character.Team;
+package quest;
+
 import character.merchant.Merchant;
 import character.hero.Hero;
 import character.monster.Monster;
-import tile.InaccessibleTile;
+import tiles.InaccessibleTile;
 
-import utils.ErrorMessage;
-import static utils.Defaults.*;
-import static utils.IOConstants.*;
+import src.util.ErrorMessage;
+import static src.util.GameInputs.*;
+import static src.util.IOConstants.*;
+import static quest.QuestDefaults.*;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -16,7 +18,7 @@ import java.util.Scanner;
 
 
 public class TheQuestGameEngine {
-    // This class serves as the game engine
+    // This class serves as the game engine for the quest
     // Fields
     private final int rowsize;
     private final int colsize;
@@ -45,6 +47,9 @@ public class TheQuestGameEngine {
         this.heroes = DEFAULT_HEROES;
         this.monsters =DEFAULT_MONSTERS;
         this.map = new Map(this.rowsize, this.colsize, this.probabilityInaccessible, this.probabilityMarket, this.probabilityCommon, this.merchant, this.monsters, this.probabilityEncounter);
+        System.out.println("=============== WELCOME TO THE QUEST ===============");
+        this.map.display();
+        System.out.println("================== TEAM SELECTION ==================");
         this.team = selectTeam();
         startGame();
     }
@@ -55,11 +60,13 @@ public class TheQuestGameEngine {
         System.out.println("How many heroes do you want in your team ? (1-3)");
         try {
             nC = scan.nextInt();
+            System.out.println(DIVIDER);
             scan.nextLine();
             while (nC < 1 || nC > 3) {
                 ErrorMessage.printErrorOutOfRange();
                 System.out.println("Please enter valid amount of team members (1-3)");
                 nC = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
             }
         } catch (InputMismatchException e) {
@@ -70,18 +77,20 @@ public class TheQuestGameEngine {
     // Prompts user to select a team of heroes
     private Team selectTeam() {
         int nC = numTeam();
-        List<character.hero.Hero> team = new ArrayList<character.hero.Hero>();
-        System.out.println("Hero Selection");
+        List<Hero> team = new ArrayList<Hero>();
+        System.out.println("================== HERO SELECTION ==================");
         for (int i = 0; i < this.heroes.size(); i++) {
             System.out.println("HERO ID: " + (i + 1));
-            System.out.println(this.heroes.get(i));
+            System.out.print(this.heroes.get(i));
+            System.out.println(DIVIDER);
         }
         for (int j = 0; j < nC; j++) {
-            character.hero.Hero temp = this.heroes.get(0);
+            Hero temp = this.heroes.get(0);
             System.out.println("Please select HERO ID for team member " + (j + 1));
             try {
                 int index = scan.nextInt();
                 scan.nextLine();
+                System.out.println(DIVIDER);
                 try {
                     temp = this.heroes.get(index - 1);
                 } catch (Exception o) {
@@ -90,6 +99,7 @@ public class TheQuestGameEngine {
                 while (index < 1 || index > this.heroes.size() || team.contains(temp)) {
                     System.out.println("Please select a different HERO ID");
                     index = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                     try {
                         temp = this.heroes.get(index - 1);
@@ -99,6 +109,7 @@ public class TheQuestGameEngine {
                 }
                 team.add(temp);
                 System.out.println(temp.getName() + " successfully added to team");
+                System.out.println(DIVIDER);
             } catch (Exception e) {
                 ErrorMessage.printErrorInvalidInput();
             }
@@ -110,6 +121,7 @@ public class TheQuestGameEngine {
     facilitates map traversal as long as user does not quit the game
     */
     private void startGame() {
+        System.out.println("================== STARTING GAME ===================");
         this.location = this.map.getSafeStart();
         this.map.place(this.location, this.team);
         move();
@@ -118,14 +130,15 @@ public class TheQuestGameEngine {
         char m = '\u0000';
         try{
             while(!(checkMove(m)&&validateTile(m))&&!(m==quit||m==QUIT)){
-                System.out.println("Where would you like to move your hero? " +
-                                    "up:(" + up + "/" + UP +
+                System.out.println("Where would you like to move your hero? ");
+                System.out.println("up:(" + up + "/" + UP +
                                     ") down:("+ down + "/" + DOWN +
                                     ") left:("+ left + "/" + LEFT +
                                     ") right:("+ right + "/" + RIGHT +
                                     ") quit:(" + quit + "/" + QUIT + ")"
                                     );
                 m = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if(!(m==quit||m==QUIT)){
                 this.location = computeLocation(m);

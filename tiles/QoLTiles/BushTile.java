@@ -1,8 +1,6 @@
-package tile.QoLTiles;
+package tiles.QoLTiles;
 
-import tile.Tile;
-
-import static utils.ColouredOutputs.*;
+import static src.util.ColouredOutputs.*;
 
 public class BushTile extends BattleTile{
 

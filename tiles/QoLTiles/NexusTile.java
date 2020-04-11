@@ -1,11 +1,9 @@
-package tile.QoLTiles;
+package tiles.QoLTiles;
 
 import character.merchant.Merchant;
-import tile.MarketTile;
-import tile.Tile;
 
-import static utils.ColouredOutputs.*;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.*;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class NexusTile extends BattleTile {
     //represents a market tile

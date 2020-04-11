@@ -2,8 +2,8 @@ package character.items.weapons;
 
 import character.items.Item;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_WHITE;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.ANSI_BRIGHT_WHITE;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class Weapon extends Item {
     // Used by hero to attack a monster

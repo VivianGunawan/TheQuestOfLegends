@@ -1,7 +1,7 @@
 package character.items.potions;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_PURPLE;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.ANSI_BRIGHT_PURPLE;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class Dexterity extends Potion{
     public Dexterity(String name, double price, int reqLevel, double effect){

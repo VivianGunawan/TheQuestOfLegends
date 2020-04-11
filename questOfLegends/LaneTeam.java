@@ -1,3 +1,5 @@
+package questOfLegends;
+
 import character.Character;
 import character.hero.Hero;
 import character.monster.Monster;

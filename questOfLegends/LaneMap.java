@@ -1,8 +1,10 @@
+package questOfLegends;
+
 import character.hero.Hero;
 import character.merchant.Merchant;
 import character.monster.Monster;
-import tile.*;
-import tile.QoLTiles.*;
+import tiles.*;
+import tiles.QoLTiles.*;
 
 import java.util.*;
 
@@ -60,7 +62,7 @@ public class LaneMap {
     }
 
     // Displays Map
-    public void displayMap(){
+    public void display(){
         String border = "----+";
         System.out.println("+" + border.repeat(colsize));
         for (int i = 0; i < rowsize; i++) {

@@ -1,4 +1,4 @@
-package utils;
+package src.util;
 
 public class ColouredOutputs {
     // Used for displaying coloured outputs

@@ -1,7 +1,7 @@
 package character.items.potions;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_GREEN;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.ANSI_BRIGHT_GREEN;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class Health extends Potion{
     public Health(String name, double price, int reqLevel, double effect){
