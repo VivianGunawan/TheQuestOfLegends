@@ -1,7 +1,7 @@
 package character.items.spells;
 
-import static utils.ColouredOutputs.ANSI_BLUE;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.ANSI_BLUE;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class Lightning extends Spell {
     public Lightning(String name, double price, int reqLevel, double damage, double mana){

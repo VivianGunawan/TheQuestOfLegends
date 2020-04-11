@@ -1,4 +1,4 @@
-package utils;
+package src.util;
 
 public class IOConstants {
     //////////////////////////////////////////////
@@ -48,4 +48,6 @@ public class IOConstants {
     public static final char CHANGE_INPUT = 'k';
     public static final char USE_POTION_INPUT = 'u';
 
+    // Displays
+    public static final String DIVIDER = "----------------------------------------------------";
 }

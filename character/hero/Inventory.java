@@ -9,6 +9,8 @@ import character.items.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static src.util.IOConstants.DIVIDER;
+
 public class Inventory {
     //Fields
     private ArrayList<ItemQuantity> inventory;
@@ -100,48 +102,52 @@ public class Inventory {
     }
     public void maskInventoryWDisplay() {
         int i = 1;
-        System.out.print("\033[0;1m" + "WEAPONS IN INVENTORY\n" + "\u001B[0m" + "---------------------------\n");
+        System.out.println("=============== WEAPONS IN INVENTORY ===============");
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
             if (temp.getI() instanceof Weapon) {
-                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n" + temp.getI().toString() + "\n---------------------------\n");
+                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n" + temp.getI().toString());
+                System.out.println(DIVIDER);
             }
             i++;
         }
     }
     public void maskInventoryADisplay(){
         int i = 1;
-        System.out.print("\033[0;1m"+ "ARMORS IN INVENTORY\n"+ "\u001B[0m" +"---------------------------\n");
+        System.out.println("================ ARMORS IN INVENTORY ===============");
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while(itr.hasNext()){
             ItemQuantity temp = itr.next();
-            if(temp.getI() instanceof Armor) {
-                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n"+ temp.getI().toString() +"\n---------------------------\n");
+            if (temp.getI() instanceof Armor) {
+                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n" + temp.getI().toString());
+                System.out.println(DIVIDER);
             }
             i++;
         }
     }
     public void maskInventoryPDisplay(){
         int i = 1;
-        System.out.print("\033[0;1m"+ "POTIONS IN INVENTORY\n"+ "\u001B[0m" +"---------------------------\n");
+        System.out.println("=============== POTIONS IN INVENTORY ===============");
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while(itr.hasNext()){
             ItemQuantity temp = itr.next();
             if(temp.getI() instanceof Potion) {
-                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n"+ temp.getI().toString() +"\n---------------------------\n");
+                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n" + temp.getI().toString());
+                System.out.println(DIVIDER);
             }
             i++;
         }
     }
     public void maskInventorySDisplay(){
         int i = 1;
-        System.out.print("\033[0;1m"+ "SPELLS IN INVENTORY\n"+ "\u001B[0m" +"---------------------------\n");
+        System.out.println("================ SPELLS IN INVENTORY ===============");
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while(itr.hasNext()){
             ItemQuantity temp = itr.next();
             if(temp.getI() instanceof Spell) {
-                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n"+ temp.getI().toString() +"\n---------------------------\n");
+                System.out.print("Item " + i + "\n" + "Quantity: " + temp.getQ() + "\n" + temp.getI().toString());
+                System.out.println(DIVIDER);
             }
             i++;
         }
@@ -154,9 +160,9 @@ public class Inventory {
         Iterator<ItemQuantity> itr = this.inventory.iterator();
         while (itr.hasNext()) {
             ItemQuantity temp = itr.next();
-            out += "Item " + i + "\n" + temp.toString() + "\n---------------------------\n";
+            out += "Item " + i + "\n" + temp.toString() + DIVIDER + "\n";
             i++;
         }
-        return "\033[0;1m" + "INVENTORY\n" + "\u001B[0m" + "---------------------------\n" + out;
+        return ("==================== INVENTORY =====================" + "\n" + out);
     }
 }

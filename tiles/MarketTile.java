@@ -1,7 +1,7 @@
-package tile;
+package tiles;
 
 import character.merchant.Merchant;
-import static utils.ColouredOutputs.*;
+import static src.util.ColouredOutputs.*;
 
 public class MarketTile extends Tile {
     //represents a market tile

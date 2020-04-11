@@ -1,9 +1,9 @@
-package tile;
+package tiles;
 
 import character.monster.Monster;
 import java.util.*;
 import java.util.stream.Collectors;
-import static utils.ColouredOutputs.*;
+import static src.util.ColouredOutputs.*;
 
 public class CommonTile extends Tile {
     //represents a common tile

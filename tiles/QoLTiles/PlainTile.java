@@ -1,8 +1,6 @@
-package tile.QoLTiles;
+package tiles.QoLTiles;
 
-import tile.Tile;
-
-import static utils.ColouredOutputs.*;
+import static src.util.ColouredOutputs.*;
 
 // A class for the plain tile in QoL
 public class PlainTile extends BattleTile{

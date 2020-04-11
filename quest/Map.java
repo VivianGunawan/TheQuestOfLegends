@@ -1,12 +1,13 @@
-import character.Team;
+package quest;
+
 import character.merchant.Merchant;
 import character.monster.Monster;
-import tile.*;
-import utils.ErrorMessage;
+import tiles.*;
+import src.util.ErrorMessage;
 
 import java.util.*;
 
-import static utils.IOConstants.*;
+import static src.util.IOConstants.*;
 
 public class Map{
     // represent the map of the game play
@@ -61,15 +62,17 @@ public class Map{
     public void place(int location, Team heroes){
         Tile t = this.map[(location-1)/this.rowsize][(location-1)%this.rowsize];
         t.setContainsHero(true);
+        display();
         if(t instanceof MarketTile){
             MarketTile currentMarket = (MarketTile) t;
             System.out.println("You have entered a market tile");
+            System.out.println(DIVIDER);
             char yn = '\u0000';
-            display();
             try{
                 while(yn != YES_INPUT && yn != NO_INPUT){
                     System.out.println("Would you like to leave in current tile? (" + YES_INPUT + "/" +NO_INPUT + ")");
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 while(yn == NO_INPUT){
                     char opt = '\u0000';
@@ -78,6 +81,7 @@ public class Map{
                             System.out.println("Would you like to perform a transaction (" + TRANSACTION_INPUT +
                                     ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
                             opt = scan.next().charAt(0);
+                            System.out.println(DIVIDER);
                         }
                     }catch (Exception e){
                         ErrorMessage.printErrorInvalidInput();
@@ -96,6 +100,7 @@ public class Map{
                                 System.out.print("Would you like to perform a transaction (" + TRANSACTION_INPUT +
                                         ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
                                 opt = scan.next().charAt(0);
+                                System.out.println(DIVIDER);
                             }
                         }catch (Exception e) {
                             ErrorMessage.printErrorInvalidInput();
@@ -105,8 +110,10 @@ public class Map{
                     System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" +NO_INPUT + ")");
                     try {
                         yn = scan.next().charAt(0);
+                        System.out.println(DIVIDER);
                         while( yn != YES_INPUT && yn != NO_INPUT){
                             yn = scan.next().charAt(0);
+                            System.out.println(DIVIDER);
                         }
                     } catch (InputMismatchException e) {
                         ErrorMessage.printErrorInvalidInput();
@@ -134,6 +141,7 @@ public class Map{
                 while (ync != YES_INPUT && ync != NO_INPUT) {
                     System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" + NO_INPUT + ")");
                     ync = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 while (ync == NO_INPUT) {
                     heroes.exploreInventory();
@@ -141,8 +149,10 @@ public class Map{
                     System.out.println("Would you like to leave current tile? (" + YES_INPUT + "/" + NO_INPUT + ")");
                     try {
                         ync = scan.next().charAt(0);
+                        System.out.println(DIVIDER);
                         while (ync != YES_INPUT && ync != NO_INPUT) {
                             ync = scan.next().charAt(0);
+                            System.out.println(DIVIDER);
                         }
                     } catch (InputMismatchException e) {
                         ErrorMessage.printErrorInvalidInput();

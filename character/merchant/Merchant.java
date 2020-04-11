@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static src.util.IOConstants.DIVIDER;
+
 public class Merchant extends character.Character implements Transaction{
     // This represent the merchant that lives in a market tile
     // Fields
@@ -27,11 +29,12 @@ public class Merchant extends character.Character implements Transaction{
                 .filter(item -> item.getReqLevel() <= maxlvl)
                 .collect(Collectors.toList());
 
-        System.out.print("\033[0;1m" + "ITEMS PURCHASABLE BASED ON YOUR LEVEL IN THE MARKET\n" + "\u001B[0m" + "======================================================\n");
+        System.out.println("========== LEVEL BASED PURCHASABLE ITEMS ===========");
         int i = 1;
         Iterator<Item> itr = this.availableItems.iterator();
         while (itr.hasNext()) {
-            System.out.print("Item " + i + "\n" + itr.next().toString() + "---------------------------\n");
+            System.out.print("Item " + i + "\n" + itr.next().toString());
+            System.out.println(DIVIDER);
             i++;
         }
     }
