@@ -125,17 +125,17 @@ public class LaneMap {
 
     // Place hero on the map
     public void placeHero(int location, Hero hero) {
-        Tile currTile  = this.map[(location-1)/this.colsize][(location-1)%this.colsize];
+        Tile currTile  = getTile(location);
         currTile.setContainsHero(true);
     }
     // Place monster on the
     public void placeMonster(int location, Monster monster){
-        BattleTile currTile  = (BattleTile) this.map[(location-1)/this.colsize][(location-1)%this.colsize];
+        BattleTile currTile  = (BattleTile) getTile(location);
         currTile.setContainsMonster(true);
     }
 
     public Tile getTile(int location){
-        return  this.map[(location-1)/this.rowsize][(location-1)%this.rowsize];
+        return  this.map[(location-1)/this.colsize][(location-1)%this.colsize];
     }
 
     public List<Integer> surroundingTilesContainMonster(int location) {

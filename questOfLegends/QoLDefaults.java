@@ -10,5 +10,7 @@ public class QoLDefaults {
     public static final double DEFAULT_PROBABILITY_BUSH = 0.1;
     public static final double DEFAULT_PROBABILITY_KOULOU = 0.1;
     public static final double DEFAULT_PROBABILITY_CAVE = 0.1;
+
+    public static final int MONSTER_SPAWN_RATE = 8;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

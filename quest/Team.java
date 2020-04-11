@@ -255,7 +255,7 @@ public class Team{
                                                     ErrorMessage.printErrorOutOfRange();
                                                 }
                                             }
-                                            AttackResult sres = enemies.get(i).receiveSpell(casted, currHero.castSpellDamage(casted));
+                                            AttackResult sres = enemies.get(monsterId-1).receiveSpell(casted, currHero.castSpellDamage(casted));
                                             if (sres == AttackResult.DODGE) {
                                                 System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s spell");
                                                 System.out.println(enemies.get(monsterId - 1));
