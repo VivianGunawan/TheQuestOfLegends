@@ -39,6 +39,7 @@ public class TheQuestOfLegendsGameEngine {
         this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;
         this.probabilityBush = DEFAULT_PROBABILITY_BUSH;
         this.map = new LaneMap(this.numLane, this.laneSize, this.laneLength, this.merchant, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
+        this.map.displayMap();
         this.heroTeam = selectTeam();
         this.monsterTeam = new LaneTeam();
         startQOLgame();
@@ -80,7 +81,7 @@ public class TheQuestOfLegendsGameEngine {
         }
         LaneTeam heroes = new LaneTeam();
         for (int k = 0; k< this.numLane; k++){
-            heroes.addMember(tempTeam.get(k),k+1,0); // change this to result from getHeroesNexus
+            heroes.addMember(tempTeam.get(k),k+1,this.map.getHeroesNexus().get(k)); // change this to result from getHeroesNexus
         }
         return heroes;
     }
@@ -90,26 +91,24 @@ public class TheQuestOfLegendsGameEngine {
                 .filter(monster -> monster.getLevel() == this.heroTeam.getMaxLevel())
                 .collect(Collectors.toList());
         availableMonsters.addAll(temp);
+        // only 3 types of monster
+        if(this.numLane>3){
+            for(int k = 0; k < this.numLane/3; k++){
+                availableMonsters.addAll(temp);
+            }
+        }
         Collections.shuffle(availableMonsters);
-        for (int k = 0; k< this.numLane; k++){
-            this.monsterTeam.addMember(availableMonsters.get(k),k+1,0); // change this to result from getMonsterNexus
+        for (int l = 0; l< this.numLane; l++){
+            this.monsterTeam.addMember(availableMonsters.get(l),l+1, this.map.getMonstersNexus().get(l)); // change this to result from getMonsterNexus
         }
     }
     private void startQOLgame() {
-
         generateMonster();
-        // place teams on their locations aka nexus
         for (int i = 0 ; i<this.numLane; i++){
-            //this.map.place(this.heroTeam.getHero(i),this.heroTeam.getLocation(i));
-            //this.map.place(this.monsterTeam.getMonster(i),this.monsterTeam.getLocation(i));
+            this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
+            this.map.placeMonster(this.monsterTeam.getLocation(i),this.monsterTeam.getMonster(i));
         }
         this.map.displayMap();
-        // begin rounds
-        this.map.place(2, (Character) this.heroes.get(1));
-      
-        // once you place on the nexus, the rounds begin
-        // for each hero
-
     }
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();

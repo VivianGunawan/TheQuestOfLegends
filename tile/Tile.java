@@ -4,23 +4,33 @@ public abstract class Tile{
     // represent a blueprint for all types of tile
     // Fields
     private int location;
-    private boolean active;
+    private boolean containsHero;
     //Constructor
     public Tile(){
-        this.active = false;
+        this.containsHero = false;
     }
     //Mutator
     public void setLocation(int location){
         this.location = location;
     }
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setContainsHero(boolean containsHero) {
+        this.containsHero = containsHero;
     }
     //Accessor
     public int getLocation(){
         return this.location;
     }
-    public boolean isActive() {
-        return active;
+    public boolean isContainsHero() {
+        return containsHero;
+    }
+
+    @Override
+    public String toString() {
+        if(this.containsHero){
+            return "*";
+        }
+        else{
+            return " ";
+        }
     }
 }

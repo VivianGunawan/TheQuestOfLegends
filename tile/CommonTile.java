@@ -40,7 +40,7 @@ public class CommonTile extends Tile {
 
     @Override
     public String toString() {
-        if (this.isActive()) {
+        if (this.isContainsHero()) {
             return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + "C *" + ANSI_RESET;
         } else {
             return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + " C " + ANSI_RESET;

@@ -1,15 +1,10 @@
-import character.AttackResult;
 import character.hero.Hero;
-import character.items.spells.Spell;
 import character.merchant.Merchant;
+import character.monster.Monster;
 import tile.*;
-import utils.ErrorMessage;
+import tile.QoLTiles.*;
 
 import java.util.*;
-import java.util.stream.IntStream;
-
-import static utils.IOConstants.*;
-import static utils.IOConstants.CAST_INPUT;
 
 public class LaneMap {
     // represents the map for The Quest of Legends
@@ -33,8 +28,8 @@ public class LaneMap {
         this.probabilityBush = probabilityBush;
         this.probabilityKoulou = probabilityKoulou;
         this.probabilityCave = probabilityCave;
-        rowsize = laneLength + 2;
-        colsize = (numLane * laneSize) + numLane - 1;
+        this.rowsize = laneLength + 2;
+        this.colsize = (numLane * laneSize) + numLane - 1;
         this.map = new Tile[rowsize][colsize];
 
         setMap(merchant);
@@ -43,47 +38,39 @@ public class LaneMap {
     // Helper used to set the map
     private void setMap(Merchant merchant) {
         List<Tile> tileOptions = generateTileOptions();
-        int colCounter = 0;
-        for (int i = 0; i < rowsize; i++) {
-            // first and last row, nexus cells
-            if (i == 0 || i == rowsize - 1) {
-                for (int j = 0; j < colsize; j++) {
-                    if (colCounter < laneSize) {
-                        this.map[i][j] = new NexusTile(merchant);
-                        this.map[i][j].setLocation((i * rowsize) + j + 1);
-                        colCounter++;
-                    } else {
-                        this.map[i][j] = new InaccessibleTile();
-                        this.map[i][j].setLocation((i * rowsize) + j + 1);
-                        colCounter = 0;
+        Iterator<Tile> tileOptionsIterator = tileOptions.iterator();
+        for(int r = 0 ; r<this.rowsize ; r++) {
+            for( int c = 0; c<this.colsize; c++){
+                if(c==laneSize || (c>this.laneSize && (c-this.laneSize)%(this.laneSize+1)==0)){
+                    this.map[r][c]= new InaccessibleTile();
+                }
+                else{
+                    if(r==0||r==this.rowsize-1){
+                        this.map[r][c]= new NexusTile(merchant);
+                    }
+                    else{
+                        if(tileOptionsIterator.hasNext()) {
+                            this.map[r][c] = tileOptionsIterator.next();
+                        }
                     }
                 }
-                colCounter = 0;
-            } else {
-                // the rows in between the first and the last
-                for (int j = 0; j < colsize; j++) {
-                    if (colCounter < laneSize) {
-                        this.map[i][j] = tileOptions.get((i * rowsize) + j);
-                        this.map[i][j].setLocation((i * rowsize) + j + 1);
-                        colCounter++;
-                    } else {
-                        this.map[i][j] = new InaccessibleTile();
-                        this.map[i][j].setLocation((i * rowsize) + j + 1);
-                        colCounter = 0;
-                    }
-                }
-                colCounter = 0;
+                this.map[r][c].setLocation((r*this.colsize)+c+1);
             }
         }
     }
 
     // Displays Map
     public void displayMap(){
-        String border = "---+";
+        String border = "----+";
         System.out.println("+" + border.repeat(colsize));
         for (int i = 0; i < rowsize; i++) {
             for (int j = 0; j < colsize; j++) {
-                System.out.print("|" + map[i][j].toString());
+                if (map[i][j].toString().length()==3){
+                    System.out.print("| " + map[i][j].toString());
+                }
+                else{
+                    System.out.print("|" + map[i][j].toString());
+                }
             }
             System.out.print("|");
             System.out.println();
@@ -118,30 +105,31 @@ public class LaneMap {
         return tempTileList;
     }
 
-    /**
-     * A place method for the QoL game
-     */
-    public void place(int location, Character character) {
-        Tile desiredTile = this.map[(location-1)/this.rowsize][(location-1)%this.rowsize];
-        desiredTile.setActive(true);
-        // the place method for the heroes
-        if (character.getClass().isInstance(Hero.class)) {
-            if (surroundingTilesContainMonster(location).size()>0){
-
-
-                if (desiredTile instanceof  NexusTile) {
-                    // in a Nexus tile
-                }
-                else {
-
-                    // ch
-                }
-            } else {
-                // no battle, but you can do everything else
-            }
-        } else {
-            // Place method for the monsters
+    // Retrieve locations of nexus
+    public List<Integer> getHeroesNexus(){
+        List<Integer> heroesNexus = new ArrayList<>();
+        for(int i = this.colsize*(this.rowsize-1)+1; i< this.colsize*this.rowsize; i+= this.laneSize+1){
+            heroesNexus.add(i);
         }
+        return heroesNexus;
+    }
+    public List<Integer> getMonstersNexus(){
+        List<Integer> monstersNexus = new ArrayList<>();
+        for(int i = 1; i< this.colsize; i+= this.laneSize+1){
+            monstersNexus.add(i);
+        }
+        return monstersNexus;
+    }
+
+    // Place hero on the map
+    public void placeHero(int location, Hero hero) {
+        Tile currTile  = this.map[(location-1)/this.colsize][(location-1)%this.colsize];
+        currTile.setContainsHero(true);
+    }
+    // Place monster on the
+    public void placeMonster(int location, Monster monster){
+        BattleTile currTile  = (BattleTile) this.map[(location-1)/this.colsize][(location-1)%this.colsize];
+        currTile.setContainsMonster(true);
     }
 
     public Tile getTile(int location){
@@ -150,95 +138,91 @@ public class LaneMap {
 
     public List<Integer> surroundingTilesContainMonster(int location) {
         List<Integer> monsterLocations = new ArrayList<>();
-        int tileRow = (location-1)/this.rowsize;
-        int tileCol = (location-1)%this.rowsize;
-        Tile desiredTile = this.map[tileRow][tileCol];
-        List<Tile> tilesToCompare = new ArrayList<>();
 
         // condition for being on the left
-        if (tileCol == 0) {
+        if ((location-1)%this.rowsize==0) {
             // condition for being on the top
-            if (tileRow == 0) {
-                if (checkTile(location + 1) != 0) {
+            if ((location-1)/this.rowsize == 0) {
+                if (checkTile(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if(checkTile(location + this.rowsize) != 0) {
+                if(checkTile(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) != 0) {
+                if (checkTile(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
             }
             // condition for being on the bottom
-            else if(tileRow == this.rowsize + 1) {
+            else if((location-1)/this.rowsize == this.rowsize + 1) {
                 // condition
-                if (checkTile(location + 1) != 0) {
+                if (checkTile(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if(checkTile(location - this.rowsize) != 0) {
+                if(checkTile(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize + 1) != 0) {
+                if (checkTile(location - this.rowsize + 1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
             } // condition for being on the middle
             else {
-                if (checkTile(location + 1) != 0) {
+                if (checkTile(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if(checkTile(location + this.rowsize) != 0) {
+                if(checkTile(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) != 0) {
+                if (checkTile(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
-                if(checkTile(location - this.rowsize) != 0) {
+                if(checkTile(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize +1) != 0) {
+                if (checkTile(location - this.rowsize +1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
             }
         }
         // condition for being on the right
-        else if (tileCol == colsize - 1) {
+        else if ((location-1)%this.rowsize == colsize - 1) {
             // condition for being on the top
-            if (tileRow == 0) {
-                if (checkTile(location - 1) != 0) {
+            if ((location-1)/this.rowsize == 0) {
+                if (checkTile(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) != 0) {
+                if(checkTile(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize - 1) != 0) {
+                if (checkTile(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
             } // condition for being on the bottom
-            else if(tileRow == this.rowsize - 1) {
-                if (checkTile(location - 1) != 0) {
+            else if((location-1)/this.rowsize == this.rowsize - 1) {
+                if (checkTile(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location - this.rowsize) != 0) {
+                if(checkTile(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize - 1) != 0) {
+                if (checkTile(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             } // condition for being in the middle
             else {
-                if (checkTile(location - 1) != 0) {
+                if (checkTile(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) != 0) {
+                if(checkTile(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize - 1) != 0) {
+                if (checkTile(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
-                if(checkTile(location - this.rowsize) != 0) {
+                if(checkTile(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize - 1) != 0) {
+                if (checkTile(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             }
@@ -246,104 +230,104 @@ public class LaneMap {
         // condition for being in the middle
         else {
             // condition for being on the top
-            if (tileRow == 0) {
-                if (checkTile(location + 1) != 0) {
+            if ((location-1)/this.rowsize == 0) {
+                if (checkTile(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if (checkTile(location - 1) != 0) {
+                if (checkTile(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) != 0) {
+                if(checkTile(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) != 0) {
+                if (checkTile(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
-                if (checkTile(location + this.rowsize - 1) != 0) {
+                if (checkTile(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
             } // condition for being on the bottom
-            else if(tileRow == this.rowsize - 1) {
-                if (checkTile(location + 1) != 0) {
+            else if((location-1)/this.rowsize == this.rowsize - 1) {
+                if (checkTile(location + 1)) {
                     monsterLocations.add(location + 1);
                 }
-                if (checkTile(location - 1) != 0) {
+                if (checkTile(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location - this.rowsize) != 0) {
+                if(checkTile(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize + 1) != 0) {
+                if (checkTile(location - this.rowsize + 1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
-                if (checkTile(location - this.rowsize - 1) != 0) {
+                if (checkTile(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             } // condition for being on the middle
             else {
-                if (checkTile(location + 1) != 0) {
+                if (checkTile(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if (checkTile(location - 1) != 0) {
+                if (checkTile(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) != 0) {
+                if(checkTile(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) != 0) {
+                if (checkTile(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
-                if (checkTile(location + this.rowsize - 1) != 0) {
+                if (checkTile(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
-                if(checkTile(location - this.rowsize) != 0) {
+                if(checkTile(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize +1) != 0) {
+                if (checkTile(location - this.rowsize +1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
-                if (checkTile(location - this.rowsize - 1) != 0) {
+                if (checkTile(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             }
         }
         return  monsterLocations;
     }
-    private int checkTile(int location){
+    private boolean checkTile(int location){
         Tile tempTile = getTile(location);
         if (tempTile instanceof NexusTile){
             //check for monster
             NexusTile currentNexus = (NexusTile) tempTile;
-            if (currentNexus.containsMonster()) {
-                return location;
+            if (currentNexus.isContainsMonster()) {
+                return true;
             }
         } else if (tempTile instanceof CaveTile) {
             //check for monster
             CaveTile currentCave = (CaveTile) tempTile;
-            if (currentCave.containsMonster()) {
-                return location;
+            if (currentCave.isContainsMonster()) {
+                return true;
             }
         } else if (tempTile instanceof KoulouTile) {
             //check for monster
             KoulouTile currentKoulou = (KoulouTile) tempTile;
-            if (currentKoulou.containsMonster()) {
-                return location;
+            if (currentKoulou.isContainsMonster()) {
+                return true;
             }
         } else if (tempTile instanceof BushTile) {
             //check for monster
             BushTile currentBush = (BushTile) tempTile;
-            if (currentBush.containsMonster()) {
-                return location;
+            if (currentBush.isContainsMonster()) {
+                return true;
             }
         } else if (tempTile instanceof PlainTile) {
             //check for monster
             PlainTile currentPlain = (PlainTile) tempTile;
-            if (currentPlain.containsMonster()) {
-                return location;
+            if (currentPlain.isContainsMonster()) {
+                return true;
             }
         } else {
-            return 0;
+            return false;
         }
-        return 0;
+        return false;
     }
 }

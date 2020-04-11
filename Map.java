@@ -60,7 +60,7 @@ public class Map{
     }
     public void place(int location, Team heroes){
         Tile t = this.map[(location-1)/this.rowsize][(location-1)%this.rowsize];
-        t.setActive(true);
+        t.setContainsHero(true);
         if(t instanceof MarketTile){
             MarketTile currentMarket = (MarketTile) t;
             System.out.println("You have entered a market tile");
@@ -115,7 +115,7 @@ public class Map{
                         break;
                     }
                 }
-                t.setActive(false);
+                t.setContainsHero(false);
             }catch (InputMismatchException e){
                 ErrorMessage.printErrorInvalidInput();
             }
@@ -151,7 +151,7 @@ public class Map{
                         break;
                     }
                 }
-                t.setActive(false);
+                t.setContainsHero(false);
             }catch (InputMismatchException e){
                 ErrorMessage.printErrorInvalidInput();
             }
