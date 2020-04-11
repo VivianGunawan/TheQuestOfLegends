@@ -32,12 +32,17 @@ public class LaneTeam {
         }
         return maxLevel;
     }
-
+    public int size(){
+        return this.team.size();
+    }
     public Hero getHero(int index){
         return (Hero) this.team.get(index);
     }
     public Monster getMonster(int index){
         return (Monster) this.team.get(index);
+    }
+    public Monster getMonsterByLocation(int location){
+        return getMonster(this.location.indexOf(location));
     }
     public int getLane(int index){
         return this.lane.get(index);

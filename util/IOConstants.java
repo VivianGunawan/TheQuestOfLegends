@@ -5,6 +5,8 @@ public class IOConstants {
     //              INPUT/OUTPUT                //
     //////////////////////////////////////////////
     // You can change these to whatever floats your boat
+    public static final char MOVE_INPUT = 'm';
+    public static final char TELEPORT_INPUT = 't';
     public static final char quit = 'q';
     public static final char QUIT = 'Q';
     public static final char info = 'i';
@@ -17,17 +19,15 @@ public class IOConstants {
     public static final char LEFT = 'a';
     public static final char right = 'd';
     public static final char RIGHT = 'D';
+
     public static final char TELEPORT = 'T';
-    public static final char teleport = 't';
-    public static final char disp_map = 'm';
-    public static final char  DISP_MAP = 'M';
 
     //YES NO PROMPTS
     public static final char YES_INPUT = 'y';
     public static final char NO_INPUT = 'n';
 
     // MARKET PROMPTS
-    public static final char TRANSACTION_INPUT = 't';
+    public static final char TRANSACTION_INPUT = 'r';
 
     // BUY SELL PROMPTS
     public static final char BUY_INPUT = 'b';
@@ -45,9 +45,9 @@ public class IOConstants {
     public  static final char NONE ='n';
 
     // BATTLE PROMPTS
-    public static final char ATTACK_INPUT = 'r';
+    public static final char ATTACK_INPUT = 'k';
     public static final char CAST_INPUT = 'c';
-    public static final char CHANGE_INPUT = 'k';
+    public static final char CHANGE_INPUT = 'h';
     public static final char USE_POTION_INPUT = 'u';
 
     // Displays
