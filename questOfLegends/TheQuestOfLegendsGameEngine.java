@@ -142,18 +142,17 @@ public class TheQuestOfLegendsGameEngine {
     private void startQOLgame() {
         int round = 0;
         System.out.println("================== STARTING GAME ===================");
-        // Placing Hero on Nexus
-        for (int i = 0 ; i<this.numLane; i++){
-            this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
-        }
       while (!checkHeroWin()||!checkMonsterWin()){
+              // Placing Hero on Nexus
+              for (int i = 0 ; i<this.numLane; i++){
+                  this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
+              }
             if(round%MONSTER_SPAWN_RATE == 0){
                 System.out.println("================ SPAWNING MONSTER ==================");
                 spawnMonster();
             }
             this.map.display();
             // Heroes turn
-            // TODO Place Hero
             for(int j = 0 ; j<this.numLane; j++){
                 Hero currHero = this.heroTeam.getHero(j);
                 int currHeroLocation = this.heroTeam.getLocation(j);
@@ -190,6 +189,7 @@ public class TheQuestOfLegendsGameEngine {
                         ErrorMessage.printErrorInvalidInput();
                     }
                 if (opt == ATTACK_INPUT) {
+                    this.map.getTile(currHeroLocation);
                     if(this.map.surroundingTilesContainMonster(currHeroLocation).size()==0){
                         System.out.println("There are no enemies within range");
                         opt = '\u0000';
@@ -313,6 +313,37 @@ public class TheQuestOfLegendsGameEngine {
                         System.out.println(currHero.getName() + "'s turn is wasted.");
                     }
                 }
+                if (opt == MOVE_INPUT) {
+                    char move = '\u0000';
+                    try{
+                        while(!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation)) && !(move == quit|| move == QUIT)){
+                            System.out.println("Where would you like to move your hero? " +
+                                    "up:(" + up + "/" + UP +
+                                    ") down:("+ down + "/" + DOWN +
+                                    ") left:("+ left + "/" + LEFT +
+                                    ") right:("+ right + "/" + RIGHT +
+                                    ") teleport:("+ TELEPORT_INPUT + "/" + TELEPORT +
+                                    ") quit:(" + quit + "/" + QUIT + ")"
+                            );
+                            move = scan.next().charAt(0);
+                        }
+                        if(!(move == quit||move == QUIT)){
+                            this.map.removeHero(currHeroLocation, currHero);
+                            this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
+                            System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next round");
+                        }
+                        else{
+                            return;
+                        }
+                    }
+                    catch(Exception e){
+                        ErrorMessage.printErrorInvalidInput();
+                    }
+
+                }
+                //todo
+                if (opt == TELEPORT_INPUT) {
+                }
             }
             // Monster turn
             for(int k = 0; k<this.monsterTeam.size();k++){
@@ -320,37 +351,6 @@ public class TheQuestOfLegendsGameEngine {
                 // attack if hero is range
             }
             round++;
-        }
-    }
-
-    // a move method to allow the user to select a key to indicate in which direction they would like to move
-    private void move(Hero currentHero, int currentHeroLocation){
-        char move = '\u0000';
-        try{
-            while(!(checkMove(move, currentHeroLocation) && validateTile(move, currentHeroLocation)) && !(move == quit|| move == QUIT)){
-                System.out.println("Where would you like to move your hero? " +
-                        "up:(" + up + "/" + UP +
-                        ") down:("+ down + "/" + DOWN +
-                        ") left:("+ left + "/" + LEFT +
-                        ") right:("+ right + "/" + RIGHT +
-                        ") teleport:("+ teleport + "/" + TELEPORT +
-                        ") quit:(" + quit + "/" + QUIT + ")"
-                );
-                move = scan.next().charAt(0);
-            }
-            if(!(move == quit||move == QUIT)){
-                // loop through the team, each hero needs to perform an action
-                for (int i = 0; i < this.numLane - 1; i++) {
-                    this.heroTeam.setLocation(i, computeLocation(move, currentHeroLocation));
-                    this.map.placeHero(this.heroTeam.getLocation(i), currentHero);
-                }
-            }
-            else{
-                return;
-            }
-        }
-        catch(Exception e){
-            ErrorMessage.printErrorInvalidInput();
         }
     }
 

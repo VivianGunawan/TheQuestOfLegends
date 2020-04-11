@@ -88,6 +88,8 @@ public class LaneMap {
         }
     }
 
+    // remove hero
+
     // Helper method used to generate list of tiles with the appropriate probabilities
     private List<Tile> generateTileOptions() {
         List<Tile> tempTileList = new ArrayList<Tile>();
@@ -136,6 +138,11 @@ public class LaneMap {
         Tile currTile  = getTile(location);
         currTile.setContainsHero(true);
     }
+
+    public void removeHero(int location, Hero hero) {
+        Tile currTile  = getTile(location);
+        currTile.setContainsHero(false);
+    }
     // Place monster on the
     public void placeMonster(int location, Monster monster){
         BattleTile currTile  = (BattleTile) getTile(location);
@@ -164,7 +171,7 @@ public class LaneMap {
                 }
             }
             // condition for being on the bottom
-            else if((location-1)/this.rowsize == this.rowsize + 1) {
+            else if((location-1)/this.rowsize == this.rowsize - 1) {
                 // condition
                 if (checkTile(location + 1) ) {
                     monsterLocations.add(location + 1);
