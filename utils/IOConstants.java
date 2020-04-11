@@ -17,6 +17,8 @@ public class IOConstants {
     public static final char LEFT = 'a';
     public static final char right = 'd';
     public static final char RIGHT = 'D';
+    public static final char TELEPORT = 'T';
+    public static final char teleport = 't';
     public static final char disp_map = 'm';
     public static final char  DISP_MAP = 'M';
 

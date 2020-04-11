@@ -43,4 +43,8 @@ public class LaneTeam {
     public int getLocation(int index){
         return this.location.get(index);
     }
+
+    public void setLocation(int index, int location) {
+        this.location.set(index, location);
+    }
 }
