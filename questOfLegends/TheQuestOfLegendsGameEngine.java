@@ -4,7 +4,7 @@ import character.hero.Hero;
 import character.merchant.Merchant;
 import character.monster.Monster;
 import tiles.InaccessibleTile;
-import util.ErrorMessage;
+//import util.ErrorMessage;
 
 import src.util.ErrorMessage;
 
