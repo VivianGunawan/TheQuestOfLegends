@@ -103,7 +103,6 @@ public class TheQuestOfLegendsGameEngine {
         }
     }
     private void startQOLgame() {
-
         generateMonster();
         for (int i = 0 ; i<this.numLane; i++){
             this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));

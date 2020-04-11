@@ -123,7 +123,6 @@ public class LaneMap {
 
     // Place hero on the map
     public void placeHero(int location, Hero hero) {
-        System.out.println(this.colsize);
         Tile currTile  = this.map[(location-1)/this.colsize][(location-1)%this.colsize];
         currTile.setContainsHero(true);
     }
