@@ -1,8 +1,9 @@
 package character.hero;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_RED;
-import static utils.ColouredOutputs.ANSI_RESET;
-import static utils.Defaults.SKILLS_MULTIPLIER;
+import static quest.QuestDefaults.SKILLS_MULTIPLIER;
+import static src.util.ColouredOutputs.ANSI_BRIGHT_RED;
+import static src.util.ColouredOutputs.ANSI_RESET;
+
 
 public class Paladin extends Hero {
     // Constructor

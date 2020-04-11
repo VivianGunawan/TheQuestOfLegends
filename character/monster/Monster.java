@@ -7,7 +7,8 @@ import character.items.spells.Ice;
 import character.items.spells.Lightning;
 import character.items.spells.Spell;
 
-import static utils.Defaults.*;
+import static quest.QuestDefaults.SKILL_DETERIORATION;
+
 
 public abstract class Monster extends character.Character implements MonsterBattle {
     //represents a monster in the game could be a dragon, exoskeleton or spirit.

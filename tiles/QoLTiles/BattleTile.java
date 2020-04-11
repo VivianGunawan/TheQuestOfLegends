@@ -1,9 +1,6 @@
-package tile.QoLTiles;
+package tiles.QoLTiles;
 
-import tile.Tile;
-
-import static utils.ColouredOutputs.*;
-import static utils.ColouredOutputs.ANSI_RESET;
+import tiles.Tile;
 
 // Represents a battle tile in the QoL game
 // In every battle tile

@@ -1,7 +1,7 @@
 package character.items.spells;
 
-import static utils.ColouredOutputs.ANSI_RED;
-import static utils.ColouredOutputs.ANSI_RESET;
+import static src.util.ColouredOutputs.ANSI_RED;
+import static src.util.ColouredOutputs.ANSI_RESET;
 
 public class Fire extends Spell {
     public Fire(String name, double price, int reqLevel, double damage, double mana){

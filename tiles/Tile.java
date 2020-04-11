@@ -1,4 +1,4 @@
-package tile;
+package tiles;
 
 public abstract class Tile{
     // represent a blueprint for all types of tile

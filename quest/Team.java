@@ -1,23 +1,25 @@
-package character;
+package quest;
 
+import character.AttackResult;
 import character.hero.Hero;
 import java.util.*;
 import java.util.stream.IntStream;
 import character.merchant.Merchant;
 import character.monster.Monster;
 import character.items.spells.Spell;
-import utils.ErrorMessage;
-import static utils.IOConstants.*;
-import static utils.ColouredOutputs.*;
-import static utils.Defaults.*;
+import src.util.ErrorMessage;
+
+import static quest.QuestDefaults.*;
+import static src.util.IOConstants.*;
+import static src.util.ColouredOutputs.*;
 
 public class Team{
     // Represents team of heroes
     // Fields
-    private final List<character.hero.Hero> team;
+    private final List<Hero> team;
     Scanner scan = new Scanner(System.in);
     // Constructor
-    public Team(List<character.hero.Hero> team){
+    public Team(List<Hero> team){
         this.team = team;
     }
 
@@ -39,9 +41,11 @@ public class Team{
 
     // Display
     private void display(){
+        System.out.println("================== HEROES IN TEAM ==================");
         for (int i =0; i<this.team.size(); i++){
-            System.out.println("ID: " + (i+1));
-            System.out.println(this.team.get(i));
+            System.out.println("HERO ID: " + (i+1));
+            System.out.print(this.team.get(i));
+            System.out.println(DIVIDER);
         }
     }
 
@@ -70,6 +74,7 @@ public class Team{
             while(yn!=YES_INPUT&&yn!=NO_INPUT){
                 System.out.println("Would you like to check another hero's inventory? (" + YES_INPUT + "/" + NO_INPUT + ")");
                 yn = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if(yn==YES_INPUT){
                 exploreInventory();
@@ -84,15 +89,17 @@ public class Team{
     // Interact Menu
     public void transaction(Merchant merchant){
             this.display();
-            System.out.println("Which hero's would like to talk to merchant? (ID #)");
+            System.out.println("Which hero's would like to talk to merchant? (HERO ID #)");
             int heroId = 0;
             try{
                 heroId = scan.nextInt();
+                System.out.println(DIVIDER);
                 scan.nextLine();
                 while(heroId<1||heroId>this.team.size()){
                     ErrorMessage.printErrorOutOfRange();
                     System.out.println("Please enter valid ID");
                     heroId = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                 }
             }
@@ -106,6 +113,7 @@ public class Team{
                 while(syn!=YES_INPUT && syn!=NO_INPUT){
                     System.out.println("Would you like to interact with " + merchant.getName() + "(" + YES_INPUT + "/" + NO_INPUT + ")");
                     syn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if(syn==YES_INPUT){
                     transaction(merchant);
@@ -120,9 +128,9 @@ public class Team{
     // In Battle
     public void battle(List<Monster> enemies) {
         displayEnemies(enemies);
-        System.out.println("BATTLE BEGINS");
+        System.out.println("================== BATTLE BEGINS ===================");
         int round = 1;
-        //per round
+        // per round
         while (!defeatedMonsters(enemies) && !everyoneFainted()) {
             System.out.println("ROUND: " + round);
             for (int i = 0; i < this.team.size(); i++) {
@@ -139,6 +147,7 @@ public class Team{
                                     "attack monster (" + ATTACK_INPUT + ") or " +
                                     "cast spell (" + CAST_INPUT + ") (" + info +"/" + INFO +")");
                             opt = scan.next().charAt(0);
+                            System.out.println(DIVIDER);
                         }
                         if(opt==info||opt==INFO){
                             System.out.print(currHero.battleDisplay());
@@ -152,6 +161,7 @@ public class Team{
                                             "attack monster (" + ATTACK_INPUT + ") or " +
                                             "cast spell (" + CAST_INPUT + ")");
                                     opt = scan.next().charAt(0);
+                                    System.out.println(DIVIDER);
                                 }
                             }catch (Exception e){
                                 ErrorMessage.printErrorInvalidInput();
@@ -367,21 +377,18 @@ public class Team{
         return  true;
     }
     private void displayEnemies(List<Monster> enemies){
-        System.out.println("==============================");
-        System.out.println("ALIVE MONSTERS IN ENEMY TEAM");
-
+        System.out.println("================= MONSTERS AWAKE ===================");
         int i = 1;
         Iterator<Monster> itr = enemies.iterator();
         while (itr.hasNext()) {
             Monster temp =  itr.next();
             if (temp.getHealthPower()>0) {
-                System.out.println("------------------------------");
                 System.out.println(ANSI_BOLD + "MONSTER " + i );
                 System.out.print(temp);
+                System.out.println(DIVIDER);
             }
             i++;
         }
-        System.out.println("==============================");
     }
     private void endBattle(boolean win){
         if(win){
@@ -415,9 +422,11 @@ public class Team{
         char bs = '\u0000';
         try {
             bs = scan.next().charAt(0);
+            System.out.println(DIVIDER);
             while (bs != BUY_INPUT && bs != SELL_INPUT) {
                 System.out.println("Would " + hero.getName() + " like to buy or sell an item? (" + BUY_INPUT + "/" + SELL_INPUT + ")");
                 bs = scan.next().charAt(0);
+                System.out.println(DIVIDER);
             }
             if (bs == BUY_INPUT) {
                 hero.buy(merchant.sell());
@@ -430,6 +439,7 @@ public class Team{
                 while (yn != YES_INPUT && yn != NO_INPUT) {
                     System.out.println("Is " + hero.getName() + " done talking to merchant? (y/n)");
                     yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
                 }
                 if (yn == YES_INPUT) {
                     return;

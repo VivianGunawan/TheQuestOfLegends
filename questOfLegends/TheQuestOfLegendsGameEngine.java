@@ -1,7 +1,9 @@
+package questOfLegends;
+
 import character.hero.Hero;
 import character.merchant.Merchant;
 import character.monster.Monster;
-import utils.ErrorMessage;
+import src.util.ErrorMessage;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +11,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static utils.Defaults.*;
+import static questOfLegends.QoLDefaults.*;
+import static src.util.GameInputs.*;
+import static src.util.IOConstants.DIVIDER;
+
 
 public class TheQuestOfLegendsGameEngine {
     private final int numLane;
@@ -39,7 +44,9 @@ public class TheQuestOfLegendsGameEngine {
         this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;
         this.probabilityBush = DEFAULT_PROBABILITY_BUSH;
         this.map = new LaneMap(this.numLane, this.laneSize, this.laneLength, this.merchant, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
-        this.map.displayMap();
+        System.out.println("========= WELCOME TO THE QUEST OF LEGENDS ==========");
+        this.map.display();
+        System.out.println("================== TEAM SELECTION ==================");
         this.heroTeam = selectTeam();
         this.monsterTeam = new LaneTeam();
         startQOLgame();
@@ -47,17 +54,19 @@ public class TheQuestOfLegendsGameEngine {
 
     private LaneTeam selectTeam() {
         List<Hero> tempTeam = new ArrayList<Hero>();
-        System.out.println("Hero Selection");
+        System.out.println("================== HERO SELECTION ==================");
         for (int i = 0; i < this.heroes.size(); i++) {
             System.out.println("HERO ID: " + (i + 1));
-            System.out.println(this.heroes.get(i));
+            System.out.print(this.heroes.get(i));
+            System.out.println(DIVIDER);
         }
         for (int j = 0; j < this.numLane; j++) {
-            character.hero.Hero temp = this.heroes.get(0);
-            System.out.println("Please select HERO ID for lane " + (j + 1));
+            Hero temp = this.heroes.get(0);
+            System.out.println("Please select HERO ID for team member " + (j + 1));
             try {
                 int index = scan.nextInt();
                 scan.nextLine();
+                System.out.println(DIVIDER);
                 try {
                     temp = this.heroes.get(index - 1);
                 } catch (Exception o) {
@@ -66,6 +75,7 @@ public class TheQuestOfLegendsGameEngine {
                 while (index < 1 || index > this.heroes.size() || tempTeam.contains(temp)) {
                     System.out.println("Please select a different HERO ID");
                     index = scan.nextInt();
+                    System.out.println(DIVIDER);
                     scan.nextLine();
                     try {
                         temp = this.heroes.get(index - 1);
@@ -75,6 +85,7 @@ public class TheQuestOfLegendsGameEngine {
                 }
                 tempTeam.add(temp);
                 System.out.println(temp.getName() + " successfully added to team");
+                System.out.println(DIVIDER);
             } catch (Exception e) {
                 ErrorMessage.printErrorInvalidInput();
             }
@@ -103,12 +114,13 @@ public class TheQuestOfLegendsGameEngine {
         }
     }
     private void startQOLgame() {
+        System.out.println("================== STARTING GAME ===================");
         generateMonster();
         for (int i = 0 ; i<this.numLane; i++){
             this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
             this.map.placeMonster(this.monsterTeam.getLocation(i),this.monsterTeam.getMonster(i));
         }
-        this.map.displayMap();
+        this.map.display();
     }
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();

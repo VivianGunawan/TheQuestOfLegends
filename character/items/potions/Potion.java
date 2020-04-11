@@ -2,9 +2,6 @@ package character.items.potions;
 
 import character.items.Item;
 
-import static utils.ColouredOutputs.ANSI_BRIGHT_PURPLE;
-import static utils.ColouredOutputs.ANSI_RESET;
-
 
 public abstract class Potion extends Item {
     // Used by a hero in order to increase one of their statistics by some amount
