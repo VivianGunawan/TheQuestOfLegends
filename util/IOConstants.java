@@ -19,6 +19,8 @@ public class IOConstants {
     public static final char LEFT = 'a';
     public static final char right = 'd';
     public static final char RIGHT = 'D';
+    public static final char back = 'b';
+    public static final char BACK = 'B';
 
     public static final char TELEPORT = 'T';
 

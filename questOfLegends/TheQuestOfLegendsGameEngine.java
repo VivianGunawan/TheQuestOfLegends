@@ -157,7 +157,7 @@ public class TheQuestOfLegendsGameEngine {
 
     // Hero move validations
     private boolean checkMove(char m, int currentHeroLocation){
-        if( m == up || m == UP || m == down || m == DOWN || m == left ||m == LEFT|| m == right || m == RIGHT) {
+        if( m == up || m == UP || m == down || m == DOWN || m == left ||m == LEFT|| m == right || m == RIGHT || m == back || m == BACK) {
             if (m == up || m == UP) {
                 return (currentHeroLocation > this.map.getRowSize());
             }
@@ -167,14 +167,17 @@ public class TheQuestOfLegendsGameEngine {
             else if (m == left || m == LEFT) {
                 return (currentHeroLocation % this.map.getRowSize() != 1 && !(this.map.getTile(currentHeroLocation - 1) instanceof InaccessibleTile));
             }
-            else {
+            else if (m == right || m == RIGHT){
                 return (currentHeroLocation % this.map.getRowSize() != 0 && !(this.map.getTile(currentHeroLocation + 1) instanceof InaccessibleTile));
+            }
+            else {
+                return true;
             }
         }
         return false;
     }
-    private int computeLocation(char m, int currentHeroLocation){
-        if(m==up||m==UP||m==down||m==DOWN||m==left||m==LEFT||m==right||m==RIGHT) {
+    private int computeLocation(char m, int currentHeroLocation, int index){
+        if(m==up||m==UP||m==down||m==DOWN||m==left||m==LEFT||m==right||m==RIGHT ||m == back || m == BACK) {
             if (m == up || m == UP) {
                 if (!(currentHeroLocation <= this.map.getRowSize())) {
                     return (currentHeroLocation - this.map.getRowSize());
@@ -192,17 +195,20 @@ public class TheQuestOfLegendsGameEngine {
                     return currentHeroLocation - 1;
                 }
             }
-            else {
+            else if (m == right || m == RIGHT){
                 // make sure that the tile to the right of the hero is not an inaccessible tile
                 if((currentHeroLocation % this.map.getRowSize() != 0) || !(this.map.getTile(currentHeroLocation + 1) instanceof InaccessibleTile)) {
                     return currentHeroLocation + 1;
                 }
+            } else {
+                // moving back to nexus tile
+                return this.map.getHeroesNexus().get(index);
             }
         }
         return 0;
     }
-    private boolean validateTile(char m, int currentHeroLocation){
-        if (this.map.getTile(computeLocation(m, currentHeroLocation)) instanceof InaccessibleTile){
+    private boolean validateTile(char m, int currentHeroLocation, int index){
+        if (this.map.getTile(computeLocation(m, currentHeroLocation, index)) instanceof InaccessibleTile){
             return false;
         }
         return true;
@@ -411,16 +417,17 @@ public class TheQuestOfLegendsGameEngine {
                     if (opt == MOVE_INPUT) {
                         char move = '\u0000';
                         try {
-                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation))) {
+                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation, j))) {
                                 System.out.println("Where would you like to move your hero? " +
                                         "up:(" + up + "/" + UP +
                                         ") down:(" + down + "/" + DOWN +
                                         ") left:(" + left + "/" + LEFT +
-                                        ") right:(" + right + "/" + RIGHT + ")");
+                                        ") right:(" + right + "/" + RIGHT +
+                                        ") back:(" + back + "/" + BACK + ")");
                                 move = scan.next().charAt(0);
                             }
                             this.map.removeHero(currHeroLocation, currHero);
-                            this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
+                            this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation, j));
                             System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
                             break;
                         } catch (Exception e) {
