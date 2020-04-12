@@ -51,7 +51,7 @@ public class LaneMap {
     }
 
     public int getColSize() {
-        return this.getColSize();
+        return this.colsize;
     }
 
     public Tile getTile(int location){
@@ -226,16 +226,17 @@ public class LaneMap {
         }
     }
     // Place monster on a tile
-    public void placeMonster(int location, Monster monster){
+    public void placeMonster(int location){
         BattleTile currTile  = (BattleTile) getTile(location);
         currTile.setContainsMonster(true);
     }
     // Remove monster from a tile
-    public void removeMonster(int location, Monster monster){
+    public void removeMonster(int location){
         BattleTile currTile  = (BattleTile) getTile(location);
         currTile.setContainsMonster(false);
     }
 
+    // returns nearby monster locations
     public List<Integer> surroundingTilesContainMonster(int location) {
         List<Integer> monsterLocations = new ArrayList<>();
 
@@ -431,6 +432,7 @@ public class LaneMap {
         return false;
     }
 
+    // returns nearby hero locations
     public List<Integer> surroundingTilesContainHero(int location) {
         List<Integer> heroLocations = new ArrayList<>();
 

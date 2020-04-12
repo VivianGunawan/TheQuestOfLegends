@@ -19,6 +19,7 @@ import static src.util.IOConstants.*;
 
 
 public class TheQuestOfLegendsGameEngine {
+    // Fields
     private final int numLane;
     private final int laneSize;
     private final int laneLength;
@@ -34,6 +35,7 @@ public class TheQuestOfLegendsGameEngine {
     private final LaneTeam monsterTeam;
     Scanner scan = new Scanner(System.in);
 
+    // Constructor
     public TheQuestOfLegendsGameEngine() {
         this.numLane = DEFAULT_LANE;
         this.laneSize = DEFAULT_LANE_SIZE;
@@ -55,6 +57,8 @@ public class TheQuestOfLegendsGameEngine {
         endQOLgame();
     }
 
+    // Methods
+    // Select hero team members
     private LaneTeam selectTeam() {
         List<Hero> tempTeam = new ArrayList<Hero>();
         System.out.println("================== HERO SELECTION ==================");
@@ -99,6 +103,7 @@ public class TheQuestOfLegendsGameEngine {
         }
         return heroes;
     }
+
     // generate monster and set location to nexus
     private void generateMonster(){
         List<Monster> availableMonsters = new ArrayList();
@@ -121,9 +126,11 @@ public class TheQuestOfLegendsGameEngine {
     private void spawnMonster(){
         generateMonster();
         for (int i = 0 ; i<this.numLane; i++){
-            this.map.placeMonster(this.monsterTeam.getLocation(i),this.monsterTeam.getMonster(i));
+            this.map.placeMonster(this.monsterTeam.getLocation(i));
         }
     }
+
+    // check if there is a hero that reached a monster nexus
     private boolean checkHeroWin(){
         for (int i=0; i<this.numLane; i++){
             if(0<this.heroTeam.getLocation(i) && this.heroTeam.getLocation(i)<= ((this.numLane * this.laneSize) + this.numLane - 1)){
@@ -132,6 +139,7 @@ public class TheQuestOfLegendsGameEngine {
         }
         return false;
     }
+    // check if there is a monster that reached a hero nexus
     private boolean checkMonsterWin(){
         for (int i=0; i<this.monsterTeam.size(); i++){
             if(((this.laneLength+1)*((this.numLane * this.laneSize) + this.numLane - 1))<this.monsterTeam.getLocation(i) && this.monsterTeam.getLocation(i)<= ((this.laneLength+2)*((this.numLane * this.laneSize) + this.numLane - 1))){
@@ -140,13 +148,19 @@ public class TheQuestOfLegendsGameEngine {
         }
         return false;
     }
+
+    // implement rounds
     private void startQOLgame() {
         int round = 0;
         System.out.println("================== STARTING GAME ===================");
-      while (!checkHeroWin()&&!checkMonsterWin()){
+        while (!checkHeroWin()&&!checkMonsterWin()){
             System.out.println("==================== ROUND " + round + " =======================");
             if(round%MONSTER_SPAWN_RATE == 0){
                 spawnMonster();
+            }
+            // place all monsters in map
+            for(int i=0; i<this.monsterTeam.size(); i++){
+                this.map.placeMonster(this.monsterTeam.getLocation(i));
             }
             // Hero's turn
             for(int j = 0 ; j<this.numLane; j++){
@@ -240,6 +254,7 @@ public class TheQuestOfLegendsGameEngine {
                                 } else if (sres == AttackResult.KILL) {
                                     System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
                                 }
+                                break;
                             } catch (InputMismatchException e) {
                                 ErrorMessage.printErrorInvalidInput();
                             }
@@ -294,6 +309,7 @@ public class TheQuestOfLegendsGameEngine {
                                     } else if (sres == AttackResult.KILL) {
                                         System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
                                     }
+                                    break;
                                 } catch (InputMismatchException e) {
                                     ErrorMessage.printErrorInvalidInput();
                                 }
@@ -306,6 +322,7 @@ public class TheQuestOfLegendsGameEngine {
                     if (opt == CHANGE_INPUT) {
                         currHero.change();
                         currHero.battleDisplay();
+                        break;
                     }
                     if (opt == USE_POTION_INPUT) {
                         if (currHero.getInventory().numPotions() != 0) {
@@ -315,28 +332,23 @@ public class TheQuestOfLegendsGameEngine {
                             System.out.println(currHero.getName() + " has no potion to consume");
                             System.out.println(currHero.getName() + "'s turn is wasted.");
                         }
+                        break;
                     }
                     if (opt == MOVE_INPUT) {
                         char move = '\u0000';
                         try {
-                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation)) && !(move == quit || move == QUIT)) {
+                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation))) {
                                 System.out.println("Where would you like to move your hero? " +
                                         "up:(" + up + "/" + UP +
                                         ") down:(" + down + "/" + DOWN +
                                         ") left:(" + left + "/" + LEFT +
-                                        ") right:(" + right + "/" + RIGHT +
-                                        ") teleport:(" + TELEPORT_INPUT + "/" + TELEPORT +
-                                        ") quit:(" + quit + "/" + QUIT + ")"
-                                );
+                                        ") right:(" + right + "/" + RIGHT + ")");
                                 move = scan.next().charAt(0);
                             }
-                            if (!(move == quit || move == QUIT)) {
-                                this.map.removeHero(currHeroLocation, currHero);
-                                this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
-                                System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
-                            } else {
-                                return;
-                            }
+                            this.map.removeHero(currHeroLocation, currHero);
+                            this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
+                            System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
+                            break;
                         } catch (Exception e) {
                             ErrorMessage.printErrorInvalidInput();
                         }
@@ -344,24 +356,52 @@ public class TheQuestOfLegendsGameEngine {
                     }
                     //todo
                     if (opt == TELEPORT_INPUT) {
-                    }
-                    if(opt == quit || opt ==QUIT){
                         break;
                     }
+                    if(opt == quit || opt ==QUIT){
+                        return;
+                    }
                 }
-                return;
             }
             // Monster turn
             for(int k = 0; k<this.monsterTeam.size();k++){
-                // check for nearby hero
-                // attack if hero is range
+                Monster currMonster = this.monsterTeam.getMonster(k);
+                int currMonsterLocation = this.monsterTeam.getLocation(k);
+                // actions
+                // no heroes in proximity
+                if(this.map.surroundingTilesContainHero(currMonsterLocation).size()==0){
+                    this.map.removeMonster(currMonsterLocation);
+                    this.monsterTeam.setLocation(k,currMonsterLocation+ this.map.getColSize());
+                }
+                // heroes in proximity
+                else{
+                    // select first hero as enemy by default
+                    int enemyLocation = this.map.surroundingTilesContainHero(currMonsterLocation).get(0);
+                    int enemyIndex = this.heroTeam.getHeroIndexByLocation(enemyLocation);
+                    // attack
+                    AttackResult sres = this.heroTeam.getHero(enemyIndex).receiveBasicAttack(currMonster.doBasicAttack());
+                    if (sres == AttackResult.DODGE) {
+                        System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " dodged " + currMonster.getName() + "'s attack");
+                        this.heroTeam.getHero(enemyIndex).battleDisplay();
+                    }
+                    else if (sres == AttackResult.SUCCESS) {
+                        System.out.print(" from " + currMonster.getName() + "\n");
+                        this.heroTeam.getHero(enemyIndex).battleDisplay();
+                    }
+                    else if (sres == AttackResult.KILL) {
+                        System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
+                    }
+                }
             }
             round++;
         }
     }
+    // when user chooses to quit
     private void endQOLgame(){
         System.out.println("==================== END GAME ======================");
     }
+
+    // Hero move validations
     private boolean checkMove(char m, int currentHeroLocation){
         if( m == up || m == UP || m == down || m == DOWN || m == left ||m == LEFT|| m == right || m == RIGHT) {
             if (m == up || m == UP) {
@@ -414,6 +454,8 @@ public class TheQuestOfLegendsGameEngine {
         return true;
         
     }
+
+    // Monster move validations
 
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();
