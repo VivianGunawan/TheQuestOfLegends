@@ -220,6 +220,13 @@ public class TheQuestOfLegendsGameEngine {
 
     }
     // Battles helpers
+    private void displayEnemiesByIndex(List<Integer> enemyIndexes){
+        List<Monster> enemies = new ArrayList<>();
+        for (int tempIndexes : enemyIndexes) {
+            enemies.add(this.monsterTeam.getMonster(tempIndexes));
+        }
+        displayEnemies(enemies);
+    }
     private void displayEnemies(List<Monster> enemies){
         System.out.println("============= MONSTERS IN PROXIMITY ================");
         int i = 1;
@@ -249,9 +256,12 @@ public class TheQuestOfLegendsGameEngine {
                 this.map.placeMonster(this.monsterTeam.getLocation(i));
             }
             // Hero's turn
+            System.out.println("=================== HEROES TURN ====================");
             for (int j = 0; j < this.numLane; j++) {
                 Hero currHero = this.heroTeam.getHero(j);
                 int currHeroLocation = this.heroTeam.getLocation(j);
+                System.out.println(currHero.getName() + "'s turn");
+                System.out.println(DIVIDER);
                 // non actions
                 // regen
                 if(round>0) {
@@ -315,34 +325,28 @@ public class TheQuestOfLegendsGameEngine {
                                 ErrorMessage.printErrorInvalidInput();
                             }
                         } else {
-                            List<Monster> enemies = new ArrayList<>();
-                            for (int tempLocation : this.map.surroundingTilesContainMonster(currHeroLocation)) {
-                                enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
+                            List<Integer> enemyIndexes = new ArrayList<>();
+                            for (int tempLocation: this.map.surroundingTilesContainMonster(currHeroLocation)) {
+                                enemyIndexes.add(this.monsterTeam.getMonsterIndexByLocation(tempLocation));
                             }
+                            displayEnemiesByIndex(enemyIndexes);
                             int monsterId = 0;
-                            displayEnemies(enemies);
                             try {
-                                while (monsterId < 1 || monsterId > enemies.size()) {
-                                    System.out.println("which other monster would " +
+                                while (monsterId < 1 || monsterId > this.map.surroundingTilesContainMonster(currHeroLocation).size()) {
+                                    System.out.println("which monster would " +
                                             currHero.getName() + "like to attack (monster #)");
                                     monsterId = scan.nextInt();
                                     scan.nextLine();
-                                    try {
-                                        if (enemies.get(monsterId - 1).getHealthPower() == 0) {
-                                            monsterId = 0;
-                                        }
-                                    } catch (Exception o) {
-                                        ErrorMessage.printErrorOutOfRange();
-                                    }
                                 }
-                                AttackResult sres = enemies.get(monsterId - 1).receiveBasicAttack(currHero.doBasicAttack());
+                                AttackResult sres = this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).receiveBasicAttack(currHero.doBasicAttack());
                                 if (sres == AttackResult.DODGE) {
-                                    System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s attack");
+                                    System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName() + " dodged " + currHero.getName() + "'s attack");
                                 } else if (sres == AttackResult.SUCCESS) {
                                     System.out.print(" from " + currHero.getName() + "\n");
-                                    System.out.println(enemies.get(monsterId - 1));
+                                    System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
                                 } else if (sres == AttackResult.KILL) {
-                                    System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
+                                    System.out.println(currHero.getName() + " killed " + this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName());
+                                    this.monsterTeam.removeMember(enemyIndexes.get(monsterId-1));
                                 }
                                 break;
                             } catch (InputMismatchException e) {
@@ -368,20 +372,21 @@ public class TheQuestOfLegendsGameEngine {
                                 ErrorMessage.printErrorInvalidInput();
                             }
                         } else {
-                            List<Monster> enemies = new ArrayList<>();
-                            for (int tempLocation : this.map.surroundingTilesContainMonster(currHeroLocation)) {
-                                enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
-                            }
+
                             if (currHero.getInventory().numSpell() != 0) {
+                                List<Integer> enemyIndexes = new ArrayList<>();
+                                for (int tempLocation: this.map.surroundingTilesContainMonster(currHeroLocation)) {
+                                    enemyIndexes.add(this.monsterTeam.getMonsterIndexByLocation(tempLocation));
+                                }
+                                displayEnemiesByIndex(enemyIndexes);
                                 int monsterId = 0;
-                                displayEnemies(enemies);
                                 try {
-                                    while (monsterId < 1 || monsterId > enemies.size()) {
+                                    while (monsterId < 1 || monsterId > this.map.surroundingTilesContainMonster(currHeroLocation).size()) {
                                         System.out.println(" which other monster would " + currHero.getName() + "like to cast spell on? (monster #)");
                                         monsterId = scan.nextInt();
                                         scan.nextLine();
                                         try {
-                                            if (enemies.get(monsterId - 1).getHealthPower() == 0) {
+                                            if (this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getHealthPower() == 0) {
                                                 monsterId = 0;
                                             }
                                         } catch (Exception o) {
@@ -389,15 +394,16 @@ public class TheQuestOfLegendsGameEngine {
                                         }
                                     }
                                     Spell casted = currHero.castSpell();
-                                    AttackResult sres = enemies.get(monsterId - 1).receiveSpell(casted, currHero.castSpellDamage(casted));
+                                    AttackResult sres = this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).receiveSpell(casted, currHero.castSpellDamage(casted));
                                     if (sres == AttackResult.DODGE) {
-                                        System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s spell");
-                                        System.out.println(enemies.get(monsterId - 1));
+                                        System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName() + " dodged " + currHero.getName() + "'s spell");
+                                        System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
                                     } else if (sres == AttackResult.SUCCESS) {
                                         System.out.print(" from " + currHero.getName() + "\n");
-                                        System.out.println(enemies.get(monsterId - 1));
+                                        System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
                                     } else if (sres == AttackResult.KILL) {
-                                        System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
+                                        System.out.println(currHero.getName() + " killed " + this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName());
+                                        this.monsterTeam.removeMember(enemyIndexes.get(monsterId-1));
                                     }
                                     break;
                                 } catch (InputMismatchException e) {
@@ -472,14 +478,18 @@ public class TheQuestOfLegendsGameEngine {
                 }
             }
             // Monster turn
+            System.out.println("================== MONSTERS TURN ===================");
             for (int k = 0; k < this.monsterTeam.size(); k++) {
                 Monster currMonster = this.monsterTeam.getMonster(k);
                 int currMonsterLocation = this.monsterTeam.getLocation(k);
+                System.out.println(currMonster.getName() + "'s turn");
                 // actions
                 // no heroes in proximity
                 if (this.map.surroundingTilesContainHero(currMonsterLocation).size() == 0) {
                     this.map.removeMonster(currMonsterLocation);
                     this.monsterTeam.setLocation(k, currMonsterLocation + this.map.getColSize());
+                    System.out.println(currMonster.getName() + " move forward");
+                    System.out.println(DIVIDER);
                 }
                 // heroes in proximity
                 else {
@@ -497,6 +507,7 @@ public class TheQuestOfLegendsGameEngine {
                     } else if (sres == AttackResult.KILL) {
                         System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
                     }
+                    System.out.println(DIVIDER);
                 }
             }
             round++;
