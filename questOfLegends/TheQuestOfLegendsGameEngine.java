@@ -20,6 +20,7 @@ import static src.util.IOConstants.*;
 
 
 public class TheQuestOfLegendsGameEngine {
+    // Fields
     private final int numLane;
     private final int laneSize;
     private final int laneLength;
@@ -35,6 +36,7 @@ public class TheQuestOfLegendsGameEngine {
     private final LaneTeam monsterTeam;
     Scanner scan = new Scanner(System.in);
 
+    // Constructor
     public TheQuestOfLegendsGameEngine() {
         this.numLane = DEFAULT_LANE;
         this.laneSize = DEFAULT_LANE_SIZE;
@@ -53,8 +55,11 @@ public class TheQuestOfLegendsGameEngine {
         this.heroTeam = selectTeam();
         this.monsterTeam = new LaneTeam();
         startQOLgame();
+        endQOLgame();
     }
 
+    // Methods
+    // Select hero team members
     private LaneTeam selectTeam() {
         List<Hero> tempTeam = new ArrayList<Hero>();
         System.out.println("================== HERO SELECTION ==================");
@@ -99,6 +104,7 @@ public class TheQuestOfLegendsGameEngine {
         }
         return heroes;
     }
+
     // generate monster and set location to nexus
     private void generateMonster(){
         List<Monster> availableMonsters = new ArrayList();
@@ -121,9 +127,11 @@ public class TheQuestOfLegendsGameEngine {
     private void spawnMonster(){
         generateMonster();
         for (int i = 0 ; i<this.numLane; i++){
-            this.map.placeMonster(this.monsterTeam.getLocation(i),this.monsterTeam.getMonster(i));
+            this.map.placeMonster(this.monsterTeam.getLocation(i));
         }
     }
+
+    // check if there is a hero that reached a monster nexus
     private boolean checkHeroWin(){
         for (int i=0; i<this.numLane; i++){
             if(0<this.heroTeam.getLocation(i) && this.heroTeam.getLocation(i)<= ((this.numLane * this.laneSize) + this.numLane - 1)){
@@ -132,6 +140,7 @@ public class TheQuestOfLegendsGameEngine {
         }
         return false;
     }
+    // check if there is a monster that reached a hero nexus
     private boolean checkMonsterWin(){
         for (int i=0; i<this.monsterTeam.size(); i++){
             if(((this.laneLength+1)*((this.numLane * this.laneSize) + this.numLane - 1))<this.monsterTeam.getLocation(i) && this.monsterTeam.getLocation(i)<= ((this.laneLength+2)*((this.numLane * this.laneSize) + this.numLane - 1))){
@@ -140,13 +149,19 @@ public class TheQuestOfLegendsGameEngine {
         }
         return false;
     }
+
+    // implement rounds
     private void startQOLgame() {
         int round = 0;
         System.out.println("================== STARTING GAME ===================");
-      while (!checkHeroWin()&&!checkMonsterWin()){
+        while (!checkHeroWin()&&!checkMonsterWin()){
             System.out.println("==================== ROUND " + round + " =======================");
             if(round%MONSTER_SPAWN_RATE == 0){
                 spawnMonster();
+            }
+            // place all monsters in map
+            for(int i=0; i<this.monsterTeam.size(); i++){
+                this.map.placeMonster(this.monsterTeam.getLocation(i));
             }
             // Hero's turn
             for(int j = 0 ; j<this.numLane; j++){
@@ -157,26 +172,30 @@ public class TheQuestOfLegendsGameEngine {
                 // actions
                 char opt = '\u0000';
                 try{
-                    while (opt != ATTACK_INPUT && opt != CAST_INPUT && opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT && opt!=INFO && opt!=info) {
+                    while (opt != ATTACK_INPUT && opt != CAST_INPUT && opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT && opt!=INFO && opt!=info && opt!=quit && opt!=QUIT) {
                         System.out.println("Would " + currHero.getName() + "like to attack(" + ATTACK_INPUT
                                 + ") cast Spell(" + CAST_INPUT
                                 + ") change weapon or armor(" + CHANGE_INPUT
                                 + ") use potion(" + USE_POTION_INPUT
                                 + ") move(" + MOVE_INPUT
-                                + ") teleport(" + TELEPORT_INPUT + ") (" + info +"/" + INFO +")");
+                                + ") teleport(" + TELEPORT_INPUT
+                                + ") (" + info +"/" + INFO
+                                +") (" +quit + "/" + QUIT + ")");
                         opt = scan.next().charAt(0);
                         System.out.println(DIVIDER);
                     }
                     if(opt==info||opt==INFO) {
                         System.out.print(currHero);
                         try {
-                            while (opt != ATTACK_INPUT && opt != CAST_INPUT && opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT) {
+                            while (opt != ATTACK_INPUT && opt != CAST_INPUT && opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT && opt!=quit && opt!=QUIT) {
                                 System.out.println("Would " + currHero.getName() + "like to attack(" + ATTACK_INPUT
                                         + ") cast Spell(" + CAST_INPUT
                                         + ") change weapon or armor(" + CHANGE_INPUT
                                         + ") use potion(" + USE_POTION_INPUT
                                         + ") move(" + MOVE_INPUT
-                                        + ") teleport(" + TELEPORT_INPUT + ")");
+                                        + ") teleport(" + TELEPORT_INPUT
+                                        + ") (" + info +"/" + INFO
+                                        +") (" +quit + "/" + QUIT + ")");
                                 opt = scan.next().charAt(0);
                                 System.out.println(DIVIDER);
                             }
@@ -187,86 +206,36 @@ public class TheQuestOfLegendsGameEngine {
                 } catch (Exception e){
                         ErrorMessage.printErrorInvalidInput();
                     }
-                if (opt == ATTACK_INPUT) {
-                    if(this.map.surroundingTilesContainMonster(currHeroLocation).size()==0){
-                        System.out.println("There are no enemies within range");
-                        opt = '\u0000';
-                        try {
-                            while (opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT) {
-                                System.out.println("Would " + currHero.getName() + "like to change weapon or armor(" + CHANGE_INPUT
-                                        + ") use potion(" + USE_POTION_INPUT
-                                        + ") move(" + MOVE_INPUT
-                                        + ") teleport(" + TELEPORT_INPUT + ") instead?");
-                                opt = scan.next().charAt(0);
-                                System.out.println(DIVIDER);
+                while(opt!= quit || opt!= QUIT) {
+                    if (opt == ATTACK_INPUT) {
+                        if (this.map.surroundingTilesContainMonster(currHeroLocation).size() == 0) {
+                            System.out.println("There are no enemies within range");
+                            opt = '\u0000';
+                            try {
+                                while (opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT && opt!=quit && opt!=QUIT) {
+                                    System.out.println("Would " + currHero.getName() + "like to change weapon or armor(" + CHANGE_INPUT
+                                            + ") use potion(" + USE_POTION_INPUT
+                                            + ") move(" + MOVE_INPUT
+                                            + ") teleport(" + TELEPORT_INPUT
+                                            + ") instead ? (" + quit + "/" + QUIT + ")");
+                                    opt = scan.next().charAt(0);
+                                    System.out.println(DIVIDER);
+                                }
+                            } catch (Exception e) {
+                                ErrorMessage.printErrorInvalidInput();
                             }
-                        } catch (Exception e) {
-                            ErrorMessage.printErrorInvalidInput();
                         }
-                    }
-                    else{
-                        List<Monster> enemies = new ArrayList<>();
-                        for(int tempLocation:this.map.surroundingTilesContainMonster(currHeroLocation)){
-                            enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
-                        }
-                        int monsterId = 0;
-                        // TODO: displayEnemies(enemies);
-                        try {
-                            while (monsterId < 1 || monsterId > enemies.size()) {
-                                System.out.println("which other monster would " +
-                                        currHero.getName() + "like to attack (monster #)");
-                                monsterId = scan.nextInt();
-                                scan.nextLine();
-                                try{
-                                    if (enemies.get(monsterId-1).getHealthPower()==0){
-                                        monsterId = 0;
-                                    }
-                                }catch(Exception o) { ErrorMessage.printErrorOutOfRange(); }
+                        else {
+                            List<Monster> enemies = new ArrayList<>();
+                            for (int tempLocation : this.map.surroundingTilesContainMonster(currHeroLocation)) {
+                                enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
                             }
-                            AttackResult sres = enemies.get(monsterId - 1).receiveBasicAttack(currHero.doBasicAttack());
-                            if (sres == AttackResult.DODGE) {
-                                System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s attack");
-                            }
-                            else if (sres == AttackResult.SUCCESS) {
-                                System.out.print(" from " + currHero.getName() + "\n");
-                                System.out.println(enemies.get(monsterId - 1));
-                            }
-                            else if (sres == AttackResult.KILL) {
-                                System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
-                            }
-                        } catch (InputMismatchException e) {
-                            ErrorMessage.printErrorInvalidInput();
-                        }
-                    }
-                }
-                if (opt == CAST_INPUT) {
-                    if (this.map.surroundingTilesContainMonster(currHeroLocation).size() == 0) {
-                        System.out.println("There are no enemies within range");
-                        opt = '\u0000';
-                        try {
-                            while (opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT) {
-                                System.out.println("Would " + currHero.getName() + "like to change weapon or armor(" + CHANGE_INPUT
-                                        + ") use potion(" + USE_POTION_INPUT
-                                        + ") move(" + MOVE_INPUT
-                                        + ") teleport(" + TELEPORT_INPUT + ") instead?");
-                                opt = scan.next().charAt(0);
-                                System.out.println(DIVIDER);
-                            }
-                        } catch (Exception e) {
-                            ErrorMessage.printErrorInvalidInput();
-                        }
-                    }
-                    else {
-                        List<Monster> enemies = new ArrayList<>();
-                        for (int tempLocation : this.map.surroundingTilesContainMonster(currHeroLocation)) {
-                            enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
-                        }
-                        if (currHero.getInventory().numSpell() != 0) {
                             int monsterId = 0;
                             // TODO: displayEnemies(enemies);
                             try {
                                 while (monsterId < 1 || monsterId > enemies.size()) {
-                                    System.out.println(" which other monster would " + currHero.getName() + "like to cast spell on? (monster #)");
+                                    System.out.println("which other monster would " +
+                                            currHero.getName() + "like to attack (monster #)");
                                     monsterId = scan.nextInt();
                                     scan.nextLine();
                                     try {
@@ -277,63 +246,115 @@ public class TheQuestOfLegendsGameEngine {
                                         ErrorMessage.printErrorOutOfRange();
                                     }
                                 }
-                                Spell casted = currHero.castSpell();
-                                AttackResult sres = enemies.get(monsterId - 1).receiveSpell(casted, currHero.castSpellDamage(casted));
+                                AttackResult sres = enemies.get(monsterId - 1).receiveBasicAttack(currHero.doBasicAttack());
                                 if (sres == AttackResult.DODGE) {
-                                    System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s spell");
-                                    System.out.println(enemies.get(monsterId - 1));
+                                    System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s attack");
                                 } else if (sres == AttackResult.SUCCESS) {
                                     System.out.print(" from " + currHero.getName() + "\n");
                                     System.out.println(enemies.get(monsterId - 1));
                                 } else if (sres == AttackResult.KILL) {
                                     System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
                                 }
+                                break;
                             } catch (InputMismatchException e) {
                                 ErrorMessage.printErrorInvalidInput();
                             }
+                        }
+                    }
+                    if (opt == CAST_INPUT) {
+                        if (this.map.surroundingTilesContainMonster(currHeroLocation).size() == 0) {
+                            System.out.println("There are no enemies within range");
+                            opt = '\u0000';
+                            try {
+                                while (opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT && opt!=quit && opt!=QUIT) {
+                                    System.out.println("Would " + currHero.getName() + "like to change weapon or armor(" + CHANGE_INPUT
+                                            + ") use potion(" + USE_POTION_INPUT
+                                            + ") move(" + MOVE_INPUT
+                                            + ") teleport(" + TELEPORT_INPUT
+                                            + ") instead ? (" + quit + "/" + QUIT + ")");
+                                    opt = scan.next().charAt(0);
+                                    System.out.println(DIVIDER);
+                                }
+                            } catch (Exception e) {
+                                ErrorMessage.printErrorInvalidInput();
+                            }
                         } else {
-                            System.out.println(currHero.getName() + "has no spell to cast");
+                            List<Monster> enemies = new ArrayList<>();
+                            for (int tempLocation : this.map.surroundingTilesContainMonster(currHeroLocation)) {
+                                enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
+                            }
+                            if (currHero.getInventory().numSpell() != 0) {
+                                int monsterId = 0;
+                                // TODO: displayEnemies(enemies);
+                                try {
+                                    while (monsterId < 1 || monsterId > enemies.size()) {
+                                        System.out.println(" which other monster would " + currHero.getName() + "like to cast spell on? (monster #)");
+                                        monsterId = scan.nextInt();
+                                        scan.nextLine();
+                                        try {
+                                            if (enemies.get(monsterId - 1).getHealthPower() == 0) {
+                                                monsterId = 0;
+                                            }
+                                        } catch (Exception o) {
+                                            ErrorMessage.printErrorOutOfRange();
+                                        }
+                                    }
+                                    Spell casted = currHero.castSpell();
+                                    AttackResult sres = enemies.get(monsterId - 1).receiveSpell(casted, currHero.castSpellDamage(casted));
+                                    if (sres == AttackResult.DODGE) {
+                                        System.out.println(enemies.get(monsterId - 1).getName() + " dodged " + currHero.getName() + "'s spell");
+                                        System.out.println(enemies.get(monsterId - 1));
+                                    } else if (sres == AttackResult.SUCCESS) {
+                                        System.out.print(" from " + currHero.getName() + "\n");
+                                        System.out.println(enemies.get(monsterId - 1));
+                                    } else if (sres == AttackResult.KILL) {
+                                        System.out.println(currHero.getName() + " killed " + enemies.get(monsterId - 1).getName());
+                                    }
+                                    break;
+                                } catch (InputMismatchException e) {
+                                    ErrorMessage.printErrorInvalidInput();
+                                }
+                            } else {
+                                System.out.println(currHero.getName() + "has no spell to cast");
+                                System.out.println(currHero.getName() + "'s turn is wasted.");
+                            }
+                        }
+                    }
+                    if (opt == CHANGE_INPUT) {
+                        currHero.change();
+                        currHero.battleDisplay();
+                        break;
+                    }
+                    if (opt == USE_POTION_INPUT) {
+                        if (currHero.getInventory().numPotions() != 0) {
+                            currHero.usePotion();
+                            currHero.battleDisplay();
+                        } else {
+                            System.out.println(currHero.getName() + " has no potion to consume");
                             System.out.println(currHero.getName() + "'s turn is wasted.");
                         }
+                        break;
                     }
-                }
-                if (opt == CHANGE_INPUT) {
-                    currHero.change();
-                    currHero.battleDisplay();
-                }
-                if (opt == USE_POTION_INPUT) {
-                    if(currHero.getInventory().numPotions()!=0){
-                        currHero.usePotion();
-                        currHero.battleDisplay();
-                    }
-                    else{
-                        System.out.println(currHero.getName() + " has no potion to consume");
-                        System.out.println(currHero.getName() + "'s turn is wasted.");
-                    }
-                }
-                if (opt == MOVE_INPUT) {
-                    char move = '\u0000';
-                    try{
-                        while(!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation))){
-                            System.out.println("Where would you like to move your hero? " +
-                                    "up:(" + up + "/" + UP +
-                                    ") down:("+ down + "/" + DOWN +
-                                    ") left:("+ left + "/" + LEFT +
-                                    ") right:("+ right + "/" + RIGHT
-                            );
-                            move = scan.next().charAt(0);
+                    if (opt == MOVE_INPUT) {
+                        char move = '\u0000';
+                        try {
+                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation))) {
+                                System.out.println("Where would you like to move your hero? " +
+                                        "up:(" + up + "/" + UP +
+                                        ") down:(" + down + "/" + DOWN +
+                                        ") left:(" + left + "/" + LEFT +
+                                        ") right:(" + right + "/" + RIGHT + ")");
+                                move = scan.next().charAt(0);
+                            }
+                            this.map.removeHero(currHeroLocation, currHero);
+                            this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
+                            System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
+                            break;
+                        } catch (Exception e) {
+                            ErrorMessage.printErrorInvalidInput();
                         }
-                        this.map.removeHero(currHeroLocation, currHero);
-                        this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
-                        System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next turn");
-                    }
-                    catch(Exception e){
-                        ErrorMessage.printErrorInvalidInput();
-                    }
-
-                }
-                //todo
-                if (opt == TELEPORT_INPUT) {
+                  }
+                  if (opt == TELEPORT_INPUT) {
                     int teleportLocation = 0;
                     Tile desiredTile;
                     System.out.println("Which tile would you like to teleport " + currHero.getName() + " to? ");
@@ -360,8 +381,33 @@ public class TheQuestOfLegendsGameEngine {
       }
             // Monster turn
             for(int k = 0; k<this.monsterTeam.size();k++){
-                // check for nearby hero
-                // attack if hero is range
+                Monster currMonster = this.monsterTeam.getMonster(k);
+                int currMonsterLocation = this.monsterTeam.getLocation(k);
+                // actions
+                // no heroes in proximity
+                if(this.map.surroundingTilesContainHero(currMonsterLocation).size()==0){
+                    this.map.removeMonster(currMonsterLocation);
+                    this.monsterTeam.setLocation(k,currMonsterLocation+ this.map.getColSize());
+                }
+                // heroes in proximity
+                else{
+                    // select first hero as enemy by default
+                    int enemyLocation = this.map.surroundingTilesContainHero(currMonsterLocation).get(0);
+                    int enemyIndex = this.heroTeam.getHeroIndexByLocation(enemyLocation);
+                    // attack
+                    AttackResult sres = this.heroTeam.getHero(enemyIndex).receiveBasicAttack(currMonster.doBasicAttack());
+                    if (sres == AttackResult.DODGE) {
+                        System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " dodged " + currMonster.getName() + "'s attack");
+                        this.heroTeam.getHero(enemyIndex).battleDisplay();
+                    }
+                    else if (sres == AttackResult.SUCCESS) {
+                        System.out.print(" from " + currMonster.getName() + "\n");
+                        this.heroTeam.getHero(enemyIndex).battleDisplay();
+                    }
+                    else if (sres == AttackResult.KILL) {
+                        System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
+                    }
+                }
             }
             round++;
     }
@@ -382,7 +428,12 @@ public class TheQuestOfLegendsGameEngine {
         return (this.heroTeam.getLane(heroIndex) == lane);
 
     }
+    // when user chooses to quit
+    private void endQOLgame(){
+        System.out.println("==================== END GAME ======================");
+    }
 
+    // Hero move validations
     private boolean checkMove(char m, int currentHeroLocation){
         if( m == up || m == UP || m == down || m == DOWN || m == left ||m == LEFT|| m == right || m == RIGHT) {
             if (m == up || m == UP) {
@@ -435,6 +486,8 @@ public class TheQuestOfLegendsGameEngine {
         return true;
         
     }
+
+    // Monster move validations
 
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();

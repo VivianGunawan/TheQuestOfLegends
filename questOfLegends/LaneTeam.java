@@ -23,26 +23,8 @@ public class LaneTeam {
         this.location.add(location);
         assert(this.team.size()==this.lane.size()||this.lane.size()==this.location.size());
     }
-    public int getMaxLevel() {
-        int maxLevel = 0;
-        for(int i=0; i<this.team.size();i++){
-            if(this.team.get(i).getLevel()>maxLevel){
-                maxLevel = this.team.get(i).getLevel();
-            }
-        }
-        return maxLevel;
-    }
     public int size(){
         return this.team.size();
-    }
-    public Hero getHero(int index){
-        return (Hero) this.team.get(index);
-    }
-    public Monster getMonster(int index){
-        return (Monster) this.team.get(index);
-    }
-    public Monster getMonsterByLocation(int location){
-        return getMonster(this.location.indexOf(location));
     }
     public int getLane(int index){
         return this.lane.get(index);
@@ -54,4 +36,28 @@ public class LaneTeam {
     public void setLocation(int index, int location) {
         this.location.set(index, location);
     }
+
+    public int getMaxLevel() {
+        int maxLevel = 0;
+        for(int i=0; i<this.team.size();i++){
+            if(this.team.get(i).getLevel()>maxLevel){
+                maxLevel = this.team.get(i).getLevel();
+            }
+        }
+        return maxLevel;
+    }
+    public Hero getHero(int index){
+        return (Hero) this.team.get(index);
+    }
+    public int getHeroIndexByLocation(int location){
+            return this.location.indexOf(location);
+    }
+
+    public Monster getMonster(int index){
+        return (Monster) this.team.get(index);
+    }
+    public Monster getMonsterByLocation(int location){
+        return getMonster(this.location.indexOf(location));
+    }
+
 }
