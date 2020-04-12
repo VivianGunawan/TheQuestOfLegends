@@ -58,6 +58,10 @@ public class LaneMap {
         return  this.map[(location-1)/this.colsize][(location-1)%this.colsize];
     }
 
+    public int getNumLane() {
+        return this.numLane;
+    }
+
     // Helper used to set the map
     private void setMap(Merchant merchant) {
         List<Tile> tileOptions = generateTileOptions();
