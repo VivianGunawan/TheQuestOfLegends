@@ -318,9 +318,13 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             return (spell.getDamage()+(this.dexterity* CharacterDefaults.DEXTERITY_MULTIPLIER)*spell.getDamage());
         }
     }
-    public void regen() {
-        this.setHealthPower(this.getHealthPower() + (this.getHealthPower() * CharacterDefaults.HP_REGEN));
-        this.mana += this.mana * CharacterDefaults.MANA_REGEN;
+    public void regen(double hp_regen, double mana_regen) {
+        System.out.println("=================== REGENERATION ===================");
+        System.out.println("Healing " + this.getName() + "...");
+        this.setHealthPower(this.getHealthPower() + (this.getHealthPower() * hp_regen));
+        System.out.println("Replenishing " + this.getName() + "'s Mana...");
+        this.mana += this.mana * mana_regen;
+        System.out.println(this.battleDisplay());
     }
 
     // Displays

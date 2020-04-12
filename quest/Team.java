@@ -346,7 +346,7 @@ public class Team{
             // Post-round regeneration
             for (int j=0; j<team.size(); j++){
                 if(this.team.get(j).getHealthPower()>0) {
-                    this.team.get(j).regen();
+                    this.team.get(j).regen(QuestDefaults.HP_REGEN, QuestDefaults.MANA_REGEN);
                 }
             }
             round++;

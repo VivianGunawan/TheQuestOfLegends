@@ -12,8 +12,6 @@ public class CharacterDefaults {
     public static final double STRENGTH_MULTIPLIER = 0.05;
     public static final double DEXTERITY_MULTIPLIER = 0.0001;
     public static final double AGILITY_MULTIPLIER = 0.00002;
-    public static final double MANA_REGEN = 0.05;
-    public static final double HP_REGEN = 0.05;
     public static final double BOUNTY_MULTIPLIER = 100;
     public static final double BOUNTY_EXP = 2;
     public static final double WIN_REVIVE_HP_MULTIPLIER = 0.5;
