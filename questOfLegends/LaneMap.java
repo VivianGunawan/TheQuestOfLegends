@@ -10,6 +10,7 @@ import java.util.*;
 
 import static questOfLegends.QoLDefaults.*;
 import static src.util.ColouredOutputs.ANSI_RESET;
+import static src.util.IOConstants.*;
 
 public class LaneMap {
     // represents the map for The Quest of Legends
@@ -20,6 +21,7 @@ public class LaneMap {
     private final double probabilityBush;
     private final double probabilityKoulou;
     private final double probabilityCave;
+    Scanner scan = new Scanner(System.in);
     // The row size and column size will be calculated based on the number of lanes, lane size, and lane length of the game to make it dynamic
     private final int rowsize;
     private final int colsize;
@@ -147,11 +149,81 @@ public class LaneMap {
     public void placeHero(int location, Hero hero) {
         Tile currTile  = getTile(location);
         currTile.setContainsHero(true);
+        display();
+        if (currTile instanceof  NexusTile){
+            System.out.println(hero.getName()+" has entered a Nexus Tile");
+            System.out.println(DIVIDER);
+            NexusTile currNexus = (NexusTile) currTile;
+            Merchant merchant = currNexus.getMerchant();
+            char opt = '\u0000';
+            try{
+                while (opt!= TRANSACTION_INPUT && opt!=EXPLORE_INPUT && opt!=NONE){
+                    System.out.println("Would " + hero.getName() + " like to perform a transaction (" + TRANSACTION_INPUT +
+                            ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
+                    opt = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
+                }
+            }catch (Exception e){
+                src.util.ErrorMessage.printErrorInvalidInput();
+            }
+            while(opt!=NONE){
+                if(opt==TRANSACTION_INPUT){
+                    talkToMerchant(hero,merchant);
+                    char syn = '\u0000';
+                    try {
+                        while(syn!=YES_INPUT && syn!=NO_INPUT){
+                            System.out.println("Would " + hero.getName() + "like to interact with " + merchant.getName() + "again? (" + YES_INPUT + "/" + NO_INPUT + ")");
+                            syn = scan.next().charAt(0);
+                            System.out.println(DIVIDER);
+                        }
+                        if(syn==YES_INPUT){
+                            talkToMerchant(hero,merchant);
+                        }
+                    } catch (InputMismatchException e) {
+                        src.util.ErrorMessage.printErrorInvalidInput();
+                    }
+                    break;
+                }
+                if(opt==EXPLORE_INPUT){
+                    hero.exploreInventory();
+                    break;
+                }
+                try{
+                    while (opt!= TRANSACTION_INPUT && opt!=SELL_INPUT && opt!=NONE){
+                        System.out.print("Would you like to perform a transaction (" + TRANSACTION_INPUT +
+                                ") or explore inventory (" + EXPLORE_INPUT + ") or none ("+ NONE +")");
+                        opt = scan.next().charAt(0);
+                        System.out.println(DIVIDER);
+                    }
+                }catch (Exception e) {
+                    src.util.ErrorMessage.printErrorInvalidInput();
+                }
+            }
+            return;
+        }
+        else if (currTile instanceof KoulouTile){
+            hero.setStrength(hero.getStrength()+(hero.getStrength()*KOULOU_STRENGTH_MULTIPLIER));
+        }
+        else if (currTile instanceof BushTile){
+            hero.setDexterity(hero.getDexterity()+(hero.getDexterity()*BUSH_DEXTERITY_MULTIPLIER));
+        }
+        else if(currTile instanceof CaveTile){
+            hero.setAgility(hero.getAgility()+(hero.getAgility()*CAVE_AGILITY_MULTIPLIER));
+        }
     }
     // Remove hero from a tile
     public void removeHero(int location, Hero hero) {
         Tile currTile  = getTile(location);
         currTile.setContainsHero(false);
+        if (currTile instanceof KoulouTile){
+            hero.setStrength(hero.getStrength()-(hero.getStrength()*KOULOU_STRENGTH_MULTIPLIER));
+        }
+        else if (currTile instanceof BushTile){
+            hero.setDexterity(hero.getDexterity()-(hero.getDexterity()*BUSH_DEXTERITY_MULTIPLIER));
+        }
+        else if(currTile instanceof CaveTile){
+            hero.setAgility(hero.getAgility()-(hero.getAgility()*CAVE_AGILITY_MULTIPLIER));
+        }
     }
     // Place monster on a tile
     public void placeMonster(int location, Monster monster){
@@ -357,5 +429,43 @@ public class LaneMap {
             return false;
         }
         return false;
+    }
+    private void talkToMerchant (Hero hero, Merchant merchant) {
+        merchant.maskItems(hero.getLevel());
+        System.out.println("Would " + hero.getName() + " like to buy or sell an item? (" + BUY_INPUT + "/" + SELL_INPUT + ")");
+        char bs = '\u0000';
+        try {
+            bs = scan.next().charAt(0);
+            System.out.println(DIVIDER);
+            while (bs != BUY_INPUT && bs != SELL_INPUT) {
+                System.out.println("Would " + hero.getName() + " like to buy or sell an item? (" + BUY_INPUT + "/" + SELL_INPUT + ")");
+                bs = scan.next().charAt(0);
+                System.out.println(DIVIDER);
+            }
+            if (bs == BUY_INPUT) {
+                hero.buy(merchant.sell());
+            }
+            else if(bs == SELL_INPUT){
+                hero.sell();
+            }
+            char yn = '\u0000';
+            try {
+                while (yn != YES_INPUT && yn != NO_INPUT) {
+                    System.out.println("Is " + hero.getName() + " done talking to merchant? (y/n)");
+                    yn = scan.next().charAt(0);
+                    System.out.println(DIVIDER);
+                }
+                if (yn == YES_INPUT) {
+                    return;
+                }
+                else {
+                    talkToMerchant(hero, merchant);
+                }
+            } catch (InputMismatchException e) {
+                src.util.ErrorMessage.printErrorInvalidInput();
+            }
+        } catch (InputMismatchException e) {
+            src.util.ErrorMessage.printErrorInvalidInput();
+        }
     }
 }
