@@ -58,7 +58,7 @@ public class TheQuestOfLegendsGameEngine {
         endQOLgame();
     }
 
-    // Methods
+    // Helper Methods
     // Select hero team members
     private LaneTeam selectTeam() {
         List<Hero> tempTeam = new ArrayList<Hero>();
@@ -150,11 +150,6 @@ public class TheQuestOfLegendsGameEngine {
         return false;
     }
 
-    // when user chooses to quit
-    private void endQOLgame(){
-        System.out.println("==================== END GAME ======================");
-    }
-
     // Hero move validations
     private boolean checkMove(char m, int currentHeroLocation){
         if( m == up || m == UP || m == down || m == DOWN || m == left ||m == LEFT|| m == right || m == RIGHT) {
@@ -224,6 +219,7 @@ public class TheQuestOfLegendsGameEngine {
 
     }
 
+    // Methods
     // implement rounds
     private void startQOLgame() {
         int round = 0;
@@ -242,6 +238,11 @@ public class TheQuestOfLegendsGameEngine {
                 Hero currHero = this.heroTeam.getHero(j);
                 int currHeroLocation = this.heroTeam.getLocation(j);
                 // non actions
+                // regen
+                if(round>0) {
+                    currHero.regen(HP_REGEN, MANA_REGEN);
+                }
+                // place
                 this.map.placeHero(currHeroLocation, currHero);
                 // actions
                 char opt = '\u0000';
@@ -486,7 +487,13 @@ public class TheQuestOfLegendsGameEngine {
             round++;
         }
     }
+    // when user chooses to quit
+    private void endQOLgame(){
+        System.out.println("==================== END GAME ======================");
+    }
+
     public static void main(String[] args) {
         TheQuestOfLegendsGameEngine game = new TheQuestOfLegendsGameEngine();
     }
+
 }
