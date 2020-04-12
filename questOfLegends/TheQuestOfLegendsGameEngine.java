@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static questOfLegends.QoLDefaults.*;
+import static src.util.ColouredOutputs.ANSI_BOLD;
 import static src.util.GameInputs.*;
 import static src.util.IOConstants.*;
 
@@ -218,7 +219,21 @@ public class TheQuestOfLegendsGameEngine {
         return (this.heroTeam.getLane(heroIndex) == lane);
 
     }
-
+    // Battles helpers
+    private void displayEnemies(List<Monster> enemies){
+        System.out.println("============= MONSTERS IN PROXIMITY ================");
+        int i = 1;
+        Iterator<Monster> itr = enemies.iterator();
+        while (itr.hasNext()) {
+            Monster temp =  itr.next();
+            if (temp.getHealthPower()>0) {
+                System.out.println(ANSI_BOLD + "MONSTER " + i );
+                System.out.print(temp);
+                System.out.println(DIVIDER);
+            }
+            i++;
+        }
+    }
     // Methods
     // implement rounds
     private void startQOLgame() {
@@ -305,7 +320,7 @@ public class TheQuestOfLegendsGameEngine {
                                 enemies.add(this.monsterTeam.getMonsterByLocation(tempLocation));
                             }
                             int monsterId = 0;
-                            // TODO: displayEnemies(enemies);
+                            displayEnemies(enemies);
                             try {
                                 while (monsterId < 1 || monsterId > enemies.size()) {
                                     System.out.println("which other monster would " +
@@ -359,7 +374,7 @@ public class TheQuestOfLegendsGameEngine {
                             }
                             if (currHero.getInventory().numSpell() != 0) {
                                 int monsterId = 0;
-                                // TODO: displayEnemies(enemies);
+                                displayEnemies(enemies);
                                 try {
                                     while (monsterId < 1 || monsterId > enemies.size()) {
                                         System.out.println(" which other monster would " + currHero.getName() + "like to cast spell on? (monster #)");
@@ -437,7 +452,7 @@ public class TheQuestOfLegendsGameEngine {
                             scan.nextLine();
                             while (teleportLocation < 1 || teleportLocation > this.map.getColSize() * this.map.getRowSize() || tileIsInaccessible(teleportLocation) ||
                                     passMonsterDuringTeleport(j, teleportLocation) || teleportInSameLane(j, teleportLocation)) {
-                                ErrorMessage.printTeleportError();
+                                System.out.println("You can not teleport to this tile.");
                                 System.out.println("Please select another tile location");
                                 teleportLocation = scan.nextInt();
                                 System.out.println(DIVIDER);
