@@ -23,6 +23,11 @@ public class LaneTeam {
         this.location.add(location);
         assert(this.team.size()==this.lane.size()||this.lane.size()==this.location.size());
     }
+    public void removeMember(int index){
+        this.team.remove(index);
+        this.lane.remove(index);
+        this.location.remove(index);
+    }
     public int size(){
         return this.team.size();
     }
@@ -56,8 +61,7 @@ public class LaneTeam {
     public Monster getMonster(int index){
         return (Monster) this.team.get(index);
     }
-    public Monster getMonsterByLocation(int location){
-        return getMonster(this.location.indexOf(location));
+    public int getMonsterIndexByLocation(int location){
+        return this.location.indexOf(location);
     }
-
 }
