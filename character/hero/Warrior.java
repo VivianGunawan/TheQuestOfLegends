@@ -1,6 +1,6 @@
 package character.hero;
 
-import static quest.QuestDefaults.SKILLS_MULTIPLIER;
+import static character.CharacterDefaults.SKILLS_MULTIPLIER;
 import static src.util.ColouredOutputs.ANSI_BRIGHT_BLUE;
 import static src.util.ColouredOutputs.ANSI_RESET;
 

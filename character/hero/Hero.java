@@ -2,6 +2,7 @@ package character.hero;
 
 // THE QUEST FILES
 import character.AttackResult;
+import character.CharacterDefaults;
 import character.HeroBattle;
 import character.Transaction;
 import character.items.Item;
@@ -15,7 +16,6 @@ import src.util.ErrorMessage;
 
 import static src.util.ColouredOutputs.ANSI_RESET;
 import static src.util.IOConstants.*;
-import static quest.QuestDefaults.*;
 
 // JAVA LIBRARIES
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
     }
     public void setExperience(double experience) {
         this.experience = experience;
-        if(this.experience>this.getLevel()*EXP_MULTIPLIER) {
+        if(this.experience>this.getLevel()* CharacterDefaults.EXP_MULTIPLIER) {
             levelUp();
         }
     }
@@ -247,14 +247,14 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         }
     }
     public double doBasicAttack() {
-        return (this.strength+weaponDamage())*STRENGTH_MULTIPLIER;
+        return (this.strength+weaponDamage())* CharacterDefaults.STRENGTH_MULTIPLIER;
     }
     public AttackResult receiveBasicAttack(double damage) {
         if (this.getHealthPower()==0){
             return AttackResult.DEAD;
         }
         else{
-            if( Math.random() < this.agility*AGILITY_MULTIPLIER){
+            if( Math.random() < this.agility* CharacterDefaults.AGILITY_MULTIPLIER){
                 return AttackResult.DODGE;
             }
             else{
@@ -315,12 +315,12 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             return 0;
         }
         else{
-            return (spell.getDamage()+(this.dexterity*DEXTERITY_MULTIPLIER)*spell.getDamage());
+            return (spell.getDamage()+(this.dexterity* CharacterDefaults.DEXTERITY_MULTIPLIER)*spell.getDamage());
         }
     }
     public void regen() {
-        this.setHealthPower(this.getHealthPower() + (this.getHealthPower() * HP_REGEN));
-        this.mana += this.mana * MANA_REGEN;
+        this.setHealthPower(this.getHealthPower() + (this.getHealthPower() * CharacterDefaults.HP_REGEN));
+        this.mana += this.mana * CharacterDefaults.MANA_REGEN;
     }
 
     // Displays
@@ -362,12 +362,12 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
     // Private Methods (Helpers)
     // Level up hero
     protected void levelUp() {
-        this.experience = this.experience % EXP_MULTIPLIER;
+        this.experience = this.experience % CharacterDefaults.EXP_MULTIPLIER;
         this.setLevel(this.getLevel()+1);
-        this.setHealthPower(HP_MULTIPLIER*this.getLevel());
-        this.strength = this.strength + (this.strength * SKILLS_MULTIPLIER);
-        this.agility = this.agility + (this.agility * SKILLS_MULTIPLIER);
-        this.dexterity = this.dexterity + (this.dexterity * SKILLS_MULTIPLIER);
+        this.setHealthPower(CharacterDefaults.HP_MULTIPLIER*this.getLevel());
+        this.strength = this.strength + (this.strength * CharacterDefaults.SKILLS_MULTIPLIER);
+        this.agility = this.agility + (this.agility * CharacterDefaults.SKILLS_MULTIPLIER);
+        this.dexterity = this.dexterity + (this.dexterity * CharacterDefaults.SKILLS_MULTIPLIER);
         this.mana = this.mana*0.1;
     }
 
@@ -851,7 +851,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         }
         else if (potion instanceof Experience){
             this.experience+=potion.getEffect();
-            if(this.experience>this.getLevel()*EXP_MULTIPLIER){
+            if(this.experience>this.getLevel()* CharacterDefaults.EXP_MULTIPLIER){
                 this.levelUp();
             }
         }

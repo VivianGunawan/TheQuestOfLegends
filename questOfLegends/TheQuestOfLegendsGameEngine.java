@@ -144,16 +144,16 @@ public class TheQuestOfLegendsGameEngine {
         System.out.println("================== STARTING GAME ===================");
       while (!checkHeroWin()&&!checkMonsterWin()){
             System.out.println("==================== ROUND " + round + " =======================");
-              for (int i = 0 ; i<this.numLane; i++){
-                  this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
-              }
             if(round%MONSTER_SPAWN_RATE == 0){
                 spawnMonster();
             }
-            this.map.display();
+            // Hero's turn
             for(int j = 0 ; j<this.numLane; j++){
                 Hero currHero = this.heroTeam.getHero(j);
                 int currHeroLocation = this.heroTeam.getLocation(j);
+                // non actions
+                this.map.placeHero(currHeroLocation,currHero);
+                // actions
                 char opt = '\u0000';
                 try{
                     while (opt != ATTACK_INPUT && opt != CAST_INPUT && opt != CHANGE_INPUT && opt != USE_POTION_INPUT && opt != MOVE_INPUT && opt != TELEPORT_INPUT && opt!=INFO && opt!=info) {
@@ -327,7 +327,7 @@ public class TheQuestOfLegendsGameEngine {
                         if(!(move == quit||move == QUIT)){
                             this.map.removeHero(currHeroLocation, currHero);
                             this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
-                            System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next round");
+                            System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next turn");
                         }
                         else{
                             return;

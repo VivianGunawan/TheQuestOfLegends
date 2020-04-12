@@ -1,6 +1,7 @@
 package quest;
 
 import character.AttackResult;
+import character.CharacterDefaults;
 import character.hero.Hero;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -9,7 +10,6 @@ import character.monster.Monster;
 import character.items.spells.Spell;
 import src.util.ErrorMessage;
 
-import static quest.QuestDefaults.*;
 import static src.util.IOConstants.*;
 import static src.util.ColouredOutputs.*;
 
@@ -398,12 +398,12 @@ public class Team{
                 // Reward hero that don't faint
                 Hero currHero = this.team.get(i);
                 if(currHero.getHealthPower()!=0){
-                    currHero.setMoney(currHero.getMoney()+(BOUNTY_MULTIPLIER*monsterLevel));
-                    currHero.setExperience(currHero.getExperience()+BOUNTY_EXP);
+                    currHero.setMoney(currHero.getMoney()+(CharacterDefaults.BOUNTY_MULTIPLIER*monsterLevel));
+                    currHero.setExperience(currHero.getExperience()+ CharacterDefaults.BOUNTY_EXP);
                 }
                 // revive hero
                 else{
-                    currHero.setHealthPower(WIN_REVIVE_HP_MULTIPLIER *HP_MULTIPLIER*currHero.getLevel());
+                    currHero.setHealthPower(CharacterDefaults.WIN_REVIVE_HP_MULTIPLIER * CharacterDefaults.HP_MULTIPLIER*currHero.getLevel());
                 }
             }
         }
@@ -411,8 +411,8 @@ public class Team{
             System.out.println("You Lost this Battle");
             for(int i=0; i<this.team.size(); i++){
                 Hero currHero = this.team.get(i);
-                currHero.setMoney(currHero.getMoney()*TAX_MULTIPLIER);
-                currHero.setHealthPower(LOSE_REVIVE_HP_MULTIPLIER *HP_MULTIPLIER*currHero.getLevel());
+                currHero.setMoney(currHero.getMoney()* CharacterDefaults.TAX_MULTIPLIER);
+                currHero.setHealthPower(CharacterDefaults.LOSE_REVIVE_HP_MULTIPLIER * CharacterDefaults.HP_MULTIPLIER*currHero.getLevel());
             }
         }
     }
