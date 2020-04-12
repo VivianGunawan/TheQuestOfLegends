@@ -44,12 +44,16 @@ public class LaneMap {
         System.out.println(CAVE_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
     }
 
-    public Integer getRowSize() {
+    public int getRowSize() {
         return this.rowsize;
     }
 
-    public Integer getColSize() {
+    public int getColSize() {
         return this.getColSize();
+    }
+
+    public Tile getTile(int location){
+        return  this.map[(location-1)/this.colsize][(location-1)%this.colsize];
     }
 
     // Helper used to set the map
@@ -96,8 +100,6 @@ public class LaneMap {
         }
     }
 
-    // remove hero
-
     // Helper method used to generate list of tiles with the appropriate probabilities
     private List<Tile> generateTileOptions() {
         List<Tile> tempTileList = new ArrayList<Tile>();
@@ -141,24 +143,25 @@ public class LaneMap {
         return monstersNexus;
     }
 
-    // Place hero on the map
+    // Place hero on a tile
     public void placeHero(int location, Hero hero) {
         Tile currTile  = getTile(location);
         currTile.setContainsHero(true);
     }
-
+    // Remove hero from a tile
     public void removeHero(int location, Hero hero) {
         Tile currTile  = getTile(location);
         currTile.setContainsHero(false);
     }
-    // Place monster on the
+    // Place monster on a tile
     public void placeMonster(int location, Monster monster){
         BattleTile currTile  = (BattleTile) getTile(location);
         currTile.setContainsMonster(true);
     }
-
-    public Tile getTile(int location){
-        return  this.map[(location-1)/this.colsize][(location-1)%this.colsize];
+    // Remove monster from a tile
+    public void removeMonster(int location, Monster monster){
+        BattleTile currTile  = (BattleTile) getTile(location);
+        currTile.setContainsMonster(false);
     }
 
     public List<Integer> surroundingTilesContainMonster(int location) {
@@ -168,43 +171,43 @@ public class LaneMap {
         if ((location-1)%this.rowsize==0) {
             // condition for being on the top
             if ((location-1)/this.rowsize == 0) {
-                if (checkTile(location + 1) ) {
+                if (checkTileMonster(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if(checkTile(location + this.rowsize) ) {
+                if(checkTileMonster(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) ) {
+                if (checkTileMonster(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
             }
             // condition for being on the bottom
             else if((location-1)/this.rowsize == this.rowsize - 1) {
                 // condition
-                if (checkTile(location + 1) ) {
+                if (checkTileMonster(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if(checkTile(location - this.rowsize) ) {
+                if(checkTileMonster(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize + 1) ) {
+                if (checkTileMonster(location - this.rowsize + 1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
             } // condition for being on the middle
             else {
-                if (checkTile(location + 1) ) {
+                if (checkTileMonster(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if(checkTile(location + this.rowsize) ) {
+                if(checkTileMonster(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) ) {
+                if (checkTileMonster(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
-                if(checkTile(location - this.rowsize) ) {
+                if(checkTileMonster(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize +1) ) {
+                if (checkTileMonster(location - this.rowsize +1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
             }
@@ -213,41 +216,41 @@ public class LaneMap {
         else if ((location-1)%this.rowsize == colsize - 1) {
             // condition for being on the top
             if ((location-1)/this.rowsize == 0) {
-                if (checkTile(location - 1) ) {
+                if (checkTileMonster(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) ) {
+                if(checkTileMonster(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize - 1) ) {
+                if (checkTileMonster(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
             } // condition for being on the bottom
             else if((location-1)/this.rowsize == this.rowsize - 1) {
-                if (checkTile(location - 1) ) {
+                if (checkTileMonster(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location - this.rowsize) ) {
+                if(checkTileMonster(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize - 1) ) {
+                if (checkTileMonster(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             } // condition for being in the middle
             else {
-                if (checkTile(location - 1) ) {
+                if (checkTileMonster(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) ) {
+                if(checkTileMonster(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize - 1) ) {
+                if (checkTileMonster(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
-                if(checkTile(location - this.rowsize) ) {
+                if(checkTileMonster(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize - 1) ) {
+                if (checkTileMonster(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             }
@@ -256,69 +259,69 @@ public class LaneMap {
         else {
             // condition for being on the top
             if ((location-1)/this.rowsize == 0) {
-                if (checkTile(location + 1) ) {
+                if (checkTileMonster(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if (checkTile(location - 1) ) {
+                if (checkTileMonster(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) ) {
+                if(checkTileMonster(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) ) {
+                if (checkTileMonster(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
-                if (checkTile(location + this.rowsize - 1) ) {
+                if (checkTileMonster(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
             } // condition for being on the bottom
             else if((location-1)/this.rowsize == this.rowsize - 1) {
-                if (checkTile(location + 1)) {
+                if (checkTileMonster(location + 1)) {
                     monsterLocations.add(location + 1);
                 }
-                if (checkTile(location - 1) ) {
+                if (checkTileMonster(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location - this.rowsize) ) {
+                if(checkTileMonster(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize + 1) ) {
+                if (checkTileMonster(location - this.rowsize + 1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
-                if (checkTile(location - this.rowsize - 1) ) {
+                if (checkTileMonster(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             } // condition for being on the middle
             else {
-                if (checkTile(location + 1) ) {
+                if (checkTileMonster(location + 1) ) {
                     monsterLocations.add(location + 1);
                 }
-                if (checkTile(location - 1) ) {
+                if (checkTileMonster(location - 1) ) {
                     monsterLocations.add(location - 1);
                 }
-                if(checkTile(location + this.rowsize) ) {
+                if(checkTileMonster(location + this.rowsize) ) {
                     monsterLocations.add(location + this.rowsize);
                 }
-                if (checkTile(location + this.rowsize + 1) ) {
+                if (checkTileMonster(location + this.rowsize + 1) ) {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
-                if (checkTile(location + this.rowsize - 1) ) {
+                if (checkTileMonster(location + this.rowsize - 1) ) {
                     monsterLocations.add(location + this.rowsize - 1);
                 }
-                if(checkTile(location - this.rowsize) ) {
+                if(checkTileMonster(location - this.rowsize) ) {
                     monsterLocations.add(location - this.rowsize);
                 }
-                if (checkTile(location - this.rowsize +1) ) {
+                if (checkTileMonster(location - this.rowsize +1) ) {
                     monsterLocations.add(location - this.rowsize + 1);
                 }
-                if (checkTile(location - this.rowsize - 1) ) {
+                if (checkTileMonster(location - this.rowsize - 1) ) {
                     monsterLocations.add(location - this.rowsize - 1);
                 }
             }
         }
         return  monsterLocations;
     }
-    private boolean checkTile(int location){
+    private boolean checkTileMonster(int location){
         Tile tempTile = getTile(location);
         if (tempTile instanceof NexusTile){
             //check for monster

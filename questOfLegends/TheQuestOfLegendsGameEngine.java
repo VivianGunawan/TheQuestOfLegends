@@ -187,7 +187,6 @@ public class TheQuestOfLegendsGameEngine {
                         ErrorMessage.printErrorInvalidInput();
                     }
                 if (opt == ATTACK_INPUT) {
-                    this.map.getTile(currHeroLocation);
                     if(this.map.surroundingTilesContainMonster(currHeroLocation).size()==0){
                         System.out.println("There are no enemies within range");
                         opt = '\u0000';
