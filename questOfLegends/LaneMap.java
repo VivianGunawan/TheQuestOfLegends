@@ -430,6 +430,202 @@ public class LaneMap {
         }
         return false;
     }
+
+    public List<Integer> surroundingTilesContainHero(int location) {
+        List<Integer> heroLocations = new ArrayList<>();
+
+        // condition for being on the left
+        if ((location-1)%this.rowsize==0) {
+            // condition for being on the top
+            if ((location-1)/this.rowsize == 0) {
+                if (checkTileHero(location + 1) ) {
+                    heroLocations.add(location + 1);
+                }
+                if(checkTileHero(location + this.rowsize) ) {
+                    heroLocations.add(location + this.rowsize);
+                }
+                if (checkTileHero(location + this.rowsize + 1) ) {
+                    heroLocations.add(location + this.rowsize + 1);
+                }
+            }
+            // condition for being on the bottom
+            else if((location-1)/this.rowsize == this.rowsize - 1) {
+                // condition
+                if (checkTileHero(location + 1) ) {
+                    heroLocations.add(location + 1);
+                }
+                if(checkTileHero(location - this.rowsize) ) {
+                    heroLocations.add(location - this.rowsize);
+                }
+                if (checkTileHero(location - this.rowsize + 1) ) {
+                    heroLocations.add(location - this.rowsize + 1);
+                }
+            } // condition for being on the middle
+            else {
+                if (checkTileHero(location + 1) ) {
+                    heroLocations.add(location + 1);
+                }
+                if(checkTileHero(location + this.rowsize) ) {
+                    heroLocations.add(location + this.rowsize);
+                }
+                if (checkTileHero(location + this.rowsize + 1) ) {
+                    heroLocations.add(location + this.rowsize + 1);
+                }
+                if(checkTileHero(location - this.rowsize) ) {
+                    heroLocations.add(location - this.rowsize);
+                }
+                if (checkTileHero(location - this.rowsize +1) ) {
+                    heroLocations.add(location - this.rowsize + 1);
+                }
+            }
+        }
+        // condition for being on the right
+        else if ((location-1)%this.rowsize == colsize - 1) {
+            // condition for being on the top
+            if ((location-1)/this.rowsize == 0) {
+                if (checkTileHero(location - 1) ) {
+                    heroLocations.add(location - 1);
+                }
+                if(checkTileHero(location + this.rowsize) ) {
+                    heroLocations.add(location + this.rowsize);
+                }
+                if (checkTileHero(location + this.rowsize - 1) ) {
+                    heroLocations.add(location + this.rowsize - 1);
+                }
+            } // condition for being on the bottom
+            else if((location-1)/this.rowsize == this.rowsize - 1) {
+                if (checkTileHero(location - 1) ) {
+                    heroLocations.add(location - 1);
+                }
+                if(checkTileHero(location - this.rowsize) ) {
+                    heroLocations.add(location - this.rowsize);
+                }
+                if (checkTileHero(location - this.rowsize - 1) ) {
+                    heroLocations.add(location - this.rowsize - 1);
+                }
+            } // condition for being in the middle
+            else {
+                if (checkTileHero(location - 1) ) {
+                    heroLocations.add(location - 1);
+                }
+                if(checkTileHero(location + this.rowsize) ) {
+                    heroLocations.add(location + this.rowsize);
+                }
+                if (checkTileHero(location + this.rowsize - 1) ) {
+                    heroLocations.add(location + this.rowsize - 1);
+                }
+                if(checkTileHero(location - this.rowsize) ) {
+                    heroLocations.add(location - this.rowsize);
+                }
+                if (checkTileMonster(location - this.rowsize - 1) ) {
+                    heroLocations.add(location - this.rowsize - 1);
+                }
+            }
+        }
+        // condition for being in the middle
+        else {
+            // condition for being on the top
+            if ((location-1)/this.rowsize == 0) {
+                if (checkTileHero(location + 1) ) {
+                    heroLocations.add(location + 1);
+                }
+                if (checkTileHero(location - 1) ) {
+                    heroLocations.add(location - 1);
+                }
+                if(checkTileHero(location + this.rowsize) ) {
+                    heroLocations.add(location + this.rowsize);
+                }
+                if (checkTileHero(location + this.rowsize + 1) ) {
+                    heroLocations.add(location + this.rowsize + 1);
+                }
+                if (checkTileHero(location + this.rowsize - 1) ) {
+                    heroLocations.add(location + this.rowsize - 1);
+                }
+            } // condition for being on the bottom
+            else if((location-1)/this.rowsize == this.rowsize - 1) {
+                if (checkTileHero(location + 1)) {
+                    heroLocations.add(location + 1);
+                }
+                if (checkTileHero(location - 1) ) {
+                    heroLocations.add(location - 1);
+                }
+                if(checkTileHero(location - this.rowsize) ) {
+                    heroLocations.add(location - this.rowsize);
+                }
+                if (checkTileHero(location - this.rowsize + 1) ) {
+                    heroLocations.add(location - this.rowsize + 1);
+                }
+                if (checkTileHero(location - this.rowsize - 1) ) {
+                    heroLocations.add(location - this.rowsize - 1);
+                }
+            } // condition for being on the middle
+            else {
+                if (checkTileHero(location + 1) ) {
+                    heroLocations.add(location + 1);
+                }
+                if (checkTileHero(location - 1) ) {
+                    heroLocations.add(location - 1);
+                }
+                if(checkTileHero(location + this.rowsize) ) {
+                    heroLocations.add(location + this.rowsize);
+                }
+                if (checkTileHero(location + this.rowsize + 1) ) {
+                    heroLocations.add(location + this.rowsize + 1);
+                }
+                if (checkTileHero(location + this.rowsize - 1) ) {
+                    heroLocations.add(location + this.rowsize - 1);
+                }
+                if(checkTileHero(location - this.rowsize) ) {
+                    heroLocations.add(location - this.rowsize);
+                }
+                if (checkTileHero(location - this.rowsize +1) ) {
+                    heroLocations.add(location - this.rowsize + 1);
+                }
+                if (checkTileHero(location - this.rowsize - 1) ) {
+                    heroLocations.add(location - this.rowsize - 1);
+                }
+            }
+        }
+        return  heroLocations;
+    }
+    private boolean checkTileHero(int location){
+        Tile tempTile = getTile(location);
+        if (tempTile instanceof NexusTile){
+            //check for monster
+            NexusTile currentNexus = (NexusTile) tempTile;
+            if (currentNexus.isContainsHero()) {
+                return true;
+            }
+        } else if (tempTile instanceof CaveTile) {
+            //check for monster
+            CaveTile currentCave = (CaveTile) tempTile;
+            if (currentCave.isContainsHero()) {
+                return true;
+            }
+        } else if (tempTile instanceof KoulouTile) {
+            //check for monster
+            KoulouTile currentKoulou = (KoulouTile) tempTile;
+            if (currentKoulou.isContainsHero()) {
+                return true;
+            }
+        } else if (tempTile instanceof BushTile) {
+            //check for monster
+            BushTile currentBush = (BushTile) tempTile;
+            if (currentBush.isContainsHero()) {
+                return true;
+            }
+        } else if (tempTile instanceof PlainTile) {
+            //check for monster
+            PlainTile currentPlain = (PlainTile) tempTile;
+            if (currentPlain.isContainsHero()) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
+
     private void talkToMerchant (Hero hero, Merchant merchant) {
         merchant.maskItems(hero.getLevel());
         System.out.println("Would " + hero.getName() + " like to buy or sell an item? (" + BUY_INPUT + "/" + SELL_INPUT + ")");
