@@ -8,6 +8,9 @@ import tiles.QoLTiles.*;
 
 import java.util.*;
 
+import static questOfLegends.QoLDefaults.*;
+import static src.util.ColouredOutputs.ANSI_RESET;
+
 public class LaneMap {
     // represents the map for The Quest of Legends
     private final int numLane;// 3
@@ -33,8 +36,12 @@ public class LaneMap {
         this.rowsize = laneLength + 2;
         this.colsize = (numLane * laneSize) + numLane - 1;
         this.map = new Tile[rowsize][colsize];
-
         setMap(merchant);
+        System.out.println(NEXUS_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
+        System.out.println(PLAIN_TILE_COLOR + "    " + ANSI_RESET + " represents a Plain Tile");
+        System.out.println(BUSH_TILE_COLOR + "    " + ANSI_RESET + " represents a Bush Tile");
+        System.out.println(KOULOU_TILE_COLOR + "    " + ANSI_RESET + " represents a Koulou Tile");
+        System.out.println(CAVE_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
     }
 
     public Integer getRowSize() {
@@ -71,6 +78,7 @@ public class LaneMap {
 
     // Displays Map
     public void display(){
+        System.out.println("======================= MAP ========================");
         String border = "----+";
         System.out.println("+" + border.repeat(colsize));
         for (int i = 0; i < rowsize; i++) {

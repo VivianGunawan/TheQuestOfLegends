@@ -2,6 +2,7 @@ package tiles.QoLTiles;
 
 import character.merchant.Merchant;
 
+import static questOfLegends.QoLDefaults.NEXUS_TILE_COLOR;
 import static src.util.ColouredOutputs.*;
 import static src.util.ColouredOutputs.ANSI_RESET;
 
@@ -21,6 +22,6 @@ public class NexusTile extends BattleTile {
 
     @Override
     public String toString() {
-        return ANSI_BLACK + ANSI_BRIGHT_BG_BLUE + super.toString() +ANSI_RESET;
+        return  NEXUS_TILE_COLOR + super.toString() +ANSI_RESET;
     }
 }

@@ -1,5 +1,7 @@
 package questOfLegends;
 
+import static src.util.ColouredOutputs.*;
+
 public class QoLDefaults {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MAP DEFAULTS
@@ -10,6 +12,11 @@ public class QoLDefaults {
     public static final double DEFAULT_PROBABILITY_BUSH = 0.1;
     public static final double DEFAULT_PROBABILITY_KOULOU = 0.1;
     public static final double DEFAULT_PROBABILITY_CAVE = 0.1;
+    public static final String NEXUS_TILE_COLOR = ANSI_BG_BLUE;
+    public static final String BUSH_TILE_COLOR = ANSI_BG_GREEN;
+    public static final String CAVE_TILE_COLOR = ANSI_BG_PURPLE;
+    public static final String KOULOU_TILE_COLOR = ANSI_BG_RED;
+    public static final String PLAIN_TILE_COLOR = ANSI_BG_YELLOW;
 
     public static final int MONSTER_SPAWN_RATE = 8;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////

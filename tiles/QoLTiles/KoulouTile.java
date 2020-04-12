@@ -1,5 +1,6 @@
 package tiles.QoLTiles;
 
+import static questOfLegends.QoLDefaults.KOULOU_TILE_COLOR;
 import static src.util.ColouredOutputs.*;
 
 public class KoulouTile extends BattleTile{
@@ -11,6 +12,6 @@ public class KoulouTile extends BattleTile{
     }
     @Override
     public String toString() {
-        return ANSI_BLACK + ANSI_BRIGHT_BG_RED+ super.toString() +ANSI_RESET;
+        return  KOULOU_TILE_COLOR + super.toString() +ANSI_RESET;
     }
 }

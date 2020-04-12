@@ -45,8 +45,8 @@ public class TheQuestOfLegendsGameEngine {
         this.probabilityCave = DEFAULT_PROBABILITY_CAVE;
         this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;
         this.probabilityBush = DEFAULT_PROBABILITY_BUSH;
-        this.map = new LaneMap(this.numLane, this.laneSize, this.laneLength, this.merchant, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
         System.out.println("========= WELCOME TO THE QUEST OF LEGENDS ==========");
+        this.map = new LaneMap(this.numLane, this.laneSize, this.laneLength, this.merchant, this.probabilityPlain, this.probabilityBush, this.probabilityKoulou, this.probabilityCave);
         this.map.display();
         System.out.println("================== TEAM SELECTION ==================");
         this.heroTeam = selectTeam();
@@ -142,17 +142,15 @@ public class TheQuestOfLegendsGameEngine {
     private void startQOLgame() {
         int round = 0;
         System.out.println("================== STARTING GAME ===================");
-      while (!checkHeroWin()||!checkMonsterWin()){
-              // Placing Hero on Nexus
+      while (!checkHeroWin()&&!checkMonsterWin()){
+            System.out.println("==================== ROUND " + round + " =======================");
               for (int i = 0 ; i<this.numLane; i++){
                   this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
               }
             if(round%MONSTER_SPAWN_RATE == 0){
-                System.out.println("================ SPAWNING MONSTER ==================");
                 spawnMonster();
             }
             this.map.display();
-            // Heroes turn
             for(int j = 0 ; j<this.numLane; j++){
                 Hero currHero = this.heroTeam.getHero(j);
                 int currHeroLocation = this.heroTeam.getLocation(j);
