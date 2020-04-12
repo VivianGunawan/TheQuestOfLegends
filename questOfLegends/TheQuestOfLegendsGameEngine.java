@@ -9,6 +9,7 @@ import tiles.InaccessibleTile;
 //import util.ErrorMessage;
 
 import src.util.ErrorMessage;
+import tiles.Tile;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -313,25 +314,18 @@ public class TheQuestOfLegendsGameEngine {
                 if (opt == MOVE_INPUT) {
                     char move = '\u0000';
                     try{
-                        while(!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation)) && !(move == quit|| move == QUIT)){
+                        while(!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation))){
                             System.out.println("Where would you like to move your hero? " +
                                     "up:(" + up + "/" + UP +
                                     ") down:("+ down + "/" + DOWN +
                                     ") left:("+ left + "/" + LEFT +
-                                    ") right:("+ right + "/" + RIGHT +
-                                    ") teleport:("+ TELEPORT_INPUT + "/" + TELEPORT +
-                                    ") quit:(" + quit + "/" + QUIT + ")"
+                                    ") right:("+ right + "/" + RIGHT
                             );
                             move = scan.next().charAt(0);
                         }
-                        if(!(move == quit||move == QUIT)){
-                            this.map.removeHero(currHeroLocation, currHero);
-                            this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
-                            System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next turn");
-                        }
-                        else{
-                            return;
-                        }
+                        this.map.removeHero(currHeroLocation, currHero);
+                        this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation));
+                        System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next turn");
                     }
                     catch(Exception e){
                         ErrorMessage.printErrorInvalidInput();
@@ -340,15 +334,53 @@ public class TheQuestOfLegendsGameEngine {
                 }
                 //todo
                 if (opt == TELEPORT_INPUT) {
+                    int teleportLocation = 0;
+                    Tile desiredTile;
+                    System.out.println("Which tile would you like to teleport " + currHero.getName() + " to? ");
+                    try {
+                        teleportLocation = scan.nextInt();
+                        System.out.println(DIVIDER);
+                        scan.nextLine();
+                        while (teleportLocation < 1 || teleportLocation > this.map.getColSize() * this.map.getRowSize() || tileIsInaccessible(teleportLocation) ||
+                                passMonsterDuringTeleport(j, teleportLocation) || teleportInSameLane(j, teleportLocation)) {
+                            ErrorMessage.printTeleportError();
+                            System.out.println("Please select another tile location");
+                            teleportLocation = scan.nextInt();
+                            System.out.println(DIVIDER);
+                            scan.nextLine();
+                        }
+                    } catch (Exception o) {
+                        ErrorMessage.printErrorInvalidInput();
+                    }
+                    this.map.removeHero(currHeroLocation, currHero);
+                    this.heroTeam.setLocation(j, teleportLocation);
+                    System.out.println(currHero.getName()+ "will appear on tile "+ this.heroTeam.getLocation(j) + " on the next turn");
                 }
             }
+      }
             // Monster turn
             for(int k = 0; k<this.monsterTeam.size();k++){
                 // check for nearby hero
                 // attack if hero is range
             }
             round++;
-        }
+    }
+
+    private boolean tileIsInaccessible(Integer teleportLocation) {
+        return (this.map.getTile(teleportLocation) instanceof InaccessibleTile);
+    }
+
+    private boolean passMonsterDuringTeleport(Integer index, Integer teleportLocation) {
+        int colIndex = (teleportLocation - 1) % this.map.getColSize();
+        int lane = (colIndex / this.map.getNumLane()) + 1;
+        return !(teleportLocation > this.monsterTeam.getLocation(index));
+    }
+
+    private boolean teleportInSameLane(Integer heroIndex, Integer teleportLocation) {
+        int colIndex = (teleportLocation - 1) % this.map.getColSize();
+        int lane = (colIndex / this.map.getNumLane()) + 1;
+        return (this.heroTeam.getLane(heroIndex) == lane);
+
     }
 
     private boolean checkMove(char m, int currentHeroLocation){

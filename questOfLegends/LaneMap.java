@@ -51,11 +51,15 @@ public class LaneMap {
     }
 
     public int getColSize() {
-        return this.getColSize();
+        return this.colsize;
     }
 
     public Tile getTile(int location){
         return  this.map[(location-1)/this.colsize][(location-1)%this.colsize];
+    }
+
+    public int getNumLane() {
+        return this.numLane;
     }
 
     // Helper used to set the map
