@@ -4,7 +4,6 @@ import character.items.Item;
 
 import java.util.List;
 
-public interface Transaction {
-    void buy(List<Item> items); // No Operations in Merchant
+public interface Seller {
     List<Item> sell();
 }

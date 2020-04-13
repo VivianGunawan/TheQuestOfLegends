@@ -1,10 +1,7 @@
 package character.hero;
 
 // THE QUEST FILES
-import character.AttackResult;
-import character.CharacterDefaults;
-import character.HeroBattle;
-import character.Transaction;
+import character.*;
 import character.items.Item;
 import character.items.armors.Armor;
 import character.items.potions.*;
@@ -25,7 +22,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public abstract class Hero extends character.Character implements HeroBattle, Transaction {
+public abstract class Hero extends character.Character implements HeroBattle, Buyer, Seller {
     // represents hero in the game, could be a warrior,sorcerer or paladin.
     // Fields
     private double experience;
@@ -140,7 +137,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         }
     }
 
-    // Market interface Methods
+    // Buyer Interface Method
     public void buy(List<Item> availableItems){
         if(this.money!=0){
             buyItem(availableItems);
@@ -162,6 +159,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             System.out.println(this.getName() + " ran out of money");
         }
     }
+    // Seller Interface Method
     public List<Item> sell(){
         if(this.inventory.numItems()!=0){
             sellItem();
