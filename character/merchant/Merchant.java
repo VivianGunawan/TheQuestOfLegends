@@ -1,6 +1,6 @@
 package character.merchant;
 
-import character.Transaction;
+import character.Seller;
 import character.items.Item;
 
 import java.util.ArrayList;
@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static src.util.IOConstants.DIVIDER;
+import static util.IOConstants.DIVIDER;
 
-public class Merchant extends character.Character implements Transaction{
+public class Merchant extends character.Character implements Seller {
     // This represent the merchant that lives in a market tile
     // Fields
     private List<Item> items;
@@ -38,14 +38,6 @@ public class Merchant extends character.Character implements Transaction{
             i++;
         }
     }
-
-    @Override
-    public void buy(List<Item> items) {
-        // NO OPERATIONS
-        // merchants do not purchase item
-        return;
-    }
-
     @Override
     public List<Item> sell() {
         return this.availableItems;

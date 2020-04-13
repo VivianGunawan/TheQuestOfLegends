@@ -1,8 +1,9 @@
 package character.hero;
 
 import static character.CharacterDefaults.SKILLS_MULTIPLIER;
-import static src.util.ColouredOutputs.ANSI_BRIGHT_PURPLE;
-import static src.util.ColouredOutputs.ANSI_RESET;
+
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.SORCERER_COLOR;
 
 
 public class Sorcerer extends Hero{
@@ -13,12 +14,12 @@ public class Sorcerer extends Hero{
 
     @Override
     public String toString() {
-        return ANSI_BRIGHT_PURPLE + super.toString() + ANSI_RESET;
+        return SORCERER_COLOR + super.toString() + ANSI_RESET;
     }
 
     @Override
     public String battleDisplay() {
-        return ANSI_BRIGHT_PURPLE + super.battleDisplay() + ANSI_RESET;
+        return SORCERER_COLOR+ super.battleDisplay() + ANSI_RESET;
     }
     @Override
     protected void levelUp() {

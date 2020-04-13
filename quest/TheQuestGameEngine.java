@@ -5,9 +5,10 @@ import character.hero.Hero;
 import character.monster.Monster;
 import tiles.InaccessibleTile;
 
-import src.util.ErrorMessage;
-import static src.util.GameInputs.*;
-import static src.util.IOConstants.*;
+import util.ErrorMessage;
+
+import static character.CharacterDefaults.*;
+import static util.IOConstants.*;
 import static quest.QuestDefaults.*;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class TheQuestGameEngine {
         this.probabilityEncounter = DEFAULT_PROBABILITY_ENCOUNTER;
         this.merchant = DEFAULT_MERCHANT;
         this.heroes = DEFAULT_HEROES;
-        this.monsters =DEFAULT_MONSTERS;
+        this.monsters = DEFAULT_MONSTERS;
         this.map = new Map(this.rowsize, this.colsize, this.probabilityInaccessible, this.probabilityMarket, this.probabilityCommon, this.merchant, this.monsters, this.probabilityEncounter);
         System.out.println("=============== WELCOME TO THE QUEST ===============");
         this.map.display();
@@ -126,6 +127,7 @@ public class TheQuestGameEngine {
         this.map.place(this.location, this.team);
         move();
     }
+    // Prompts user where to move hero
     private void move(){
         char m = '\u0000';
         try{

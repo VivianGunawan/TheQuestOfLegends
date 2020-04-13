@@ -1,9 +1,13 @@
-package tiles;
+package tiles.questTiles;
 
 import character.monster.Monster;
+import tiles.Tile;
+
 import java.util.*;
 import java.util.stream.Collectors;
-import static src.util.ColouredOutputs.*;
+
+import static tiles.questTiles.questTilesDefaults.COMMON_TILE_COLOR;
+import static util.ColouredOutputs.ANSI_RESET;
 
 public class CommonTile extends Tile {
     //represents a common tile
@@ -41,9 +45,9 @@ public class CommonTile extends Tile {
     @Override
     public String toString() {
         if (this.isContainsHero()) {
-            return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + "C *" + ANSI_RESET;
+            return COMMON_TILE_COLOR + "C *" + ANSI_RESET;
         } else {
-            return ANSI_BRIGHT_BLACK +ANSI_BRIGHT_BG_GREEN + " C " + ANSI_RESET;
+            return COMMON_TILE_COLOR + " C " + ANSI_RESET;
         }
     }
 }

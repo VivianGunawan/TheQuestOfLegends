@@ -1,7 +1,7 @@
 package character.monster;
 
-import static src.util.ColouredOutputs.ANSI_BRIGHT_CYAN;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.SPIRIT_COLOR;
 
 public class Spirit extends Monster {
     public Spirit( String name, int expLevel, double damage, double defense, double dodgeChance){
@@ -10,6 +10,6 @@ public class Spirit extends Monster {
 
     @Override
     public String toString() {
-        return ANSI_BRIGHT_CYAN + super.toString() + ANSI_RESET;
+        return SPIRIT_COLOR + super.toString() + ANSI_RESET;
     }
 }

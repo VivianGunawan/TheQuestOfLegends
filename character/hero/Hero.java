@@ -1,23 +1,16 @@
 package character.hero;
 
-// THE QUEST FILES
-import character.AttackResult;
-import character.CharacterDefaults;
-import character.HeroBattle;
-import character.Transaction;
+import character.*;
 import character.items.Item;
 import character.items.armors.Armor;
 import character.items.potions.*;
 import character.items.spells.Spell;
 import character.items.weapons.Weapon;
 
-// UTILITIES
-import src.util.ErrorMessage;
+import util.ErrorMessage;
 
-import static src.util.ColouredOutputs.ANSI_RESET;
-import static src.util.IOConstants.*;
+import static util.IOConstants.*;
 
-// JAVA LIBRARIES
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -25,7 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public abstract class Hero extends character.Character implements HeroBattle, Transaction {
+public abstract class Hero extends character.Character implements HeroBattle, Buyer, Seller {
     // represents hero in the game, could be a warrior,sorcerer or paladin.
     // Fields
     private double experience;
@@ -140,7 +133,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         }
     }
 
-    // Market interface Methods
+    // Buyer Interface Method
     public void buy(List<Item> availableItems){
         if(this.money!=0){
             buyItem(availableItems);
@@ -162,6 +155,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
             System.out.println(this.getName() + " ran out of money");
         }
     }
+    // Seller Interface Method
     public List<Item> sell(){
         if(this.inventory.numItems()!=0){
             sellItem();
@@ -197,10 +191,20 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
                 System.out.println(DIVIDER);
             }
             if (opt == CHANGE_WEAPON_INPUT){
-                this.changeWeapon();
+                if(this.getInventory().numWeapons() == 0 && numHandsUsed()==0){
+                    System.out.println(this.getName() + " has no weapons");
+                }
+                else {
+                    this.changeWeapon();
+                }
             }
             else if (opt == CHANGE_ARMOR_INPUT){
-                this.changeArmor();
+                if(this.getInventory().numArmors() == 0 && this.armor.getReqLevel()==0){
+                    System.out.println(this.getName() + "has no armor");
+                }
+                else{
+                    this.changeArmor();
+                }
             }
             else if (opt == NONE){
                 return;
@@ -326,6 +330,10 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         this.mana += this.mana * mana_regen;
         System.out.println(this.battleDisplay());
     }
+    public void revive(double revive_multiplier){
+        this.resetHealth();
+        this.setHealthPower(revive_multiplier * this.getHealthPower());
+    }
 
     // Displays
     // Basic Display Pre-start game
@@ -345,7 +353,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Tr
         String out = "==============================\n";
         out += this.getClass().getSimpleName() + "\n" +
                 super.toString() +
-                "Mana: " + this.mana + ANSI_RESET + "\n" +
+                "Mana: " + this.mana + "\n" +
                 "Equipped armor: \n" + this.armor.battleDisplay() +
                 "Equipped weapons: \n" + battleDisplayW() ;
         return out ;

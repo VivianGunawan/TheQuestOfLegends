@@ -2,15 +2,16 @@ package questOfLegends;
 
 import character.hero.Hero;
 import character.merchant.Merchant;
-import character.monster.Monster;
 import tiles.*;
 import tiles.QoLTiles.*;
+import util.ErrorMessage;
 
 import java.util.*;
 
 import static questOfLegends.QoLDefaults.*;
-import static src.util.ColouredOutputs.ANSI_RESET;
-import static src.util.IOConstants.*;
+import static tiles.QoLTiles.QoLTilesDefaults.*;
+import static util.ColouredOutputs.ANSI_RESET;
+import static util.IOConstants.*;
 
 public class LaneMap {
     // represents the map for The Quest of Legends
@@ -168,7 +169,7 @@ public class LaneMap {
                     System.out.println(DIVIDER);
                 }
             }catch (Exception e){
-                src.util.ErrorMessage.printErrorInvalidInput();
+                ErrorMessage.printErrorInvalidInput();
             }
             while(opt!=NONE){
                 if(opt==TRANSACTION_INPUT){
@@ -184,7 +185,7 @@ public class LaneMap {
                             talkToMerchant(hero,merchant);
                         }
                     } catch (InputMismatchException e) {
-                        src.util.ErrorMessage.printErrorInvalidInput();
+                        ErrorMessage.printErrorInvalidInput();
                     }
                     break;
                 }
@@ -200,7 +201,7 @@ public class LaneMap {
                         System.out.println(DIVIDER);
                     }
                 }catch (Exception e) {
-                    src.util.ErrorMessage.printErrorInvalidInput();
+                    ErrorMessage.printErrorInvalidInput();
                 }
             }
             return;
@@ -664,10 +665,10 @@ public class LaneMap {
                     talkToMerchant(hero, merchant);
                 }
             } catch (InputMismatchException e) {
-                src.util.ErrorMessage.printErrorInvalidInput();
+                ErrorMessage.printErrorInvalidInput();
             }
         } catch (InputMismatchException e) {
-            src.util.ErrorMessage.printErrorInvalidInput();
+            util.ErrorMessage.printErrorInvalidInput();
         }
     }
 }

@@ -9,7 +9,7 @@ import character.items.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static src.util.IOConstants.DIVIDER;
+import static util.IOConstants.DIVIDER;
 
 public class Inventory {
     //Fields

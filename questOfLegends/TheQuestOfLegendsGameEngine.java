@@ -6,18 +6,15 @@ import character.items.spells.Spell;
 import character.merchant.Merchant;
 import character.monster.Monster;
 import tiles.InaccessibleTile;
-//import util.ErrorMessage;
 
-import src.util.ErrorMessage;
-import tiles.Tile;
+import util.ErrorMessage;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static character.CharacterDefaults.*;
 import static questOfLegends.QoLDefaults.*;
-import static src.util.ColouredOutputs.ANSI_BOLD;
-import static src.util.GameInputs.*;
-import static src.util.IOConstants.*;
+import static util.IOConstants.*;
 
 
 public class TheQuestOfLegendsGameEngine {
@@ -210,6 +207,7 @@ public class TheQuestOfLegendsGameEngine {
         return true;
 
     }
+
     // Hero teleport validation
     private boolean tileIsInaccessible(Integer teleportLocation) {
         return (this.map.getTile(teleportLocation) instanceof InaccessibleTile);
@@ -233,13 +231,13 @@ public class TheQuestOfLegendsGameEngine {
         }
         return true;
     }
-
     private boolean teleportInSameLane(Integer heroIndex, Integer teleportLocation) {
         int colIndex = (teleportLocation - 1) % this.map.getColSize();
         int lane = (colIndex / this.map.getNumLane()) + 1;
         return (this.heroTeam.getLane(heroIndex) == lane);
 
     }
+
     // Battles helpers
     private void displayEnemiesByIndex(List<Integer> enemyIndexes){
         List<Monster> enemies = new ArrayList<>();
@@ -255,13 +253,14 @@ public class TheQuestOfLegendsGameEngine {
         while (itr.hasNext()) {
             Monster temp =  itr.next();
             if (temp.getHealthPower()>0) {
-                System.out.println(ANSI_BOLD + "MONSTER " + i );
+                System.out.println("MONSTER " + i );
                 System.out.print(temp);
                 System.out.println(DIVIDER);
             }
             i++;
         }
     }
+
     // Methods
     // implement rounds
     private void startQOLgame() {
@@ -269,6 +268,7 @@ public class TheQuestOfLegendsGameEngine {
         System.out.println("================== STARTING GAME ===================");
         while (!checkHeroWin()&&!checkMonsterWin()) {
             System.out.println("==================== ROUND " + round + " =======================");
+            // Spawn new monster in nexus
             if (round % MONSTER_SPAWN_RATE == 0) {
                 spawnMonster();
             }

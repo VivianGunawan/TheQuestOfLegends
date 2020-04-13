@@ -3,11 +3,13 @@ package quest;
 import character.merchant.Merchant;
 import character.monster.Monster;
 import tiles.*;
-import src.util.ErrorMessage;
 
 import java.util.*;
 
-import static src.util.IOConstants.*;
+import tiles.questTiles.CommonTile;
+import tiles.questTiles.MarketTile;
+import util.ErrorMessage;
+import static util.IOConstants.*;
 
 public class Map{
     // represent the map of the game play

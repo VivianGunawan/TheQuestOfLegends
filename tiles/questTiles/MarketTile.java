@@ -1,7 +1,10 @@
-package tiles;
+package tiles.questTiles;
 
 import character.merchant.Merchant;
-import static src.util.ColouredOutputs.*;
+import tiles.Tile;
+
+import static tiles.questTiles.questTilesDefaults.MARKET_TILE_COLOR;
+import static util.ColouredOutputs.ANSI_RESET;
 
 public class MarketTile extends Tile {
     //represents a market tile
@@ -20,9 +23,9 @@ public class MarketTile extends Tile {
     @Override
     public String toString() {
         if (this.isContainsHero()) {
-            return (ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + "M *" + ANSI_RESET);
+            return MARKET_TILE_COLOR + "M *" + ANSI_RESET;
         } else {
-            return ANSI_BRIGHT_BG_BLACK + ANSI_BRIGHT_BG_YELLOW + " M " + ANSI_RESET;
+            return  MARKET_TILE_COLOR + " M " + ANSI_RESET;
         }
     }
 }

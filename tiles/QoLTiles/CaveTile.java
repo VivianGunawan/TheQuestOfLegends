@@ -1,7 +1,7 @@
 package tiles.QoLTiles;
 
-import static questOfLegends.QoLDefaults.CAVE_TILE_COLOR;
-import static src.util.ColouredOutputs.*;
+import static tiles.QoLTiles.QoLTilesDefaults.CAVE_TILE_COLOR;
+import static util.ColouredOutputs.ANSI_RESET;
 
 public class CaveTile extends BattleTile{
 
@@ -12,6 +12,6 @@ public class CaveTile extends BattleTile{
     }
     @Override
     public String toString() {
-        return CAVE_TILE_COLOR + super.toString() +ANSI_RESET;
+        return CAVE_TILE_COLOR + super.toString() + ANSI_RESET;
     }
 }

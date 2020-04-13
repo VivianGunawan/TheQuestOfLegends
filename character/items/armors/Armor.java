@@ -2,8 +2,8 @@ package character.items.armors;
 
 import character.items.Item;
 
-import static src.util.ColouredOutputs.ANSI_GREEN;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.ARMOR_COLOR;
 
 public class Armor extends Item {
     // when worn by hero, reduces incoming damage from enemy's attack
@@ -24,7 +24,7 @@ public class Armor extends Item {
     @Override
     public String toString() {
         return (
-            ANSI_GREEN +
+            ARMOR_COLOR +
             super.toString() + 
             "Damage Reduced: " + this.damageReduction + "\n" +
             ANSI_RESET
@@ -35,7 +35,7 @@ public class Armor extends Item {
             return "none";
         }
         else{
-            return( ANSI_GREEN +
+            return( ARMOR_COLOR +
                     "Name: " + this.getName() + "\n" +
                     "Damaged Reduced: " + this.damageReduction + "\n" +
                     ANSI_RESET);

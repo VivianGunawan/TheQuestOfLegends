@@ -2,8 +2,8 @@ package character.items.weapons;
 
 import character.items.Item;
 
-import static src.util.ColouredOutputs.ANSI_BRIGHT_WHITE;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.WEAPON_COLOR;
 
 public class Weapon extends Item {
     // Used by hero to attack a monster
@@ -28,7 +28,7 @@ public class Weapon extends Item {
     @Override
     public String toString() {
         return(
-            ANSI_BRIGHT_WHITE +
+            WEAPON_COLOR +
             super.toString() + 
             "Damage Dealt: " + this.damage + "\n" +
             "# of Hands Required: " + this.reqHands + "\n" +
@@ -36,7 +36,7 @@ public class Weapon extends Item {
             );
     }
     public String battleDisplay(){
-        return(ANSI_BRIGHT_WHITE +
+        return(WEAPON_COLOR +
                 "Name: " + this.getName() + "\n" +
                 "Damage Dealt: " + this.damage + "\n" +
                 "# of Hands Required: " + this.reqHands + "\n" +
