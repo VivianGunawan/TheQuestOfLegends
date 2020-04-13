@@ -211,10 +211,10 @@ public class TheQuestOfLegendsGameEngine {
     }
 
     // Hero teleport validation
-    private boolean tileIsInaccessible(Integer teleportLocation) {
+    private boolean tileIsInaccessible(int teleportLocation) {
         return (this.map.getTile(teleportLocation) instanceof InaccessibleTile);
     }
-    private boolean passMonsterDuringTeleport(Integer teleportLocation) {
+    private boolean passMonsterDuringTeleport(int teleportLocation) {
         // hero current lane
         int lane = ((teleportLocation-1) % this.laneSize) + 1;
         // list of monster locations in the current lane
@@ -233,7 +233,7 @@ public class TheQuestOfLegendsGameEngine {
         }
         return true;
     }
-    private boolean teleportInSameLane(Integer heroIndex, Integer teleportLocation) {
+    private boolean teleportInSameLane(int heroIndex, int  teleportLocation) {
         int colIndex = (teleportLocation - 1) % this.map.getColSize();
         int lane = (colIndex / this.map.getNumLane()) + 1;
         return (this.heroTeam.getLane(heroIndex) == lane);
