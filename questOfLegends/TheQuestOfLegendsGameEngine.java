@@ -1,6 +1,7 @@
 package questOfLegends;
 
 import character.AttackResult;
+import character.Battle;
 import character.hero.Hero;
 import character.hero.HeroDefaults;
 import character.items.spells.Spell;
@@ -10,6 +11,8 @@ import character.monster.Monster;
 import character.monster.MonsterDefaults;
 import tiles.InaccessibleTile;
 
+import tiles.QoLTiles.BattleTile;
+import tiles.Tile;
 import util.ErrorMessage;
 
 import java.util.*;
@@ -210,6 +213,13 @@ public class TheQuestOfLegendsGameEngine {
 
     }
 
+    private boolean twoHeroes(char m, int  currentHeroLocation, int index) {
+        if (this.map.getTile(computeLocation(m, currentHeroLocation, index)).isContainsHero()) {
+            return true;
+        }
+        return false;
+    }
+
     // Hero teleport validation
     private boolean tileIsInaccessible(int teleportLocation) {
         return (this.map.getTile(teleportLocation) instanceof InaccessibleTile);
@@ -227,7 +237,7 @@ public class TheQuestOfLegendsGameEngine {
 
         // check if teleport location row is less than all monster in lane location
         for (int k = 0; k < monsterInLaneLocation.size(); k++) {
-            if (((teleportLocation - 1) / this.map.getColSize()) >= ((monsterInLaneLocation.get(k) - 1) / this.map.getColSize())) {
+            if (((teleportLocation - 1) / this.map.getColSize()) > ((monsterInLaneLocation.get(k) - 1) / this.map.getColSize())) {
                 return false;
             }
         }
@@ -480,7 +490,7 @@ public class TheQuestOfLegendsGameEngine {
                     if (opt == MOVE_INPUT) {
                         char move = '\u0000';
                         try {
-                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation, j))) {
+                            while (!(checkMove(move, currHeroLocation) && validateTile(move, currHeroLocation, j) && !twoHeroes(move, currHeroLocation, j))) {
                                 System.out.println("Where would you like to move your hero? " +
                                         "up:(" + up + "/" + UP +
                                         ") down:(" + down + "/" + DOWN +
@@ -539,12 +549,17 @@ public class TheQuestOfLegendsGameEngine {
                 // actions
                 // no heroes in proximity
                 if (this.map.surroundingTilesContainHero(currMonsterLocation).size() == 0) {
-                    this.map.removeMonster(currMonsterLocation);
-                    this.monsterTeam.setLocation(k, currMonsterLocation + this.map.getColSize());
-                    System.out.println(currMonster.getName() + " move forward");
-                    this.map.placeMonster(this.monsterTeam.getLocation(k));
-                    this.map.display();
-                    System.out.println(DIVIDER);
+                    BattleTile currentTile = (BattleTile) this.map.getTile(currMonsterLocation + this.map.getColSize());
+                    if (!currentTile.isContainsMonster()) {
+                        this.map.removeMonster(currMonsterLocation);
+                        this.monsterTeam.setLocation(k, currMonsterLocation + this.map.getColSize());
+                        System.out.println(currMonster.getName() + " move forward");
+                        this.map.placeMonster(this.monsterTeam.getLocation(k));
+                        this.map.display();
+                        System.out.println(DIVIDER);
+                    } else {
+                        System.out.println("There is another monster in front of " + currMonster.getName());
+                    }
                 }
                 // heroes in proximity
                 else {
