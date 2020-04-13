@@ -410,7 +410,8 @@ public class Team{
                 }
                 // revive hero
                 else{
-                    currHero.setHealthPower(WIN_REVIVE_HP_MULTIPLIER * HP_MULTIPLIER*currHero.getLevel());
+                    System.out.println("Reviving "+ currHero.getName()+"...");
+                    currHero.revive(WIN_REVIVE_HP_MULTIPLIER);
                 }
             }
         }
@@ -418,10 +419,10 @@ public class Team{
             System.out.println("You Lost this Battle");
             for(int i=0; i<this.team.size(); i++){
                 Hero currHero = this.team.get(i);
-                System.out.println(currHero.getName() + " lost $" + TAX_MULTIPLIER);
+                System.out.println(currHero.getName() + " lost $" + currHero.getMoney()* TAX_MULTIPLIER);
                 currHero.setMoney(currHero.getMoney()* TAX_MULTIPLIER);
                 System.out.println("Reviving "+ currHero.getName()+"...");
-                currHero.setHealthPower(LOSE_REVIVE_HP_MULTIPLIER * HP_MULTIPLIER*currHero.getLevel());
+                currHero.revive(LOSE_REVIVE_HP_MULTIPLIER);
             }
         }
     }

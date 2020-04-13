@@ -9,6 +9,7 @@ import util.ErrorMessage;
 import java.util.*;
 
 import static questOfLegends.QoLDefaults.*;
+import static tiles.QoLTiles.QoLTilesDefaults.*;
 import static util.ColouredOutputs.ANSI_RESET;
 import static util.IOConstants.*;
 
@@ -39,11 +40,11 @@ public class LaneMap {
         this.colsize = (numLane * laneSize) + numLane - 1;
         this.map = new Tile[rowsize][colsize];
         setMap(merchant);
-        System.out.println(QoLTilesDefaults.NEXUS_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
-        System.out.println(QoLTilesDefaults.PLAIN_TILE_COLOR + "    " + ANSI_RESET + " represents a Plain Tile");
-        System.out.println(QoLTilesDefaults.BUSH_TILE_COLOR + "    " + ANSI_RESET + " represents a Bush Tile");
-        System.out.println(QoLTilesDefaults.KOULOU_TILE_COLOR + "    " + ANSI_RESET + " represents a Koulou Tile");
-        System.out.println(QoLTilesDefaults.CAVE_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
+        System.out.println(NEXUS_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
+        System.out.println(PLAIN_TILE_COLOR + "    " + ANSI_RESET + " represents a Plain Tile");
+        System.out.println(BUSH_TILE_COLOR + "    " + ANSI_RESET + " represents a Bush Tile");
+        System.out.println(KOULOU_TILE_COLOR + "    " + ANSI_RESET + " represents a Koulou Tile");
+        System.out.println(CAVE_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
     }
 
     public int getRowSize() {

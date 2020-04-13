@@ -8,6 +8,7 @@ import character.items.spells.Spell;
 import character.items.weapons.Weapon;
 
 import util.ErrorMessage;
+
 import static util.IOConstants.*;
 
 import java.util.ArrayList;
@@ -318,6 +319,10 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
         System.out.println("Replenishing " + this.getName() + "'s Mana...");
         this.mana += this.mana * mana_regen;
         System.out.println(this.battleDisplay());
+    }
+    public void revive(double revive_multiplier){
+        this.resetHealth();
+        this.setHealthPower(revive_multiplier * this.getHealthPower());
     }
 
     // Displays
