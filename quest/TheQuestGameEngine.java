@@ -9,7 +9,7 @@ import util.ErrorMessage;
 
 import static character.CharacterDefaults.*;
 import static util.IOConstants.*;
-import static util.QuestDefaults.*;
+import static quest.QuestDefaults.*;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

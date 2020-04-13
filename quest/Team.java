@@ -11,8 +11,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 import util.ErrorMessage;
-import static character.CharacterDefaults.HP_MULTIPLIER;
-import static util.QuestDefaults.*;
+import static quest.QuestDefaults.*;
 import static util.IOConstants.*;
 import static util.ColouredOutputs.*;
 

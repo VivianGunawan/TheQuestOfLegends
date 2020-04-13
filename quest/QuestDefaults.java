@@ -1,4 +1,4 @@
-package util;
+package quest;
 
 public class QuestDefaults {
     // MAP DEFAULTS
