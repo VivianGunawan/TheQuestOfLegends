@@ -191,10 +191,20 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
                 System.out.println(DIVIDER);
             }
             if (opt == CHANGE_WEAPON_INPUT){
-                this.changeWeapon();
+                if(this.getInventory().numWeapons() == 0 && numHandsUsed()==0){
+                    System.out.println(this.getName() + " has no weapons");
+                }
+                else {
+                    this.changeWeapon();
+                }
             }
             else if (opt == CHANGE_ARMOR_INPUT){
-                this.changeArmor();
+                if(this.getInventory().numArmors() == 0 && this.armor.getReqLevel()==0){
+                    System.out.println(this.getName() + "has no armor");
+                }
+                else{
+                    this.changeArmor();
+                }
             }
             else if (opt == NONE){
                 return;
