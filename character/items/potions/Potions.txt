@@ -1,7 +1,0 @@
-Name/cost/required level/attribute/increase
-Healing_Potion  250     1   HEALING 100
-Strength_Potion 200     1   STRENGTH 75
-Magic_Potion    350     2   MANA 100
-Luck_Elixir     500     4   DEXTERITY 65
-Mermaid_Tears   850     5   AGILITY 100
-Ambrosia        1000    8   EXPERIENCE 150
