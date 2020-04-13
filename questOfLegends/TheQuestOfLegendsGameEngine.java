@@ -15,6 +15,8 @@ import util.ErrorMessage;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static quest.QuestDefaults.BOUNTY_EXP;
+import static quest.QuestDefaults.BOUNTY_MULTIPLIER;
 import static questOfLegends.QoLDefaults.*;
 import static util.IOConstants.*;
 
@@ -287,11 +289,9 @@ public class TheQuestOfLegendsGameEngine {
                 System.out.println(DIVIDER);
                 // non actions
                 // regen
-                if(round>0) {
-                    currHero.regen(HP_REGEN, MANA_REGEN);
-                }
+                if(round>0) { currHero.regen(HP_REGEN, MANA_REGEN); }
                 // place
-                this.map.placeHero(currHeroLocation, currHero);
+                this.map.placeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
                 // actions
                 char opt = '\u0000';
                 try {
@@ -347,7 +347,8 @@ public class TheQuestOfLegendsGameEngine {
                             } catch (Exception e) {
                                 ErrorMessage.printErrorInvalidInput();
                             }
-                        } else {
+                        }
+                        else {
                             List<Integer> enemyIndexes = new ArrayList<>();
                             for (int tempLocation: this.map.surroundingTilesContainMonster(currHeroLocation)) {
                                 enemyIndexes.add(this.monsterTeam.getMonsterIndexByLocation(tempLocation));
@@ -364,11 +365,19 @@ public class TheQuestOfLegendsGameEngine {
                                 AttackResult sres = this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).receiveBasicAttack(currHero.doBasicAttack());
                                 if (sres == AttackResult.DODGE) {
                                     System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName() + " dodged " + currHero.getName() + "'s attack");
-                                } else if (sres == AttackResult.SUCCESS) {
+                                }
+                                else if (sres == AttackResult.SUCCESS) {
                                     System.out.print(" from " + currHero.getName() + "\n");
                                     System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
-                                } else if (sres == AttackResult.KILL) {
+                                }
+                                else if (sres == AttackResult.KILL) {
                                     System.out.println(currHero.getName() + " killed " + this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName());
+                                    // Bounty
+                                    System.out.println(currHero.getName() + " received $" + BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel());
+                                    this.heroTeam.getHero(j).setMoney(this.heroTeam.getHero(j).getMoney()+(BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel()));
+                                    System.out.println(currHero.getName() + " gained " + BOUNTY_EXP + " experience points"  );
+                                    this.heroTeam.getHero(j).setExperience(this.heroTeam.getHero(j).getExperience()+ BOUNTY_EXP);
+                                    // remove monster from monster team
                                     this.monsterTeam.removeMember(enemyIndexes.get(monsterId-1));
                                 }
                                 break;
@@ -426,6 +435,12 @@ public class TheQuestOfLegendsGameEngine {
                                         System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
                                     } else if (sres == AttackResult.KILL) {
                                         System.out.println(currHero.getName() + " killed " + this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName());
+                                        // Bounty
+                                        System.out.println(currHero.getName() + " received $" + BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel());
+                                        this.heroTeam.getHero(j).setMoney(this.heroTeam.getHero(j).getMoney()+(BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel()));
+                                        System.out.println(currHero.getName() + " gained " + BOUNTY_EXP + " experience points"  );
+                                        this.heroTeam.getHero(j).setExperience(this.heroTeam.getHero(j).getExperience()+ BOUNTY_EXP);
+                                        // remove monster from team
                                         this.monsterTeam.removeMember(enemyIndexes.get(monsterId-1));
                                     }
                                     break;

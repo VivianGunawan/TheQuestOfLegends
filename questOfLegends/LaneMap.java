@@ -157,6 +157,8 @@ public class LaneMap {
         display();
         if (currTile instanceof  NexusTile){
             System.out.println(hero.getName()+" has entered a Nexus Tile");
+            hero.revive(REVIVE_HP_MULTIPLIER,REVIVE_MANA_MULTIPLIER);
+            System.out.println("Reviving " + hero.getName() + "..." );
             System.out.println(DIVIDER);
             NexusTile currNexus = (NexusTile) currTile;
             Merchant merchant = currNexus.getMerchant();
