@@ -69,7 +69,7 @@ public class Team{
         catch(InputMismatchException e){
             ErrorMessage.printErrorInvalidInput();
         }
-        Hero temp = (Hero) this.team.get(heroId-1);
+        Hero temp = this.team.get(heroId-1);
         temp.exploreInventory();
         char yn ='\u0000';
         try {

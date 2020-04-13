@@ -1,7 +1,6 @@
 package questOfLegends;
 
 import character.AttackResult;
-import character.Battle;
 import character.hero.Hero;
 import character.hero.HeroDefaults;
 import character.items.spells.Spell;
@@ -12,7 +11,6 @@ import character.monster.MonsterDefaults;
 import tiles.InaccessibleTile;
 
 import tiles.QoLTiles.BattleTile;
-import tiles.Tile;
 import util.ErrorMessage;
 
 import java.util.*;
@@ -110,7 +108,7 @@ public class TheQuestOfLegendsGameEngine {
 
     // generate monster and set location to nexus
     private void generateMonster(){
-        List<Monster> availableMonsters = new ArrayList();
+        List<Monster> availableMonsters = new ArrayList<Monster>();
         List<Monster> temp = this.monsters.stream()
                 .filter(monster -> monster.getLevel() == this.heroTeam.getMaxLevel())
                 .collect(Collectors.toList());
