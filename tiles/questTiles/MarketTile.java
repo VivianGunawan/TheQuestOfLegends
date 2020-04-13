@@ -22,10 +22,6 @@ public class MarketTile extends Tile {
 
     @Override
     public String toString() {
-        if (this.isContainsHero()) {
-            return MARKET_TILE_COLOR + "M *" + ANSI_RESET;
-        } else {
-            return  MARKET_TILE_COLOR + " M " + ANSI_RESET;
-        }
+        return MARKET_TILE_COLOR + " " + super.toString() + " " + ANSI_RESET;
     }
 }

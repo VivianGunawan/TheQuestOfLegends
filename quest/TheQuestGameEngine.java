@@ -49,8 +49,8 @@ public class TheQuestGameEngine {
         this.merchant = MerchantDefaults.DEFAULT_MERCHANT;
         this.heroes = HeroDefaults.DEFAULT_HEROES;
         this.monsters = MonsterDefaults.DEFAULT_MONSTERS;
-        this.map = new Map(this.rowsize, this.colsize, this.probabilityInaccessible, this.probabilityMarket, this.probabilityCommon, this.merchant, this.monsters, this.probabilityEncounter);
         System.out.println("=============== WELCOME TO THE QUEST ===============");
+        this.map = new Map(this.rowsize, this.colsize, this.probabilityInaccessible, this.probabilityMarket, this.probabilityCommon, this.merchant, this.monsters, this.probabilityEncounter);
         this.map.display();
         System.out.println("================== TEAM SELECTION ==================");
         this.team = selectTeam();

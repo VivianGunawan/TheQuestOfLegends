@@ -9,6 +9,9 @@ import java.util.*;
 import tiles.questTiles.CommonTile;
 import tiles.questTiles.MarketTile;
 import util.ErrorMessage;
+
+import static tiles.questTiles.questTilesDefaults.*;
+import static util.ColouredOutputs.ANSI_RESET;
 import static util.IOConstants.*;
 
 public class Map{
@@ -30,6 +33,8 @@ public class Map{
         this.probabilityMarket = probabilityMarket;
         this.probabilityCommon = probabilityCommon;
         setMap(merchant,monsters,probabilityEncounter);
+        System.out.println(COMMON_TILE_COLOR + "   " + ANSI_RESET + " represents a Common Tile");
+        System.out.println(MARKET_TILE_COLOR + "   " + ANSI_RESET + " represents a Market Tile");
     }
     // Methods
     // Set tiles of the map with the appropriate probabilities through using genOptions
@@ -50,6 +55,7 @@ public class Map{
     }
     // Displays Map
     public void display(){
+        System.out.println("======================= MAP ========================");
         String border = "---+";
         System.out.println("+"+border.repeat(this.colsize));
         for (int i = 0; i < this.rowsize; i++) {

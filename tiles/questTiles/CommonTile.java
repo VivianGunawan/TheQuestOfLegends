@@ -44,10 +44,6 @@ public class CommonTile extends Tile {
 
     @Override
     public String toString() {
-        if (this.isContainsHero()) {
-            return COMMON_TILE_COLOR + "C *" + ANSI_RESET;
-        } else {
-            return COMMON_TILE_COLOR + " C " + ANSI_RESET;
-        }
+        return COMMON_TILE_COLOR + " " + super.toString() + " " + ANSI_RESET;
     }
 }
