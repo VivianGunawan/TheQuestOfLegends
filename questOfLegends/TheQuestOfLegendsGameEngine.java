@@ -214,11 +214,26 @@ public class TheQuestOfLegendsGameEngine {
     private boolean tileIsInaccessible(Integer teleportLocation) {
         return (this.map.getTile(teleportLocation) instanceof InaccessibleTile);
     }
-    private boolean passMonsterDuringTeleport(Integer index, Integer teleportLocation) {
-        int colIndex = (teleportLocation - 1) % this.map.getColSize();
-        int lane = (colIndex / this.map.getNumLane()) + 1;
-        return !(teleportLocation > this.monsterTeam.getLocation(index));
+    private boolean passMonsterDuringTeleport(Integer teleportLocation) {
+        // hero current lane
+        int lane = ((teleportLocation-1) % this.laneSize) + 1;
+        // list of monster locations in the current lane
+        List<Integer> monsterInLaneLocation = new ArrayList<>();
+        for(int i =0; i< this.monsterTeam.size();i++){
+            if(this.monsterTeam.getLane(i)==lane) {
+                monsterInLaneLocation.add(this.monsterTeam.getLocation(i));
+            }
+        }
+
+        // check if teleport location row is less than all monster in lane location
+        for (int k = 0; k < monsterInLaneLocation.size(); k++) {
+            if (((teleportLocation - 1) / this.map.getColSize()) >= ((monsterInLaneLocation.get(k) - 1) / this.map.getColSize())) {
+                return false;
+            }
+        }
+        return true;
     }
+
     private boolean teleportInSameLane(Integer heroIndex, Integer teleportLocation) {
         int colIndex = (teleportLocation - 1) % this.map.getColSize();
         int lane = (colIndex / this.map.getNumLane()) + 1;
@@ -463,14 +478,14 @@ public class TheQuestOfLegendsGameEngine {
                             teleportLocation = scan.nextInt();
                             System.out.println(DIVIDER);
                             scan.nextLine();
-                            while (teleportLocation < 1 || teleportLocation > this.map.getColSize() * this.map.getRowSize() || tileIsInaccessible(teleportLocation) ||
-                                    passMonsterDuringTeleport(j, teleportLocation) || teleportInSameLane(j, teleportLocation)) {
-                                System.out.println("You can not teleport to this tile.");
-                                System.out.println("Please select another tile location");
+                            // if any of the conditions are not met
+                            while (!(teleportLocation > 0 || teleportLocation <= this.map.getColSize() * this.map.getRowSize()) || tileIsInaccessible(teleportLocation) ||
+                                    passMonsterDuringTeleport(teleportLocation) || teleportInSameLane(j, teleportLocation)) {
                                 teleportLocation = scan.nextInt();
                                 System.out.println(DIVIDER);
                                 scan.nextLine();
                             }
+                            // if all the requiredconditions met
                             this.map.removeHero(currHeroLocation, currHero);
                             this.heroTeam.setLocation(j, teleportLocation);
                             System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
@@ -512,6 +527,7 @@ public class TheQuestOfLegendsGameEngine {
                         System.out.print(" from " + currMonster.getName() + "\n");
                         this.heroTeam.getHero(enemyIndex).battleDisplay();
                     } else if (sres == AttackResult.KILL) {
+                        // spawn hero in appropriate nexus to full hero health and full mana based on
                         System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
                     }
                     System.out.println(DIVIDER);
