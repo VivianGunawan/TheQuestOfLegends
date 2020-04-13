@@ -247,6 +247,10 @@ public class LaneMap {
     public List<Integer> surroundingTilesContainMonster(int location) {
         List<Integer> monsterLocations = new ArrayList<>();
 
+        // condition for checking if the same tile contains a monster
+        if (checkTileMonster(location)) {
+            monsterLocations.add(location);
+        }
         // condition for being on the left
         if ((location-1)%this.rowsize==0) {
             // condition for being on the top

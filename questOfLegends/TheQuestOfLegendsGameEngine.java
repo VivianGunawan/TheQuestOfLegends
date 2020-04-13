@@ -496,6 +496,8 @@ public class TheQuestOfLegendsGameEngine {
                             // if any of the conditions are not met
                             while (!(teleportLocation > 0 || teleportLocation <= this.map.getColSize() * this.map.getRowSize()) || tileIsInaccessible(teleportLocation) ||
                                     passMonsterDuringTeleport(teleportLocation) || teleportInSameLane(j, teleportLocation)) {
+                                System.out.println("You can not teleport to this tile.");
+                                System.out.println("Please select another tile location: ");
                                 teleportLocation = scan.nextInt();
                                 System.out.println(DIVIDER);
                                 scan.nextLine();
@@ -503,7 +505,7 @@ public class TheQuestOfLegendsGameEngine {
                             // if all the requiredconditions met
                             this.map.removeHero(currHeroLocation, currHero);
                             this.heroTeam.setLocation(j, teleportLocation);
-                            System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
+                            System.out.println(currHero.getName() + " will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
                             break;
                         } catch (Exception o) {
                             ErrorMessage.printErrorInvalidInput();
@@ -543,11 +545,16 @@ public class TheQuestOfLegendsGameEngine {
                         this.heroTeam.getHero(enemyIndex).battleDisplay();
                     } else if (sres == AttackResult.KILL) {
                         System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
+                        // spawn hero in appropriate nexus to full hero health and full mana based on
+                        this.map.removeHero(this.heroTeam.getLocation(enemyIndex), this.heroTeam.getHero(enemyIndex));
+                        this.heroTeam.setLocation(enemyIndex, this.map.getHeroesNexus().get(enemyIndex));
+                        System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " will respawn on tile " + this.heroTeam.getLocation(enemyIndex) + " on the next round");
+                        this.heroTeam.getHero(enemyIndex).regen(HP_REGEN, MANA_REGEN);
+
                         // taxed
                         System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " lost $" + this.heroTeam.getHero(enemyIndex).getMoney()* TAX_MULTIPLIER);
                         this.heroTeam.getHero(enemyIndex).setMoney(this.heroTeam.getHero(enemyIndex).getMoney()*TAX_MULTIPLIER);
-                        // TODO
-                        // spawn hero in appropriate nexus to full hero health and full mana based on
+
                     }
                     System.out.println(DIVIDER);
                 }
