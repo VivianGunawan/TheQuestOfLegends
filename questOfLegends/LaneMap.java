@@ -158,6 +158,7 @@ public class LaneMap {
         if (currTile instanceof  NexusTile){
             System.out.println(hero.getName()+" has entered a Nexus Tile");
             hero.revive(REVIVE_HP_MULTIPLIER,REVIVE_MANA_MULTIPLIER);
+            System.out.println(hero.battleDisplay());
             System.out.println("Reviving " + hero.getName() + "..." );
             System.out.println(DIVIDER);
             NexusTile currNexus = (NexusTile) currTile;
@@ -246,13 +247,12 @@ public class LaneMap {
     // returns nearby monster locations
     public List<Integer> surroundingTilesContainMonster(int location) {
         List<Integer> monsterLocations = new ArrayList<>();
-
         // condition for checking if the same tile contains a monster
         if (checkTileMonster(location)) {
             monsterLocations.add(location);
         }
         // condition for being on the left
-        if ((location-1)%this.rowsize==0) {
+        else if ((location-1)%this.rowsize==0) {
             // condition for being on the top
             if ((location-1)/this.rowsize == 0) {
                 if (checkTileMonster(location + 1) ) {
@@ -265,36 +265,37 @@ public class LaneMap {
                     monsterLocations.add(location + this.rowsize + 1);
                 }
             }
-            // condition for being on the bottom
-            else if((location-1)/this.rowsize == this.rowsize - 1) {
-                // condition
-                if (checkTileMonster(location + 1) ) {
-                    monsterLocations.add(location + 1);
-                }
-                if(checkTileMonster(location - this.rowsize) ) {
-                    monsterLocations.add(location - this.rowsize);
-                }
-                if (checkTileMonster(location - this.rowsize + 1) ) {
-                    monsterLocations.add(location - this.rowsize + 1);
-                }
-            } // condition for being on the middle
-            else {
-                if (checkTileMonster(location + 1) ) {
-                    monsterLocations.add(location + 1);
-                }
-                if(checkTileMonster(location + this.rowsize) ) {
-                    monsterLocations.add(location + this.rowsize);
-                }
-                if (checkTileMonster(location + this.rowsize + 1) ) {
-                    monsterLocations.add(location + this.rowsize + 1);
-                }
-                if(checkTileMonster(location - this.rowsize) ) {
-                    monsterLocations.add(location - this.rowsize);
-                }
-                if (checkTileMonster(location - this.rowsize +1) ) {
-                    monsterLocations.add(location - this.rowsize + 1);
-                }
+        // condition for being on the bottom
+        else if((location-1)/this.rowsize == this.rowsize - 1) {
+            // condition
+            if (checkTileMonster(location + 1) ) {
+                monsterLocations.add(location + 1);
             }
+            if(checkTileMonster(location - this.rowsize) ) {
+                monsterLocations.add(location - this.rowsize);
+            }
+            if (checkTileMonster(location - this.rowsize + 1) ) {
+                monsterLocations.add(location - this.rowsize + 1);
+            }
+        }
+        // condition for being on the middle
+        else {
+            if (checkTileMonster(location + 1) ) {
+                monsterLocations.add(location + 1);
+            }
+            if(checkTileMonster(location + this.rowsize) ) {
+                monsterLocations.add(location + this.rowsize);
+            }
+            if (checkTileMonster(location + this.rowsize + 1) ) {
+                monsterLocations.add(location + this.rowsize + 1);
+            }
+            if(checkTileMonster(location - this.rowsize) ) {
+                monsterLocations.add(location - this.rowsize);
+            }
+            if (checkTileMonster(location - this.rowsize +1) ) {
+                monsterLocations.add(location - this.rowsize + 1);
+            }
+        }
         }
         // condition for being on the right
         else if ((location-1)%this.rowsize == colsize - 1) {
@@ -446,9 +447,12 @@ public class LaneMap {
     // returns nearby hero locations
     public List<Integer> surroundingTilesContainHero(int location) {
         List<Integer> heroLocations = new ArrayList<>();
-
+        // condition for checking if the same tile contains a monster
+        if(checkTileHero(location)){
+            heroLocations.add(location);
+        }
         // condition for being on the left
-        if ((location-1)%this.rowsize==0) {
+        else if ((location-1)%this.rowsize==0) {
             // condition for being on the top
             if ((location-1)/this.rowsize == 0) {
                 if (checkTileHero(location + 1) ) {

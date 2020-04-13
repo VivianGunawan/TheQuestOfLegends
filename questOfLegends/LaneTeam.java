@@ -41,6 +41,9 @@ public class LaneTeam {
     public void setLocation(int index, int location) {
         this.location.set(index, location);
     }
+    public void setLane(int index, int lane) {
+        this.lane.set(index, lane);
+    }
 
     public int getMaxLevel() {
         int maxLevel = 0;

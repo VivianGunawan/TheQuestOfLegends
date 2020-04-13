@@ -234,8 +234,7 @@ public class TheQuestOfLegendsGameEngine {
         return true;
     }
     private boolean teleportInSameLane(int heroIndex, int  teleportLocation) {
-        int colIndex = (teleportLocation - 1) % this.map.getColSize();
-        int lane = (colIndex / this.map.getNumLane()) + 1;
+        int lane = ((teleportLocation-1) % this.laneSize) + 1;
         return (this.heroTeam.getLane(heroIndex) == lane);
 
     }
@@ -274,9 +273,25 @@ public class TheQuestOfLegendsGameEngine {
             if (round % MONSTER_SPAWN_RATE == 0) {
                 spawnMonster();
             }
-            // place all monsters in map
-            for (int i = 0; i < this.monsterTeam.size(); i++) {
-                this.map.placeMonster(this.monsterTeam.getLocation(i));
+            // place hero and monster on nexus on round 0
+            if(round==0){
+                for(int l = 0; l<this.numLane; l++){
+                    this.map.placeHero(this.heroTeam.getLocation(l),this.heroTeam.getHero(l));
+                    this.map.placeMonster(this.monsterTeam.getLocation(l));
+                }
+            }
+            // non actions
+            if(round>0){
+                for(int i = 0; i<this.numLane; i++){
+                    // hero alive regen
+                    if(this.heroTeam.getHero(i).getHealthPower()!=0){
+                        this.heroTeam.getHero(i).regen(HP_REGEN,MANA_REGEN);
+                    }
+                    // hero dead
+                    else{
+                        this.map.placeHero(this.heroTeam.getLocation(i),this.heroTeam.getHero(i));
+                    }
+                }
             }
             // Hero's turn
             System.out.println("=================== HEROES TURN ====================");
@@ -284,12 +299,8 @@ public class TheQuestOfLegendsGameEngine {
                 Hero currHero = this.heroTeam.getHero(j);
                 int currHeroLocation = this.heroTeam.getLocation(j);
                 System.out.println(currHero.getName() + "'s turn");
+                this.map.display();
                 System.out.println(DIVIDER);
-                // non actions
-                // regen
-                if(round>0) { currHero.regen(HP_REGEN, MANA_REGEN); }
-                // place
-                this.map.placeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
                 // actions
                 char opt = '\u0000';
                 try {
@@ -478,9 +489,10 @@ public class TheQuestOfLegendsGameEngine {
                                         ") back:(" + back + "/" + BACK + ")");
                                 move = scan.next().charAt(0);
                             }
-                            this.map.removeHero(currHeroLocation, currHero);
+                            this.map.removeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
                             this.heroTeam.setLocation(j, computeLocation(move, currHeroLocation, j));
-                            System.out.println(currHero.getName() + "will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
+                            this.map.placeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
+                            System.out.println(currHero.getName() + "move to tile " + this.heroTeam.getLocation(j));
                             break;
                         } catch (Exception e) {
                             ErrorMessage.printErrorInvalidInput();
@@ -503,9 +515,11 @@ public class TheQuestOfLegendsGameEngine {
                                 scan.nextLine();
                             }
                             // if all the requiredconditions met
-                            this.map.removeHero(currHeroLocation, currHero);
+                            this.map.removeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
                             this.heroTeam.setLocation(j, teleportLocation);
-                            System.out.println(currHero.getName() + " will appear on tile " + this.heroTeam.getLocation(j) + " on the next turn");
+                            this.heroTeam.setLane(j,((teleportLocation-1) % this.laneSize) + 1);
+                            System.out.println(currHero.getName() + " teleport to tile " + this.heroTeam.getLocation(j));
+                            this.map.placeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
                             break;
                         } catch (Exception o) {
                             ErrorMessage.printErrorInvalidInput();
@@ -528,6 +542,8 @@ public class TheQuestOfLegendsGameEngine {
                     this.map.removeMonster(currMonsterLocation);
                     this.monsterTeam.setLocation(k, currMonsterLocation + this.map.getColSize());
                     System.out.println(currMonster.getName() + " move forward");
+                    this.map.placeMonster(this.monsterTeam.getLocation(k));
+                    this.map.display();
                     System.out.println(DIVIDER);
                 }
                 // heroes in proximity
@@ -549,12 +565,9 @@ public class TheQuestOfLegendsGameEngine {
                         this.map.removeHero(this.heroTeam.getLocation(enemyIndex), this.heroTeam.getHero(enemyIndex));
                         this.heroTeam.setLocation(enemyIndex, this.map.getHeroesNexus().get(enemyIndex));
                         System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " will respawn on tile " + this.heroTeam.getLocation(enemyIndex) + " on the next round");
-                        this.heroTeam.getHero(enemyIndex).regen(HP_REGEN, MANA_REGEN);
-
                         // taxed
                         System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " lost $" + this.heroTeam.getHero(enemyIndex).getMoney()* TAX_MULTIPLIER);
                         this.heroTeam.getHero(enemyIndex).setMoney(this.heroTeam.getHero(enemyIndex).getMoney()*TAX_MULTIPLIER);
-
                     }
                     System.out.println(DIVIDER);
                 }
@@ -564,6 +577,12 @@ public class TheQuestOfLegendsGameEngine {
     }
     // when user chooses to quit
     private void endQOLgame(){
+        if(checkMonsterWin()){
+            System.out.println("=================== MONSTERS WON ===================");
+        }
+        else if(checkHeroWin()){
+            System.out.println("==================== HEROES WON ====================");
+        }
         System.out.println("==================== END GAME ======================");
     }
 
