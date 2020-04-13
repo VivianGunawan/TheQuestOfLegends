@@ -15,8 +15,6 @@ import util.ErrorMessage;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static quest.QuestDefaults.BOUNTY_EXP;
-import static quest.QuestDefaults.BOUNTY_MULTIPLIER;
 import static questOfLegends.QoLDefaults.*;
 import static util.IOConstants.*;
 
@@ -544,8 +542,12 @@ public class TheQuestOfLegendsGameEngine {
                         System.out.print(" from " + currMonster.getName() + "\n");
                         this.heroTeam.getHero(enemyIndex).battleDisplay();
                     } else if (sres == AttackResult.KILL) {
-                        // spawn hero in appropriate nexus to full hero health and full mana based on
                         System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
+                        // taxed
+                        System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " lost $" + this.heroTeam.getHero(enemyIndex).getMoney()* TAX_MULTIPLIER);
+                        this.heroTeam.getHero(enemyIndex).setMoney(this.heroTeam.getHero(enemyIndex).getMoney()*TAX_MULTIPLIER);
+                        // TODO
+                        // spawn hero in appropriate nexus to full hero health and full mana based on
                     }
                     System.out.println(DIVIDER);
                 }
