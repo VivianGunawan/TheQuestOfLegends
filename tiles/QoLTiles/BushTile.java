@@ -1,7 +1,7 @@
 package tiles.QoLTiles;
 
-import static questOfLegends.QoLDefaults.BUSH_TILE_COLOR;
-import static src.util.ColouredOutputs.*;
+import static tiles.QoLTiles.QoLTilesDefaults.BUSH_TILE_COLOR;
+import static util.ColouredOutputs.ANSI_RESET;
 
 public class BushTile extends BattleTile{
 
@@ -13,6 +13,6 @@ public class BushTile extends BattleTile{
 
     @Override
     public String toString() {
-        return BUSH_TILE_COLOR + super.toString() +ANSI_RESET;
+        return BUSH_TILE_COLOR + super.toString() + ANSI_RESET;
     }
 }

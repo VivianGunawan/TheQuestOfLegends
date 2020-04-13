@@ -1,7 +1,7 @@
 package tiles.QoLTiles;
 
-import static questOfLegends.QoLDefaults.PLAIN_TILE_COLOR;
-import static src.util.ColouredOutputs.*;
+import static tiles.QoLTiles.QoLTilesDefaults.PLAIN_TILE_COLOR;
+import static util.ColouredOutputs.ANSI_RESET;
 
 // A class for the plain tile in QoL
 public class PlainTile extends BattleTile{
@@ -13,6 +13,6 @@ public class PlainTile extends BattleTile{
     }
     @Override
     public String toString() {
-        return  PLAIN_TILE_COLOR + super.toString() +ANSI_RESET;
+        return  PLAIN_TILE_COLOR + super.toString() + ANSI_RESET;
     }
 }

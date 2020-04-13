@@ -1,7 +1,7 @@
 package character.items.spells;
 
-import static src.util.ColouredOutputs.ANSI_BLUE;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.LIGHTNING_SPELL_COLOR;
 
 public class Lightning extends Spell {
     public Lightning(String name, double price, int reqLevel, double damage, double mana){
@@ -10,6 +10,6 @@ public class Lightning extends Spell {
 
     @Override
     public String toString() {
-        return  ANSI_BLUE + super.toString() + ANSI_RESET;
+        return  LIGHTNING_SPELL_COLOR + super.toString() + ANSI_RESET;
     }
 }

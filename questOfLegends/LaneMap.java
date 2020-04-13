@@ -2,15 +2,15 @@ package questOfLegends;
 
 import character.hero.Hero;
 import character.merchant.Merchant;
-import character.monster.Monster;
 import tiles.*;
 import tiles.QoLTiles.*;
+import util.ErrorMessage;
 
 import java.util.*;
 
 import static questOfLegends.QoLDefaults.*;
-import static src.util.ColouredOutputs.ANSI_RESET;
-import static src.util.IOConstants.*;
+import static util.ColouredOutputs.ANSI_RESET;
+import static util.IOConstants.*;
 
 public class LaneMap {
     // represents the map for The Quest of Legends
@@ -39,11 +39,11 @@ public class LaneMap {
         this.colsize = (numLane * laneSize) + numLane - 1;
         this.map = new Tile[rowsize][colsize];
         setMap(merchant);
-        System.out.println(NEXUS_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
-        System.out.println(PLAIN_TILE_COLOR + "    " + ANSI_RESET + " represents a Plain Tile");
-        System.out.println(BUSH_TILE_COLOR + "    " + ANSI_RESET + " represents a Bush Tile");
-        System.out.println(KOULOU_TILE_COLOR + "    " + ANSI_RESET + " represents a Koulou Tile");
-        System.out.println(CAVE_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
+        System.out.println(QoLTilesDefaults.NEXUS_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
+        System.out.println(QoLTilesDefaults.PLAIN_TILE_COLOR + "    " + ANSI_RESET + " represents a Plain Tile");
+        System.out.println(QoLTilesDefaults.BUSH_TILE_COLOR + "    " + ANSI_RESET + " represents a Bush Tile");
+        System.out.println(QoLTilesDefaults.KOULOU_TILE_COLOR + "    " + ANSI_RESET + " represents a Koulou Tile");
+        System.out.println(QoLTilesDefaults.CAVE_TILE_COLOR + "    " + ANSI_RESET + " represents a Nexus Tile");
     }
 
     public int getRowSize() {
@@ -168,7 +168,7 @@ public class LaneMap {
                     System.out.println(DIVIDER);
                 }
             }catch (Exception e){
-                src.util.ErrorMessage.printErrorInvalidInput();
+                ErrorMessage.printErrorInvalidInput();
             }
             while(opt!=NONE){
                 if(opt==TRANSACTION_INPUT){
@@ -184,7 +184,7 @@ public class LaneMap {
                             talkToMerchant(hero,merchant);
                         }
                     } catch (InputMismatchException e) {
-                        src.util.ErrorMessage.printErrorInvalidInput();
+                        ErrorMessage.printErrorInvalidInput();
                     }
                     break;
                 }
@@ -200,7 +200,7 @@ public class LaneMap {
                         System.out.println(DIVIDER);
                     }
                 }catch (Exception e) {
-                    src.util.ErrorMessage.printErrorInvalidInput();
+                    ErrorMessage.printErrorInvalidInput();
                 }
             }
             return;
@@ -664,10 +664,10 @@ public class LaneMap {
                     talkToMerchant(hero, merchant);
                 }
             } catch (InputMismatchException e) {
-                src.util.ErrorMessage.printErrorInvalidInput();
+                ErrorMessage.printErrorInvalidInput();
             }
         } catch (InputMismatchException e) {
-            src.util.ErrorMessage.printErrorInvalidInput();
+            util.ErrorMessage.printErrorInvalidInput();
         }
     }
 }

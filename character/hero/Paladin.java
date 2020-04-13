@@ -1,8 +1,8 @@
 package character.hero;
 
 import static character.CharacterDefaults.SKILLS_MULTIPLIER;
-import static src.util.ColouredOutputs.ANSI_BRIGHT_RED;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.PALADIN_COLOR;
+import static util.ColouredOutputs.ANSI_RESET;
 
 
 public class Paladin extends Hero {
@@ -12,12 +12,12 @@ public class Paladin extends Hero {
     }
     @Override
     public String toString() {
-        return ANSI_BRIGHT_RED + super.toString() + ANSI_RESET;
+        return PALADIN_COLOR + super.toString() + ANSI_RESET;
     }
 
     @Override
     public String battleDisplay() {
-        return ANSI_BRIGHT_RED + super.battleDisplay() + ANSI_RESET;
+        return PALADIN_COLOR+ super.battleDisplay() + ANSI_RESET;
     }
 
     @Override

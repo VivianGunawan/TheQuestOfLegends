@@ -1,6 +1,5 @@
 package character.hero;
 
-// THE QUEST FILES
 import character.*;
 import character.items.Item;
 import character.items.armors.Armor;
@@ -8,13 +7,9 @@ import character.items.potions.*;
 import character.items.spells.Spell;
 import character.items.weapons.Weapon;
 
-// UTILITIES
-import src.util.ErrorMessage;
+import util.ErrorMessage;
+import static util.IOConstants.*;
 
-import static src.util.ColouredOutputs.ANSI_RESET;
-import static src.util.IOConstants.*;
-
-// JAVA LIBRARIES
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -343,7 +338,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
         String out = "==============================\n";
         out += this.getClass().getSimpleName() + "\n" +
                 super.toString() +
-                "Mana: " + this.mana + ANSI_RESET + "\n" +
+                "Mana: " + this.mana + "\n" +
                 "Equipped armor: \n" + this.armor.battleDisplay() +
                 "Equipped weapons: \n" + battleDisplayW() ;
         return out ;

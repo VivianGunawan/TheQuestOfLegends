@@ -1,8 +1,8 @@
 package character.hero;
 
 import static character.CharacterDefaults.SKILLS_MULTIPLIER;
-import static src.util.ColouredOutputs.ANSI_BRIGHT_BLUE;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.WARRIOR_COLOR;
 
 public class Warrior extends Hero {
     // Constructor
@@ -12,12 +12,12 @@ public class Warrior extends Hero {
 
     @Override
     public String toString() {
-        return ANSI_BRIGHT_BLUE + super.toString() + ANSI_RESET;
+        return WARRIOR_COLOR + super.toString() + ANSI_RESET;
     }
 
     @Override
     public String battleDisplay() {
-        return ANSI_BRIGHT_BLUE + super.battleDisplay() + ANSI_RESET;
+        return WARRIOR_COLOR + super.battleDisplay() + ANSI_RESET;
     }
 
     @Override

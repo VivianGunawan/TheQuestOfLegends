@@ -6,18 +6,15 @@ import character.items.spells.Spell;
 import character.merchant.Merchant;
 import character.monster.Monster;
 import tiles.InaccessibleTile;
-//import util.ErrorMessage;
 
-import src.util.ErrorMessage;
-import tiles.Tile;
+import util.ErrorMessage;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static character.CharacterDefaults.*;
 import static questOfLegends.QoLDefaults.*;
-import static src.util.ColouredOutputs.ANSI_BOLD;
-import static src.util.GameInputs.*;
-import static src.util.IOConstants.*;
+import static util.IOConstants.*;
 
 
 public class TheQuestOfLegendsGameEngine {
@@ -256,7 +253,7 @@ public class TheQuestOfLegendsGameEngine {
         while (itr.hasNext()) {
             Monster temp =  itr.next();
             if (temp.getHealthPower()>0) {
-                System.out.println(ANSI_BOLD + "MONSTER " + i );
+                System.out.println("MONSTER " + i );
                 System.out.print(temp);
                 System.out.println(DIVIDER);
             }

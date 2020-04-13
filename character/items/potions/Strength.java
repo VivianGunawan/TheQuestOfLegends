@@ -1,7 +1,8 @@
 package character.items.potions;
 
-import static src.util.ColouredOutputs.ANSI_BRIGHT_RED;
-import static src.util.ColouredOutputs.ANSI_RESET;
+
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.STRENGTH_POTION_COLOR;
 
 public class Strength extends Potion{
     public Strength(String name, double price, int reqLevel, double effect){
@@ -10,7 +11,7 @@ public class Strength extends Potion{
 
     @Override
     public String toString() {
-        return (ANSI_BRIGHT_RED +
+        return (STRENGTH_POTION_COLOR +
                 super.toString() +
                 this.getClass().getSimpleName() + " increased by " + this.getEffect() + "\n" +
                 ANSI_RESET);

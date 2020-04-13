@@ -1,7 +1,7 @@
 package character.monster;
 
-import static src.util.ColouredOutputs.ANSI_BRIGHT_YELLOW;
-import static src.util.ColouredOutputs.ANSI_RESET;
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.EXOSKELETON_COLOR;
 
 public class Exoskeleton extends Monster {
     public Exoskeleton( String name, int expLevel, double damage, double defense, double dodgeChance){
@@ -10,6 +10,6 @@ public class Exoskeleton extends Monster {
 
     @Override
     public String toString() {
-        return ANSI_BRIGHT_YELLOW + super.toString() + ANSI_RESET;
+        return EXOSKELETON_COLOR + super.toString() + ANSI_RESET;
     }
 }

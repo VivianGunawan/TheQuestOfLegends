@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static src.util.IOConstants.DIVIDER;
+import static util.IOConstants.DIVIDER;
 
 public class Merchant extends character.Character implements Seller {
     // This represent the merchant that lives in a market tile

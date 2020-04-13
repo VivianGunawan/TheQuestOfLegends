@@ -1,7 +1,8 @@
 package character.items.spells;
 
-import static src.util.ColouredOutputs.ANSI_CYAN;
-import static src.util.ColouredOutputs.ANSI_RESET;
+
+import static util.ColouredOutputs.ANSI_RESET;
+import static character.CharacterDefaults.ICE_SPELL_COLOR;
 
 public class Ice extends Spell {
     public Ice(String name, double price, int reqLevel, double damage, double mana){
@@ -10,6 +11,6 @@ public class Ice extends Spell {
 
     @Override
     public String toString() {
-        return ANSI_CYAN + super.toString() + ANSI_RESET;
+        return ICE_SPELL_COLOR + super.toString() + ANSI_RESET;
     }
 }
