@@ -3,7 +3,7 @@ package character.items.armors;
 import character.items.Item;
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.ARMOR_COLOR;
+import static character.items.ItemDefaults.ARMOR_COLOR;
 
 public class Armor extends Item {
     // when worn by hero, reduces incoming damage from enemy's attack

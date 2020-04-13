@@ -1,7 +1,7 @@
 package character.monster;
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.DRAGON_COLOR;
+import static character.monster.MonsterDefaults.DRAGON_COLOR;
 
 public class Dragon extends Monster {
     public Dragon( String name, int expLevel, double damage, double defense, double dodgeChance){

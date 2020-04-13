@@ -19,6 +19,11 @@ public class QoLDefaults {
     public static final int MONSTER_SPAWN_RATE = 8;
     public static final double HP_REGEN = 0.1;
     public static final double MANA_REGEN = 0.1;
+    public static final double REVIVE_HP_MULTIPLIER = 1;
+    public static final double REVIVE_MANA_MULTIPLIER = 1;
+    public static final double BOUNTY_MULTIPLIER = 100;
+    public static final double BOUNTY_EXP = 2;
+    public static final double TAX_MULTIPLIER = 0.5;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

@@ -1,7 +1,7 @@
 package character.items.potions;
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.MANA_POTION_COLOR;
+import static character.items.ItemDefaults.MANA_POTION_COLOR;
 
 public class Mana extends Potion{
     public Mana(String name, double price, int reqLevel, double effect){

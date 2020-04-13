@@ -1,7 +1,7 @@
 package character.monster;
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.EXOSKELETON_COLOR;
+import static character.monster.MonsterDefaults.EXOSKELETON_COLOR;
 
 public class Exoskeleton extends Monster {
     public Exoskeleton( String name, int expLevel, double damage, double defense, double dodgeChance){

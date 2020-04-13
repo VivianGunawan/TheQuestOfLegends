@@ -410,7 +410,7 @@ public class Team{
                 // revive hero
                 else{
                     System.out.println("Reviving "+ currHero.getName()+"...");
-                    currHero.revive(WIN_REVIVE_HP_MULTIPLIER);
+                    currHero.revive(WIN_REVIVE_HP_MULTIPLIER, WIN_REVIVE_MANA_MULTIPLIER);
                 }
             }
         }
@@ -421,7 +421,7 @@ public class Team{
                 System.out.println(currHero.getName() + " lost $" + currHero.getMoney()* TAX_MULTIPLIER);
                 currHero.setMoney(currHero.getMoney()* TAX_MULTIPLIER);
                 System.out.println("Reviving "+ currHero.getName()+"...");
-                currHero.revive(LOSE_REVIVE_HP_MULTIPLIER);
+                currHero.revive(LOSE_REVIVE_HP_MULTIPLIER,LOSE_REVIVE_MANA_MULTIPLIER);
             }
         }
     }

@@ -2,9 +2,12 @@ package questOfLegends;
 
 import character.AttackResult;
 import character.hero.Hero;
+import character.hero.HeroDefaults;
 import character.items.spells.Spell;
 import character.merchant.Merchant;
+import character.merchant.MerchantDefaults;
 import character.monster.Monster;
+import character.monster.MonsterDefaults;
 import tiles.InaccessibleTile;
 
 import util.ErrorMessage;
@@ -12,7 +15,6 @@ import util.ErrorMessage;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static character.CharacterDefaults.*;
 import static questOfLegends.QoLDefaults.*;
 import static util.IOConstants.*;
 
@@ -39,9 +41,9 @@ public class TheQuestOfLegendsGameEngine {
         this.numLane = DEFAULT_LANE;
         this.laneSize = DEFAULT_LANE_SIZE;
         this.laneLength = DEFAULT_LANE_LENGTH;
-        this.merchant = DEFAULT_MERCHANT;
-        this.heroes = DEFAULT_HEROES;
-        this.monsters = DEFAULT_MONSTERS;
+        this.merchant = MerchantDefaults.DEFAULT_MERCHANT;
+        this.heroes = HeroDefaults.DEFAULT_HEROES;
+        this.monsters = MonsterDefaults.DEFAULT_MONSTERS;
         this.probabilityPlain = DEFAULT_PROBABILITY_PLAIN;
         this.probabilityCave = DEFAULT_PROBABILITY_CAVE;
         this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;
@@ -285,11 +287,9 @@ public class TheQuestOfLegendsGameEngine {
                 System.out.println(DIVIDER);
                 // non actions
                 // regen
-                if(round>0) {
-                    currHero.regen(HP_REGEN, MANA_REGEN);
-                }
+                if(round>0) { currHero.regen(HP_REGEN, MANA_REGEN); }
                 // place
-                this.map.placeHero(currHeroLocation, currHero);
+                this.map.placeHero(this.heroTeam.getLocation(j),this.heroTeam.getHero(j));
                 // actions
                 char opt = '\u0000';
                 try {
@@ -345,7 +345,8 @@ public class TheQuestOfLegendsGameEngine {
                             } catch (Exception e) {
                                 ErrorMessage.printErrorInvalidInput();
                             }
-                        } else {
+                        }
+                        else {
                             List<Integer> enemyIndexes = new ArrayList<>();
                             for (int tempLocation: this.map.surroundingTilesContainMonster(currHeroLocation)) {
                                 enemyIndexes.add(this.monsterTeam.getMonsterIndexByLocation(tempLocation));
@@ -362,11 +363,19 @@ public class TheQuestOfLegendsGameEngine {
                                 AttackResult sres = this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).receiveBasicAttack(currHero.doBasicAttack());
                                 if (sres == AttackResult.DODGE) {
                                     System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName() + " dodged " + currHero.getName() + "'s attack");
-                                } else if (sres == AttackResult.SUCCESS) {
+                                }
+                                else if (sres == AttackResult.SUCCESS) {
                                     System.out.print(" from " + currHero.getName() + "\n");
                                     System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
-                                } else if (sres == AttackResult.KILL) {
+                                }
+                                else if (sres == AttackResult.KILL) {
                                     System.out.println(currHero.getName() + " killed " + this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName());
+                                    // Bounty
+                                    System.out.println(currHero.getName() + " received $" + BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel());
+                                    this.heroTeam.getHero(j).setMoney(this.heroTeam.getHero(j).getMoney()+(BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel()));
+                                    System.out.println(currHero.getName() + " gained " + BOUNTY_EXP + " experience points"  );
+                                    this.heroTeam.getHero(j).setExperience(this.heroTeam.getHero(j).getExperience()+ BOUNTY_EXP);
+                                    // remove monster from monster team
                                     this.monsterTeam.removeMember(enemyIndexes.get(monsterId-1));
                                 }
                                 break;
@@ -424,6 +433,12 @@ public class TheQuestOfLegendsGameEngine {
                                         System.out.println(this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)));
                                     } else if (sres == AttackResult.KILL) {
                                         System.out.println(currHero.getName() + " killed " + this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getName());
+                                        // Bounty
+                                        System.out.println(currHero.getName() + " received $" + BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel());
+                                        this.heroTeam.getHero(j).setMoney(this.heroTeam.getHero(j).getMoney()+(BOUNTY_MULTIPLIER*this.monsterTeam.getMonster(enemyIndexes.get(monsterId-1)).getLevel()));
+                                        System.out.println(currHero.getName() + " gained " + BOUNTY_EXP + " experience points"  );
+                                        this.heroTeam.getHero(j).setExperience(this.heroTeam.getHero(j).getExperience()+ BOUNTY_EXP);
+                                        // remove monster from team
                                         this.monsterTeam.removeMember(enemyIndexes.get(monsterId-1));
                                     }
                                     break;
@@ -527,8 +542,12 @@ public class TheQuestOfLegendsGameEngine {
                         System.out.print(" from " + currMonster.getName() + "\n");
                         this.heroTeam.getHero(enemyIndex).battleDisplay();
                     } else if (sres == AttackResult.KILL) {
-                        // spawn hero in appropriate nexus to full hero health and full mana based on
                         System.out.println(currMonster.getName() + " killed " + this.heroTeam.getHero(enemyIndex).getName());
+                        // taxed
+                        System.out.println(this.heroTeam.getHero(enemyIndex).getName() + " lost $" + this.heroTeam.getHero(enemyIndex).getMoney()* TAX_MULTIPLIER);
+                        this.heroTeam.getHero(enemyIndex).setMoney(this.heroTeam.getHero(enemyIndex).getMoney()*TAX_MULTIPLIER);
+                        // TODO
+                        // spawn hero in appropriate nexus to full hero health and full mana based on
                     }
                     System.out.println(DIVIDER);
                 }

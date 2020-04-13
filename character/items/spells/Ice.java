@@ -2,7 +2,7 @@ package character.items.spells;
 
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.ICE_SPELL_COLOR;
+import static character.items.ItemDefaults.ICE_SPELL_COLOR;
 
 public class Ice extends Spell {
     public Ice(String name, double price, int reqLevel, double damage, double mana){

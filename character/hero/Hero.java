@@ -9,6 +9,7 @@ import character.items.weapons.Weapon;
 
 import util.ErrorMessage;
 
+import static character.hero.HeroDefaults.MANA_MULTIPLIER;
 import static util.IOConstants.*;
 
 import java.util.ArrayList;
@@ -34,10 +35,10 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
     Scanner scan = new Scanner(System.in);
 
     // Constructor
-    public Hero(String name, int experience, double mana, double strength, double agility, double dexterity, double money, int hands) {
+    public Hero(String name, int experience, double strength, double agility, double dexterity, double money, int hands) {
         super(name, 1);
         this.experience = experience;
-        this.mana = mana;
+        this.mana = this.getLevel() * MANA_MULTIPLIER;
         this.strength = strength;
         this.agility = agility;
         this.dexterity = dexterity;
@@ -75,7 +76,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
     }
     public void setExperience(double experience) {
         this.experience = experience;
-        if(this.experience>this.getLevel()* CharacterDefaults.EXP_MULTIPLIER) {
+        if(this.experience>this.getLevel()* HeroDefaults.EXP_MULTIPLIER) {
             levelUp();
         }
     }
@@ -251,14 +252,14 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
         }
     }
     public double doBasicAttack() {
-        return (this.strength+weaponDamage())* CharacterDefaults.STRENGTH_MULTIPLIER;
+        return (this.strength+weaponDamage())* HeroDefaults.STRENGTH_MULTIPLIER;
     }
     public AttackResult receiveBasicAttack(double damage) {
         if (this.getHealthPower()==0){
             return AttackResult.DEAD;
         }
         else{
-            if( Math.random() < this.agility* CharacterDefaults.AGILITY_MULTIPLIER){
+            if( Math.random() < this.agility* HeroDefaults.AGILITY_MULTIPLIER){
                 return AttackResult.DODGE;
             }
             else{
@@ -319,7 +320,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
             return 0;
         }
         else{
-            return (spell.getDamage()+(this.dexterity* CharacterDefaults.DEXTERITY_MULTIPLIER)*spell.getDamage());
+            return (spell.getDamage()+(this.dexterity* HeroDefaults.DEXTERITY_MULTIPLIER)*spell.getDamage());
         }
     }
     public void regen(double hp_regen, double mana_regen) {
@@ -330,11 +331,15 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
         this.mana += this.mana * mana_regen;
         System.out.println(this.battleDisplay());
     }
-    public void revive(double revive_multiplier){
+    public void revive(double revive_hp_multiplier, double revive_mana_multiplier){
         this.resetHealth();
-        this.setHealthPower(revive_multiplier * this.getHealthPower());
+        this.setHealthPower(revive_hp_multiplier * this.getHealthPower());
+        this.resetMana();
+        this.mana *= revive_mana_multiplier;
     }
-
+    private void resetMana(){
+        this.mana = MANA_MULTIPLIER*this.getLevel();
+    }
     // Displays
     // Basic Display Pre-start game
     @Override
@@ -374,12 +379,12 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
     // Private Methods (Helpers)
     // Level up hero
     protected void levelUp() {
-        this.experience = this.experience % CharacterDefaults.EXP_MULTIPLIER;
+        this.experience = this.experience % HeroDefaults.EXP_MULTIPLIER;
         this.setLevel(this.getLevel()+1);
         this.setHealthPower(CharacterDefaults.HP_MULTIPLIER*this.getLevel());
-        this.strength = this.strength + (this.strength * CharacterDefaults.SKILLS_MULTIPLIER);
-        this.agility = this.agility + (this.agility * CharacterDefaults.SKILLS_MULTIPLIER);
-        this.dexterity = this.dexterity + (this.dexterity * CharacterDefaults.SKILLS_MULTIPLIER);
+        this.strength = this.strength + (this.strength * HeroDefaults.SKILLS_MULTIPLIER);
+        this.agility = this.agility + (this.agility * HeroDefaults.SKILLS_MULTIPLIER);
+        this.dexterity = this.dexterity + (this.dexterity * HeroDefaults.SKILLS_MULTIPLIER);
         this.mana = this.mana*0.1;
     }
 
@@ -863,7 +868,7 @@ public abstract class Hero extends character.Character implements HeroBattle, Bu
         }
         else if (potion instanceof Experience){
             this.experience+=potion.getEffect();
-            if(this.experience>this.getLevel()* CharacterDefaults.EXP_MULTIPLIER){
+            if(this.experience>this.getLevel()* HeroDefaults.EXP_MULTIPLIER){
                 this.levelUp();
             }
         }

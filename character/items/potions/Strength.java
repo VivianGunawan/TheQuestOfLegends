@@ -2,7 +2,7 @@ package character.items.potions;
 
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.STRENGTH_POTION_COLOR;
+import static character.items.ItemDefaults.STRENGTH_POTION_COLOR;
 
 public class Strength extends Potion{
     public Strength(String name, double price, int reqLevel, double effect){

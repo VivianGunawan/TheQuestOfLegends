@@ -1,13 +1,12 @@
 package character.monster;
 
 import character.AttackResult;
-import character.MonsterBattle;
 import character.items.spells.Fire;
 import character.items.spells.Ice;
 import character.items.spells.Lightning;
 import character.items.spells.Spell;
 
-import static character.CharacterDefaults.SKILL_DETERIORATION;
+import static character.monster.MonsterDefaults.SKILL_DETERIORATION;
 
 
 public abstract class Monster extends character.Character implements MonsterBattle {
