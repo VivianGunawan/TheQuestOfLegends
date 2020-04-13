@@ -3,7 +3,7 @@ package character.items.weapons;
 import character.items.Item;
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.WEAPON_COLOR;
+import static character.items.ItemDefaults.WEAPON_COLOR;
 
 public class Weapon extends Item {
     // Used by hero to attack a monster

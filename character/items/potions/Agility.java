@@ -1,7 +1,7 @@
 package character.items.potions;
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.AGILITY_POTION_COLOR;
+import static character.items.ItemDefaults.AGILITY_POTION_COLOR;
 
 public class Agility extends Potion{
     public Agility(String name, double price, int reqLevel, double effect){

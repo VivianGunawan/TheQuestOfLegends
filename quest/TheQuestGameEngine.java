@@ -1,13 +1,15 @@
 package quest;
 
+import character.hero.HeroDefaults;
 import character.merchant.Merchant;
 import character.hero.Hero;
+import character.merchant.MerchantDefaults;
 import character.monster.Monster;
+import character.monster.MonsterDefaults;
 import tiles.InaccessibleTile;
 
 import util.ErrorMessage;
 
-import static character.CharacterDefaults.*;
 import static util.IOConstants.*;
 import static quest.QuestDefaults.*;
 
@@ -44,9 +46,9 @@ public class TheQuestGameEngine {
         this.probabilityMarket = DEFAULT_PROBABILITY_MARKET;
         this.probabilityCommon = DEFAULT_PROBABILITY_COMMON;
         this.probabilityEncounter = DEFAULT_PROBABILITY_ENCOUNTER;
-        this.merchant = DEFAULT_MERCHANT;
-        this.heroes = DEFAULT_HEROES;
-        this.monsters = DEFAULT_MONSTERS;
+        this.merchant = MerchantDefaults.DEFAULT_MERCHANT;
+        this.heroes = HeroDefaults.DEFAULT_HEROES;
+        this.monsters = MonsterDefaults.DEFAULT_MONSTERS;
         this.map = new Map(this.rowsize, this.colsize, this.probabilityInaccessible, this.probabilityMarket, this.probabilityCommon, this.merchant, this.monsters, this.probabilityEncounter);
         System.out.println("=============== WELCOME TO THE QUEST ===============");
         this.map.display();

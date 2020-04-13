@@ -2,9 +2,12 @@ package questOfLegends;
 
 import character.AttackResult;
 import character.hero.Hero;
+import character.hero.HeroDefaults;
 import character.items.spells.Spell;
 import character.merchant.Merchant;
+import character.merchant.MerchantDefaults;
 import character.monster.Monster;
+import character.monster.MonsterDefaults;
 import tiles.InaccessibleTile;
 
 import util.ErrorMessage;
@@ -12,7 +15,6 @@ import util.ErrorMessage;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static character.CharacterDefaults.*;
 import static questOfLegends.QoLDefaults.*;
 import static util.IOConstants.*;
 
@@ -39,9 +41,9 @@ public class TheQuestOfLegendsGameEngine {
         this.numLane = DEFAULT_LANE;
         this.laneSize = DEFAULT_LANE_SIZE;
         this.laneLength = DEFAULT_LANE_LENGTH;
-        this.merchant = DEFAULT_MERCHANT;
-        this.heroes = DEFAULT_HEROES;
-        this.monsters = DEFAULT_MONSTERS;
+        this.merchant = MerchantDefaults.DEFAULT_MERCHANT;
+        this.heroes = HeroDefaults.DEFAULT_HEROES;
+        this.monsters = MonsterDefaults.DEFAULT_MONSTERS;
         this.probabilityPlain = DEFAULT_PROBABILITY_PLAIN;
         this.probabilityCave = DEFAULT_PROBABILITY_CAVE;
         this.probabilityKoulou = DEFAULT_PROBABILITY_KOULOU;

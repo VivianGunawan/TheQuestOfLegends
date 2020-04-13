@@ -1,14 +1,14 @@
 package character.hero;
 
-import static character.CharacterDefaults.SKILLS_MULTIPLIER;
-import static character.CharacterDefaults.PALADIN_COLOR;
+import static character.hero.HeroDefaults.SKILLS_MULTIPLIER;
+import static character.hero.HeroDefaults.PALADIN_COLOR;
 import static util.ColouredOutputs.ANSI_RESET;
 
 
 public class Paladin extends Hero {
     // Constructor
-    public Paladin(String name, int experience, double mana, double strength, double agility, double dexterity, double money, int hands){
-        super(name, experience, mana, strength, agility, dexterity, money,hands);
+    public Paladin(String name, int experience, double strength, double agility, double dexterity, double money, int hands){
+        super(name, experience, strength, agility, dexterity, money,hands);
     }
     @Override
     public String toString() {

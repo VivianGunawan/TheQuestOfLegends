@@ -14,6 +14,8 @@ public class QuestDefaults {
     public static final double BOUNTY_MULTIPLIER = 100;
     public static final double BOUNTY_EXP = 2;
     public static final double WIN_REVIVE_HP_MULTIPLIER = 0.5;
+    public static final double WIN_REVIVE_MANA_MULTIPLIER = 0.5;
     public static final double LOSE_REVIVE_HP_MULTIPLIER = 0.25;
+    public static final double LOSE_REVIVE_MANA_MULTIPLIER = 0.5;
     public static final double TAX_MULTIPLIER = 0.5;
 }

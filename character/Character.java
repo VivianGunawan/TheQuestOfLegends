@@ -39,7 +39,7 @@ public abstract class Character {
         this.level = level;
     }
 
-    public void resetHealth(){
+    protected void resetHealth(){
         this.healthPower = this.level * HP_MULTIPLIER;
     }
 

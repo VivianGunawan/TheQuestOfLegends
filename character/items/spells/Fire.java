@@ -2,7 +2,7 @@ package character.items.spells;
 
 
 import static util.ColouredOutputs.ANSI_RESET;
-import static character.CharacterDefaults.FIRE_SPELL_COLOR;
+import static character.items.ItemDefaults.FIRE_SPELL_COLOR;
 
 public class Fire extends Spell {
     public Fire(String name, double price, int reqLevel, double damage, double mana){
